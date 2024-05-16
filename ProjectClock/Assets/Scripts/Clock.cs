@@ -12,19 +12,19 @@ public class Clock : MonoBehaviour
     {
         _hand = GetComponent<Transform>();
         _renderer = HandGO.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        _renderer.color = Color.gray;
+        _renderer.color = new Color(0.25f, 0.25f, 0.25f);
     }
 
     private void OnEnable()
     {
         //HandGO.SetActive(true);
-        _renderer.color = Color.red;
+        _renderer.color = new Color(1.0f, 0.5f, 0.0f);
     }
 
     private void OnDisable()
     {
         //HandGO.SetActive(false);
-        _renderer.color = Color.gray;
+        _renderer.color = new Color(0.25f, 0.25f, 0.25f);
     }
 
     void Update()
