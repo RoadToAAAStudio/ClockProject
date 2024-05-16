@@ -7,21 +7,25 @@ public class Clock : MonoBehaviour
     [SerializeField] private GameObject HandGO;
     public float AngularVelocity = 1.0f;
     private Transform _hand;
-
+    private SpriteRenderer _renderer;
     private void Awake()
     {
         _hand = GetComponent<Transform>();
+        _renderer = HandGO.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _renderer.color = Color.gray;
     }
 
-    //private void OnEnable()
-    //{
-    //    HandGO.SetActive(true);
-    //}
+    private void OnEnable()
+    {
+        //HandGO.SetActive(true);
+        _renderer.color = Color.red;
+    }
 
-    //private void OnDisable()
-    //{
-    //    HandGO.SetActive(false);
-    //}
+    private void OnDisable()
+    {
+        //HandGO.SetActive(false);
+        _renderer.color = Color.gray;
+    }
 
     void Update()
     {

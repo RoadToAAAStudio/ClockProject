@@ -56,11 +56,12 @@ public class InputController : MonoBehaviour
 
     private bool Check()
     {
+        Debug.Log("Ciao");
         if (index + 1 >= hands.Count)
         {
             return false;
         }
-
+        Debug.Log("Ciao2");
         float dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).up, hands[index + 1].transform.GetChild(0).up);
         
         if (dotProduct <= precision)
