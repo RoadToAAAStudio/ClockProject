@@ -13,15 +13,15 @@ public class Clock : MonoBehaviour
         _hand = GetComponent<Transform>();
     }
 
-    private void OnEnable()
-    {
-        HandGO.SetActive(true);
-    }
+    //private void OnEnable()
+    //{
+    //    HandGO.SetActive(true);
+    //}
 
-    private void OnDisable()
-    {
-        HandGO.SetActive(false);
-    }
+    //private void OnDisable()
+    //{
+    //    HandGO.SetActive(false);
+    //}
 
     void Update()
     {

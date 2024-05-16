@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-    List<GameObject> hands = new List<GameObject>();
+    public List<GameObject> hands = new List<GameObject>();
     private int index = 0;
-    public float precision = 0.5f;
+    public float precision = -0.5f;
+
+    private void Awake()
+    {
+        hands[0].GetComponent<Clock>().enabled = true;
+    }
 
     // Update is called once per frame
     void Update()
@@ -16,7 +21,6 @@ public class InputController : MonoBehaviour
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                Debug.Log("Touch pressed!");
                 if (Check())
                 {
                     hands[index].GetComponent<Clock>().enabled = false;
@@ -52,9 +56,14 @@ public class InputController : MonoBehaviour
 
     private bool Check()
     {
-        float dotProduct = Vector2.Dot(hands[index].transform.up, hands[index + 1].transform.up);
+        if (index + 1 >= hands.Count)
+        {
+            return false;
+        }
 
-        if (dotProduct >= precision)
+        float dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).up, hands[index + 1].transform.GetChild(0).up);
+        
+        if (dotProduct <= precision)
         {
             return true;
         }
