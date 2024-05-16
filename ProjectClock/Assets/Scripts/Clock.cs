@@ -23,9 +23,8 @@ public class Clock : MonoBehaviour
         HandGO.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        _hand.eulerAngles = new Vector3(0, 0, _hand.eulerAngles.z + AngularVelocity * Time.deltaTime);
+        _hand.eulerAngles = new Vector3(0.0f, 0.0f, _hand.eulerAngles.z + AngularVelocity * Time.deltaTime);
     }
 }
