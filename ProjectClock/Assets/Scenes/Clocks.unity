@@ -141,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 364454482977642183, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: AngularVelocity
-      value: -48
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 919241326338995790, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: m_LocalScale.x
@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 364454482977642183, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: AngularVelocity
-      value: -48
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 919241326338995790, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: m_LocalScale.x
@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8109456233941987389, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: m_Name
-      value: Circle (4)
+      value: Circle (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -464,8 +464,8 @@ MonoBehaviour:
   - {fileID: 1636897262509708121}
   - {fileID: 1981213927}
   - {fileID: 421916050}
-  - {fileID: 955795355}
   - {fileID: 170906092}
+  - {fileID: 955795355}
   precision: -0.75
 --- !u!4 &1696711957
 Transform:
@@ -496,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 364454482977642183, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: AngularVelocity
-      value: -48
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 919241326338995790, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: m_LocalScale.x
@@ -576,7 +576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8109456233941987389, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: m_Name
-      value: Circle (3)
+      value: Circle (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -597,7 +597,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 364454482977642183, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: AngularVelocity
-      value: 48
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 919241326338995790, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: m_LocalScale.x
@@ -695,7 +695,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 364454482977642183, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: AngularVelocity
-      value: -48
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 919241326338995790, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -771,6 +771,6 @@ SceneRoots:
   - {fileID: 1636897262509708120}
   - {fileID: 1981213926}
   - {fileID: 421916049}
-  - {fileID: 1979864946}
   - {fileID: 1610559622}
+  - {fileID: 1979864946}
   - {fileID: 1696711957}

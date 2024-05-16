@@ -8,6 +8,8 @@ public class InputController : MonoBehaviour
     public List<GameObject> hands = new List<GameObject>();
     private int index = 0;
     public float precision = -0.5f;
+    float dotProduct = 0;
+    private float oldProduct = float.NegativeInfinity;
 
     private void Awake()
     {
@@ -17,6 +19,7 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).up, (hands[index].transform.position - hands[index + 1].transform.position));
         if (Input.touchCount > 0)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -25,28 +28,26 @@ public class InputController : MonoBehaviour
                 {
                     hands[index].GetComponent<Clock>().enabled = false;
                     
-                    if (index >= hands.Count)
+                    index++;
+                    oldProduct = float.NegativeInfinity;
+                    if (index >= hands.Count - 1)
                     {
                         index = 0;
-                    }
-                    else
-                    {
-                        index++;
+                        hands.Reverse();
                     }
                     
                     hands[index].GetComponent<Clock>().enabled = true;
                 }
             }
         }
+        oldProduct = dotProduct;
     }
 
     //private bool Check()
     //{
-    //    Vector2 handDirection = (hands[index].transform.endPosition - hands[index].transform.position).normalized;
-    //    Vector2 secondHandDirection = (hands[index + 1].transform.endPosition - hands[index].transform.position).normalized;
-    //    float dotProduct = Vector2.Dot(handDirection, secondHandDirection);
-
-    //    if (dotProduct >= precision)
+    //    float dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).up, hands[index + 1].transform.GetChild(0).up);
+        
+    //    if (dotProduct <= precision)
     //    {
     //        return true;
     //    }
@@ -56,19 +57,12 @@ public class InputController : MonoBehaviour
 
     private bool Check()
     {
-        Debug.Log("Ciao");
-        if (index + 1 >= hands.Count)
-        {
-            return false;
-        }
-        Debug.Log("Ciao2");
-        float dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).up, hands[index + 1].transform.GetChild(0).up);
-        
-        if (dotProduct <= precision)
+        if (dotProduct <= precision && oldProduct > dotProduct)
         {
             return true;
         }
-
+        
         return false;
     }
+
 }
