@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b6822e065f7894f8c2fad1df100d62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraLerpVelocity: 10
+  CameraLerpVelocity: 3.5
 --- !u!4 &837684741
 Transform:
   m_ObjectHideFlags: 0
@@ -344,7 +344,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 2.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -512,6 +512,8 @@ MonoBehaviour:
   - {fileID: 170906092}
   - {fileID: 955795355}
   precision: -0.75
+  dotProduct: 0
+  canLose: 0
 --- !u!4 &1696711957
 Transform:
   m_ObjectHideFlags: 0

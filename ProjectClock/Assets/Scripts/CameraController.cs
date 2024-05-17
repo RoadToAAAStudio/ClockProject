@@ -26,7 +26,8 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
-        _camera.transform.position = Vector2.Lerp(_camera.transform.position, _targetPosition, CameraLerpVelocity * Time.deltaTime);
+        Vector2 lerpedPosition = Vector2.Lerp(_camera.transform.position, _targetPosition, CameraLerpVelocity * Time.deltaTime);
+        _camera.transform.position = new Vector3(lerpedPosition.x, lerpedPosition.y, _camera.transform.position.z);
     }
 
     private void NewClockSelected(GameObject newClockGO)
