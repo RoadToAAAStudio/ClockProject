@@ -1,11 +1,9 @@
-using JetBrains.Annotations;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class InputController : MonoBehaviour
+public class InputControllerHard : MonoBehaviour
 {
     public List<GameObject> hands = new List<GameObject>();
     private int index = 0;
@@ -13,7 +11,6 @@ public class InputController : MonoBehaviour
     private float dotProduct = 0;
     private float oldProduct = float.NegativeInfinity;
     private bool canLose = false;
-    private int tries = 0;
 
     private void Awake()
     {
@@ -37,7 +34,7 @@ public class InputController : MonoBehaviour
                 {
                     canLose = false;
                     hands[index].GetComponent<Clock>().enabled = false;
-                    
+
                     index++;
                     oldProduct = float.NegativeInfinity;
                     if (index >= hands.Count - 1)
@@ -45,7 +42,7 @@ public class InputController : MonoBehaviour
                         index = 0;
                         hands.Reverse();
                     }
-                    
+
                     hands[index].GetComponent<Clock>().enabled = true;
                     EventManagerOneParam<GameObject>.Instance.TriggerEvent("onNewClock", hands[index]);
                 }
@@ -57,14 +54,9 @@ public class InputController : MonoBehaviour
             canLose = true;
         }
 
-        if (canLose && oldProduct < dotProduct && dotProduct >= precision)
+        if (canLose && oldProduct < dotProduct)
         {
-            tries++;
-            if (tries == 2)
-            {
-                GameOver();
-            }
-            canLose = false;
+            GameOver();
         }
 
         oldProduct = dotProduct;
@@ -72,7 +64,7 @@ public class InputController : MonoBehaviour
 
     private bool Check()
     {
-        if (dotProduct <= precision /*&& oldProduct > dotProduct*/)
+        if (dotProduct <= precision && oldProduct > dotProduct)
         {
             return true;
         }
