@@ -28,6 +28,7 @@ public class CameraController : MonoBehaviour
     {
         Vector2 lerpedPosition = Vector2.Lerp(_camera.transform.position, _targetPosition, CameraLerpVelocity * Time.deltaTime);
         _camera.transform.position = new Vector3(lerpedPosition.x, lerpedPosition.y, _camera.transform.position.z);
+        //_camera.transform.position = new Vector3(_camera.transform.position.x, lerpedPosition.y, _camera.transform.position.z);
     }
 
     private void NewClockSelected(GameObject newClockGO)
