@@ -10,7 +10,7 @@ public class InputController : MonoBehaviour
     private int index = 0;
     public float precision = -0.5f;
     public float dotProduct = 0;
-    private float oldProduct = float.NegativeInfinity;
+    public float oldProduct = float.NegativeInfinity;
     public bool canLose = false;
 
     private void Awake()
@@ -33,6 +33,7 @@ public class InputController : MonoBehaviour
             {
                 if (Check())
                 {
+                    canLose = false;
                     hands[index].GetComponent<Clock>().enabled = false;
                     
                     index++;
@@ -49,9 +50,7 @@ public class InputController : MonoBehaviour
             }
         }
 
-        oldProduct = dotProduct;
-        
-        if (dotProduct < 0)
+        if (dotProduct < 0 && oldProduct > dotProduct)
         {
             canLose = true;
         }
@@ -60,19 +59,9 @@ public class InputController : MonoBehaviour
         {
             GameOver();
         }
+
+        oldProduct = dotProduct;
     }
-
-    //private bool Check()
-    //{
-    //    float dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).up, hands[index + 1].transform.GetChild(0).up);
-        
-    //    if (dotProduct <= precision)
-    //    {
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
 
     private bool Check()
     {
