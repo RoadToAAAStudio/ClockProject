@@ -216,3 +216,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HandGO: {fileID: 6107909388190519896}
   AngularVelocity: 36
+  _colors:
+  - {r: 0.8745098, g: 0.02745098, b: 0.44705883, a: 0}
+  - {r: 0.043137256, g: 1, b: 0.9019608, a: 0}
+  - {r: 1, g: 0.09803922, b: 0, a: 0}
+  - {r: 0, g: 1, b: 0.18039216, a: 0}
+  _currentColor: {r: 1, g: 0.4745098, b: 0, a: 1}
