@@ -376,7 +376,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 661058439}
-  - component: {fileID: 661058438}
   - component: {fileID: 661058437}
   m_Layer: 0
   m_Name: Post-process Volume
@@ -402,27 +401,6 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!65 &661058438
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 661058436}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &661058439
 Transform:
   m_ObjectHideFlags: 0
@@ -432,7 +410,7 @@ Transform:
   m_GameObject: {fileID: 661058436}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.27144927, y: 2.189535, z: -0.903234}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -671,9 +649,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Colors:
-  - {r: 1, g: 0.4745098, b: 0, a: 0}
-  - {r: 0.8745098, g: 0.02745098, b: 0.44705883, a: 0}
-  - {r: 0.043137256, g: 1, b: 0.9019608, a: 0}
+  - {r: 1, g: 0.4745098, b: 0, a: 1}
+  - {r: 0.8745098, g: 0.02745098, b: 0.44705883, a: 1}
+  - {r: 0.043137256, g: 1, b: 0.9019608, a: 1}
 --- !u!4 &1030193730
 Transform:
   m_ObjectHideFlags: 0
