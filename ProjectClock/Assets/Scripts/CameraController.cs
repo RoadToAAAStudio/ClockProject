@@ -16,12 +16,12 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManagerOneParam<GameObject>.Instance.StartListening("onNewClock", NewClockSelected);    
+        EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", NewClockSelected);    
     }
 
     private void OnDisable()
     {
-        EventManagerOneParam<GameObject>.Instance.StopListening("onNewClock", NewClockSelected);
+        EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", NewClockSelected);
     }
 
     private void Update()
@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
         //_camera.transform.position = new Vector3(_camera.transform.position.x, lerpedPosition.y, _camera.transform.position.z);
     }
 
-    private void NewClockSelected(GameObject newClockGO)
+    private void NewClockSelected(GameObject newClockGO, GameObject oldClockGO)
     {
         _targetPosition = newClockGO.transform.position;
     }

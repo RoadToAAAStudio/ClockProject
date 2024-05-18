@@ -10,12 +10,12 @@ public class SfxController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManagerOneParam<GameObject>.Instance.StartListening("onNewClock", GoodTap);
+        EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", GoodTap);
     }
 
     private void OnDisable()
     {
-        EventManagerOneParam<GameObject>.Instance.StopListening("onNewClock", GoodTap);
+        EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", GoodTap);
     }
 
     private void Awake()
@@ -58,8 +58,10 @@ public class SfxController : MonoBehaviour
     }
 
 
-    private void GoodTap(GameObject gameObject)
+    private void GoodTap(GameObject newClockGO, GameObject oldCockGO)
     {
+        if (oldCockGO == null) return;
+
         Play(clipList[0]);
     }
 }

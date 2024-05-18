@@ -15,20 +15,20 @@ public class ClockController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManagerOneParam<GameObject>.Instance.StartListening("onNewClock", NewClockSelected);
+        EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", NewClockSelected);
     }
 
     private void OnDisable()
     {
-        EventManagerOneParam<GameObject>.Instance.StopListening("onNewClock", NewClockSelected);
+        EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", NewClockSelected);
     }
 
-    private void NewClockSelected(GameObject clockGO)
+    private void NewClockSelected(GameObject newClockGO, GameObject oldClockGO)
     {
         Color newColor = Colors[Random.Range(0, Colors.Count)];
         Colors.Remove(newColor);
         Colors.Add(_currentColor);
         _currentColor = newColor;
-        clockGO.GetComponent<Clock>().ChangeHandColor(newColor);
+        newClockGO.GetComponent<Clock>().ChangeHandColor(newColor);
     }
 }

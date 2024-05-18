@@ -9,9 +9,10 @@ public class Clock : MonoBehaviour
 
     private Transform _hand;
     private SpriteRenderer _renderer;
+
     private void Awake()
     {
-        _hand = GetComponent<Transform>();
+        _hand = HandGO.GetComponent<Transform>();
         _renderer = HandGO.transform.GetChild(0).GetComponent<SpriteRenderer>();
         _renderer.color = new Color(0.25f, 0.25f, 0.25f);
     }
@@ -35,5 +36,10 @@ public class Clock : MonoBehaviour
     public void ChangeHandColor(Color color)
     {
         _renderer.color = color;
+    }
+
+    public Transform GetClockHandTransform()
+    {
+        return _hand;
     }
 }
