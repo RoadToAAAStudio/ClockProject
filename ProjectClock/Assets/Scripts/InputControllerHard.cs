@@ -44,7 +44,7 @@ public class InputControllerHard : MonoBehaviour
                     }
 
                     hands[index].GetComponent<Clock>().enabled = true;
-                    EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], hands[(index - 1) % hands.Count]);
+                    EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
                 }
             }
         }

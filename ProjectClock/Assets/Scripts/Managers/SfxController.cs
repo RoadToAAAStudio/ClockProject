@@ -25,7 +25,9 @@ public class SfxController : MonoBehaviour
 
     public void Play(AudioClip _clip)
     {
+
         source.clip = _clip;
+        source.pitch = Random.Range(0.47f, 0.53f);
         source.Play();
     }
 

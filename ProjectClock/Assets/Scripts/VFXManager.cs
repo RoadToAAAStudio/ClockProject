@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class VFXManager : MonoBehaviour
 {
     [SerializeField] private GameObject ParticleSystemPrefab;
-
+    [SerializeField] private ClockController ClockController;
 
     private void OnEnable()
     {
@@ -25,9 +23,12 @@ public class VFXManager : MonoBehaviour
         Transform handTransform = clock.GetClockHandTransform();
 
         GameObject ParticleSystemGO = Instantiate(ParticleSystemPrefab);
-        //ParticleSystem particleSystem = ParticleSystemGO.GetComponent<ParticleSystem>();
-        //ParticleSystem.ShapeModule particleShape = particleSystem.shape;
+        ParticleSystem particleSystem = ParticleSystemGO.GetComponent<ParticleSystem>();
+
         ParticleSystemGO.transform.position = handTransform.position;
         ParticleSystemGO.transform.rotation = handTransform.rotation;
+
+        ParticleSystem.MainModule particleMain = particleSystem.main;
+        particleMain.startColor = ClockController.GetOldColor();
     }
 }

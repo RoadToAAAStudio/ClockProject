@@ -36,6 +36,7 @@ public class InputController : MonoBehaviour
                 if (Check())
                 {
                     canLose = false;
+                    tries = 0;
                     hands[index].GetComponent<Clock>().enabled = false;
                     
                     index++;
@@ -47,7 +48,7 @@ public class InputController : MonoBehaviour
                     }
                     
                     hands[index].GetComponent<Clock>().enabled = true;
-                    EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[hands.Count - 1]);
+                    EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
                 }
             }
         }
