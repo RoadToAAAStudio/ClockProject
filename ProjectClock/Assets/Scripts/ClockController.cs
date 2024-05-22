@@ -49,11 +49,11 @@ public class ClockController : MonoBehaviour
         if (oldClockGO != null) 
         {         
             Clock oldClock = oldClockGO.GetComponent<Clock>();
-            newClock.AngularVelocity = newClock.AngularVelocity > 0 ? Mathf.Abs(oldClock.AngularVelocity) + 1 : -(Mathf.Abs(oldClock.AngularVelocity) + 1);
-            newClock.AngularVelocity = Mathf.Clamp(newClock.AngularVelocity, -MaxAngularVelocity, MaxAngularVelocity);
+            newClock.HandAngularVelocity = newClock.HandAngularVelocity > 0 ? Mathf.Abs(oldClock.HandAngularVelocity) + 1 : -(Mathf.Abs(oldClock.HandAngularVelocity) + 1);
+            newClock.HandAngularVelocity = Mathf.Clamp(newClock.HandAngularVelocity, -MaxAngularVelocity, MaxAngularVelocity);
         }
 
-        CurrentVelocity = Mathf.Abs(newClock.AngularVelocity);
+        CurrentVelocity = Mathf.Abs(newClock.HandAngularVelocity);
         CurrentClock++;
     }
 }
