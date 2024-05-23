@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        score--;
+
     }
 
     private void OnEnable()

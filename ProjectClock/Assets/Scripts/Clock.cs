@@ -29,10 +29,10 @@ public class Clock : MonoBehaviour
 
     private void OnEnable()
     {
-        DrawClock();
+        //DrawClock();
 
-        _handTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-        DrawHand(_handTransform.eulerAngles.z);
+        //_handTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        //DrawHand(_handTransform.eulerAngles.z);
     }
 
     private void OnDisable()
@@ -43,8 +43,7 @@ public class Clock : MonoBehaviour
 
     void Update()
     {
-        _handTransform.rotation = Quaternion.Euler(0.0f, 0.0f, _handTransform.eulerAngles.z + HandAngularVelocity * Time.deltaTime);
-        DrawHand(_handTransform.rotation.eulerAngles.z);
+        DrawHand(_handTransform.rotation.eulerAngles.z + HandAngularVelocity * Time.deltaTime);
     }
 
     public void DrawClock()
@@ -82,6 +81,8 @@ public class Clock : MonoBehaviour
 
         _handRenderer.SetPosition(0, transform.position);
         _handRenderer.SetPosition(1, transform.position + new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad) * ClockRadius * HandLengthClockRadiusRatio, Mathf.Sin(angle * Mathf.Deg2Rad) * ClockRadius * HandLengthClockRadiusRatio));
+
+        _handTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
     }
 
     public void ChangeHandColor(Color color)

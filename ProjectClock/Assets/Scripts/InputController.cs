@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class InputController : MonoBehaviour
+public class InputController : Singleton<InputController>
 {
     public List<GameObject> hands = new List<GameObject>();
     private int index = 0;
@@ -15,20 +15,18 @@ public class InputController : MonoBehaviour
     private bool canLose = false;
     private int tries = 0;
 
-    private void Awake()
-    {
-        hands[0].GetComponent<Clock>().enabled = true;
-    }
+    public bool canCheck;
 
     private void Start()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
+        //EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
     }
 
     // Update is called once per frame
     void Update()
     {
-        dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).up, (hands[index].transform.position - hands[index + 1].transform.position));
+        if (!canCheck) return;
+        dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).right, (hands[index].transform.position - hands[index + 1].transform.position));
         if (Input.touchCount > 0)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -38,17 +36,18 @@ public class InputController : MonoBehaviour
                     canLose = false;
                     tries = 0;
                     hands[index].GetComponent<Clock>().enabled = false;
-                    
+
                     index++;
                     oldProduct = float.NegativeInfinity;
-                    if (index >= hands.Count - 1)
-                    {
-                        index = 0;
-                        hands.Reverse();
-                    }
-                    
+                    //if (index >= hands.Count - 1)
+                    //{
+                    //    index = 0;
+                    //    hands.Reverse();
+                    //}
+
                     hands[index].GetComponent<Clock>().enabled = true;
                     EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
+                    EventManager.Instance.TriggerEvent("onNewClock");
                 }
             }
         }
