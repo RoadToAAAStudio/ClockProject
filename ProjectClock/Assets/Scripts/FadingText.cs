@@ -24,10 +24,11 @@ public class FadingText : MonoBehaviour
 
     }
 
-    public void Init(string message)
+    public void Init(string message, Color color)
     {
         textComponent = GetComponent<TextMeshProUGUI>();
         textComponent.text = message;
+        textComponent.color = color;
         FadeCoroutine = StartCoroutine(FadeCO());
     }
 

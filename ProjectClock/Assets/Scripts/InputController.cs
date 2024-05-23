@@ -9,7 +9,6 @@ public class InputController : Singleton<InputController>
 {
     public List<GameObject> hands = new List<GameObject>();
     private int index = 0;
-    public float precision = -0.5f;
     private float dotProduct = 0;
     private float oldProduct = float.NegativeInfinity;
     private bool canLose = false;
@@ -19,7 +18,7 @@ public class InputController : Singleton<InputController>
 
     private void Start()
     {
-        //EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
+
     }
 
     // Update is called once per frame
@@ -31,7 +30,8 @@ public class InputController : Singleton<InputController>
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                if (Check())
+                CheckState checkState = Check();
+                if (checkState != CheckState.UNSUCCESS)
                 {
                     canLose = false;
                     tries = 0;
@@ -39,15 +39,12 @@ public class InputController : Singleton<InputController>
 
                     index++;
                     oldProduct = float.NegativeInfinity;
-                    //if (index >= hands.Count - 1)
-                    //{
-                    //    index = 0;
-                    //    hands.Reverse();
-                    //}
 
                     hands[index].GetComponent<Clock>().enabled = true;
                     EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
                     EventManager.Instance.TriggerEvent("onNewClock");
+
+                    EventManagerOneParam<CheckState>.Instance.TriggerEvent("onNewClock", checkState);
                 }
             }
         }
@@ -57,7 +54,7 @@ public class InputController : Singleton<InputController>
             canLose = true;
         }
 
-        if (canLose && oldProduct < dotProduct && dotProduct >= precision)
+        if (canLose && oldProduct < dotProduct && dotProduct >= hands[index].GetComponent<Clock>().MaxDotProductAllowed())
         {
             tries++;
             if (tries == 2)
@@ -70,19 +67,19 @@ public class InputController : Singleton<InputController>
         oldProduct = dotProduct;
     }
 
-    private bool Check()
+    private CheckState Check()
     {
-        if (dotProduct <= hands[index].GetComponent<Clock>().MaxDotProductAllowed() /*&& oldProduct > dotProduct*/)
+        if (dotProduct <= hands[index].GetComponent<Clock>().MaxDotProductAllowed())
         {
             if (dotProduct <= hands[index].GetComponent<Clock>().PerfectMaxDotProduct())
             {
-                return true;
+                return CheckState.PERFECT;
             }
-            return true;
+            return CheckState.SUCCESS;
         }
 
         GameOver();
-        return false;
+        return CheckState.UNSUCCESS;
     }
 
     private void GameOver()
@@ -90,4 +87,11 @@ public class InputController : Singleton<InputController>
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+}
+
+enum CheckState
+{
+    UNSUCCESS,
+    SUCCESS,
+    PERFECT
 }

@@ -351,6 +351,8 @@ MonoBehaviour:
   scoreText: {fileID: 422426044}
   scoreFadingText: {fileID: 3420513689756244149, guid: af2a113c10743bb4b9226732747c5433, type: 3}
   canvas: {fileID: 1658262286}
+  successString: +1
+  perfectString: PEFFOZZA +3
 --- !u!4 &308802302
 Transform:
   m_ObjectHideFlags: 0
@@ -1113,7 +1115,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hands: []
-  precision: -0.75
   canCheck: 0
 --- !u!4 &1696711957
 Transform:

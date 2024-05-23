@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private FadingText scoreFadingText;
     [SerializeField] private Canvas canvas;
+
+    [SerializeField] private string successString = "+1";
+    [SerializeField] private string perfectString = "PEFFOZZA +3";
+
     int score = 0;
 
     private void Start()
@@ -17,23 +21,34 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", AddScore);
+        EventManagerOneParam<CheckState>.Instance.StartListening("onNewClock", AddScore);
     }
 
     private void OnDisable()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", AddScore);
+        EventManagerOneParam<CheckState>.Instance.StopListening("onNewClock", AddScore);
     }
 
-    private void AddScore(GameObject clock, GameObject oldClock)
+    private void AddScore(CheckState state)
     {
-        score++;
+        switch (state)
+        {
+            case CheckState.SUCCESS:
+                score++;
+                SpawnText(Camera.main.transform.position, successString, Color.white);
+                break;
+
+            case CheckState.PERFECT:
+                score += 3;
+                SpawnText(Camera.main.transform.position, perfectString, Color.yellow);
+                break;
+        }
+
         scoreText.text = score.ToString();
-        SpawnText(Camera.main.transform.position);
     }
 
-    private void SpawnText(Vector2 position)
+    private void SpawnText(Vector2 position, string message, Color color)
     {
-        Instantiate(scoreFadingText, Camera.main.WorldToScreenPoint(position), Quaternion.identity, canvas.transform).Init("+1");
+        Instantiate(scoreFadingText, Camera.main.WorldToScreenPoint(position), Quaternion.identity, canvas.transform).Init(message, color);
     }
 }
