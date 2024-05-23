@@ -26,7 +26,7 @@ public class InputController : Singleton<InputController>
     void Update()
     {
         if (!canCheck) return;
-        dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).right, (hands[index].transform.position - hands[index + 1].transform.position));
+        dotProduct = Vector2.Dot(hands[index].transform.GetChild(0).right, (hands[index].transform.position - hands[index + 1].transform.position).normalized);
         if (Input.touchCount > 0)
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
@@ -72,8 +72,12 @@ public class InputController : Singleton<InputController>
 
     private bool Check()
     {
-        if (dotProduct <= precision /*&& oldProduct > dotProduct*/)
+        if (dotProduct <= hands[index].GetComponent<Clock>().MaxDotProductAllowed() /*&& oldProduct > dotProduct*/)
         {
+            if (dotProduct <= hands[index].GetComponent<Clock>().PerfectMaxDotProduct())
+            {
+                return true;
+            }
             return true;
         }
 

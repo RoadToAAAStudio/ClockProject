@@ -14,6 +14,10 @@ public class Clock : MonoBehaviour
     public float HandLengthClockRadiusRatio = 0.95f;
     public Color HandColor = new Color(0.25f, 0.25f, 0.25f);
 
+    public float SuccessArcLength = 0.5f;
+    public float PerfectSuccessRatio = 0.5f;
+    public float PerfectSuccessAngle = 0.0f;
+
     private GameObject _handGO;
     private Transform _handTransform;
     private LineRenderer _circleRenderer;
@@ -27,24 +31,27 @@ public class Clock : MonoBehaviour
         _handRenderer = transform.GetChild(0).GetComponent<LineRenderer>();
     }
 
-    private void OnEnable()
-    {
-        //DrawClock();
-
-        //_handTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-        //DrawHand(_handTransform.eulerAngles.z);
-    }
-
-    private void OnDisable()
-    {
-        //HandGO.SetActive(false);
-        //_renderer.color = new Color(0.25f, 0.25f, 0.25f);
-    }
-
     void Update()
     {
         DrawHand(_handTransform.rotation.eulerAngles.z + HandAngularVelocity * Time.deltaTime);
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Vector3 successArcStart = new Vector3(Mathf.Cos((PerfectSuccessAngle - SuccessRelativeAngleRange() / 2) * Mathf.Deg2Rad), Mathf.Sin((PerfectSuccessAngle - SuccessRelativeAngleRange() / 2) * Mathf.Deg2Rad), 0.0f);
+        Vector3 successArcEnd = new Vector3(Mathf.Cos((PerfectSuccessAngle + SuccessRelativeAngleRange() / 2) * Mathf.Deg2Rad), Mathf.Sin((PerfectSuccessAngle + SuccessRelativeAngleRange() / 2) * Mathf.Deg2Rad), 0.0f);
+        Gizmos.DrawLine(transform.position, transform.position + successArcStart * ClockRadius);
+        Gizmos.DrawLine(transform.position, transform.position + successArcEnd * ClockRadius);
+
+        Gizmos.color = Color.yellow;
+        successArcStart = new Vector3(Mathf.Cos((PerfectSuccessAngle - SuccessRelativeAngleRange() * PerfectSuccessRatio / 2) * Mathf.Deg2Rad), Mathf.Sin((PerfectSuccessAngle - SuccessRelativeAngleRange() * PerfectSuccessRatio / 2) * Mathf.Deg2Rad), 0.0f);
+        successArcEnd = new Vector3(Mathf.Cos((PerfectSuccessAngle + SuccessRelativeAngleRange() * PerfectSuccessRatio / 2) * Mathf.Deg2Rad), Mathf.Sin((PerfectSuccessAngle + SuccessRelativeAngleRange() * PerfectSuccessRatio / 2) * Mathf.Deg2Rad), 0.0f);
+        Gizmos.DrawLine(transform.position, transform.position + successArcStart * ClockRadius);
+        Gizmos.DrawLine(transform.position, transform.position + successArcEnd * ClockRadius);
+    }
+#endif
 
     public void DrawClock()
     {
@@ -84,6 +91,19 @@ public class Clock : MonoBehaviour
 
         _handTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
     }
+
+    public float SuccessRelativeAngleRange()
+    {
+        float result = 0.0f;
+        result = (SuccessArcLength * 360.0f) / (2 * Mathf.PI * ClockRadius);
+        return result;
+    }
+
+    public float MaxDotProductAllowed() => Mathf.Cos((SuccessRelativeAngleRange() / 2) * Mathf.Deg2Rad + Mathf.PI);
+
+    public float PerfectMaxDotProduct() => Mathf.Cos((SuccessRelativeAngleRange() * PerfectSuccessRatio / 2) * Mathf.Deg2Rad + Mathf.PI);
+
+    public float CurrentAngle() => _handTransform.rotation.eulerAngles.z;
 
     public void ChangeHandColor(Color color)
     {

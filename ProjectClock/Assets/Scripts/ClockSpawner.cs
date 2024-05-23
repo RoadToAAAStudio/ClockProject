@@ -42,8 +42,8 @@ public class ClockSpawner : Singleton<ClockSpawner>
         }
         else
         {
-            float randomAngle = Random.Range(45, 135) * Mathf.Deg2Rad;
-            Vector2 point = new Vector2((prevClock.ClockRadius * Mathf.Cos(randomAngle)) + prevClock.transform.position.x, (prevClock.ClockRadius * Mathf.Sin(randomAngle)) + prevClock.transform.position.y);
+            float randomAngle = Random.Range(45, 135);
+            Vector2 point = new Vector2((prevClock.ClockRadius * Mathf.Cos(randomAngle * Mathf.Deg2Rad) + prevClock.transform.position.x), (prevClock.ClockRadius * Mathf.Sin(randomAngle * Mathf.Deg2Rad) + prevClock.transform.position.y));
             Vector2 direction = (point - (Vector2)prevClock.transform.position).normalized;
 
             float radius = Random.Range(minRadius, maxRadius);
@@ -53,6 +53,9 @@ public class ClockSpawner : Singleton<ClockSpawner>
             currentClock.HandAngularVelocity = -prevClock.HandAngularVelocity;
             currentClock.DrawClock();
             currentClock.DrawHand(Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg);
+
+            // Success range of a clock is determined only when you spawn the next one
+            prevClock.PerfectSuccessAngle = randomAngle;
         }
 
         clocks.Add(currentClock.gameObject);
