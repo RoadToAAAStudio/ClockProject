@@ -18,7 +18,7 @@ public class InputController : Singleton<InputController>
 
     private void Start()
     {
-
+        EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
     }
 
     // Update is called once per frame

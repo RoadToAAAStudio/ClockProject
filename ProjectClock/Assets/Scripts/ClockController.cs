@@ -51,6 +51,8 @@ public class ClockController : MonoBehaviour
             Clock oldClock = oldClockGO.GetComponent<Clock>();
             newClock.HandAngularVelocity = newClock.HandAngularVelocity > 0 ? Mathf.Abs(oldClock.HandAngularVelocity) + 1 : -(Mathf.Abs(oldClock.HandAngularVelocity) + 1);
             newClock.HandAngularVelocity = Mathf.Clamp(newClock.HandAngularVelocity, -MaxAngularVelocity, MaxAngularVelocity);
+            oldClock.ChangeHandColor(oldClock.HandDeactivatedColor);
+            oldClock.DrawHand(oldClock.CurrentAngle());
         }
 
         CurrentVelocity = Mathf.Abs(newClock.HandAngularVelocity);

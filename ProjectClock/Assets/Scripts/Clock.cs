@@ -13,6 +13,7 @@ public class Clock : MonoBehaviour
     public float HandWidth = 0.04f;
     public float HandLengthClockRadiusRatio = 0.95f;
     public Color HandColor = new Color(0.25f, 0.25f, 0.25f);
+    public Color HandDeactivatedColor = new Color(0.25f, 0.25f, 0.25f);
 
     public float SuccessArcLength = 0.5f;
     public float PerfectSuccessRatio = 0.5f;
@@ -94,9 +95,7 @@ public class Clock : MonoBehaviour
 
     public float SuccessRelativeAngleRange()
     {
-        float result = 0.0f;
-        result = (SuccessArcLength * 360.0f) / (2 * Mathf.PI * ClockRadius);
-        return result;
+        return (SuccessArcLength * 360.0f) / (2 * Mathf.PI * ClockRadius);
     }
 
     public float MaxDotProductAllowed() => Mathf.Cos((SuccessRelativeAngleRange() / 2) * Mathf.Deg2Rad + Mathf.PI);
@@ -107,7 +106,7 @@ public class Clock : MonoBehaviour
 
     public void ChangeHandColor(Color color)
     {
-        //_renderer.color = color;
+        HandColor = color;
     }
 
     public Transform GetClockHandTransform()

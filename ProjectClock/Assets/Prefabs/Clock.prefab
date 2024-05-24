@@ -191,7 +191,7 @@ MonoBehaviour:
   HandLengthClockRadiusRatio: 0.95
   HandColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   SuccessArcLength: 0.25
-  PerfectSuccessRatio: 0.4
+  PerfectSuccessRatio: 0.3
   PerfectSuccessAngle: 0
 --- !u!120 &8116360108137075936
 LineRenderer:
