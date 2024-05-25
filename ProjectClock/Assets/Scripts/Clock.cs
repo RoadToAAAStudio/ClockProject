@@ -34,7 +34,7 @@ public class Clock : MonoBehaviour
 
     void Update()
     {
-        DrawHand(_handTransform.rotation.eulerAngles.z + HandAngularVelocity * Time.deltaTime);
+        if (!InputController.Instance.gameover) DrawHand(_handTransform.rotation.eulerAngles.z + HandAngularVelocity * Time.deltaTime);
     }
 
 #if UNITY_EDITOR

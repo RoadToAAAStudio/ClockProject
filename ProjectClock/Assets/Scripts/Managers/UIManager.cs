@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private FadingText scoreFadingText;
     [SerializeField] private Canvas canvas;
 
+    [SerializeField] private GameObject gameoverPanel;
+
     [SerializeField] private string successString = "+1";
     [SerializeField] private string perfectString = "PEFFOZZA +3";
 
-    int score = 0;
-
-    private void Start()
-    {
-
-    }
+    public int score = 0;
 
     private void OnEnable()
     {
         EventManagerOneParam<CheckState>.Instance.StartListening("onNewClock", AddScore);
+        EventManager.Instance.StartListening("onGameover", Gameover);
     }
 
     private void OnDisable()
     {
         EventManagerOneParam<CheckState>.Instance.StopListening("onNewClock", AddScore);
+        EventManager.Instance.StopListening("onGameover", Gameover);
     }
 
     private void AddScore(CheckState state)
@@ -50,5 +49,17 @@ public class UIManager : MonoBehaviour
     private void SpawnText(Vector2 position, string message, Color color)
     {
         Instantiate(scoreFadingText, Camera.main.WorldToScreenPoint(position), Quaternion.identity, canvas.transform).Init(message, color);
+    }
+
+    private void Gameover()
+    {
+        int bestScore = DataManager.Instance.GetInt("bestScore");
+        if (score > bestScore)
+        {
+            bestScore = score;
+            DataManager.Instance.SaveInt("bestScore", bestScore);
+        }
+        gameoverPanel.GetComponent<GameoverPanel>().Initialize(score, bestScore);
+        gameoverPanel.SetActive(true);
     }
 }

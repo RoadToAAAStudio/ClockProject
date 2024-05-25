@@ -15,6 +15,7 @@ public class InputController : Singleton<InputController>
     private int tries = 0;
 
     public bool canCheck;
+    public bool gameover = false;
 
     private void Start()
     {
@@ -30,6 +31,9 @@ public class InputController : Singleton<InputController>
         {
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
+                if (gameover) ReloadScene();
+
+
                 CheckState checkState = Check();
                 if (checkState != CheckState.UNSUCCESS)
                 {
@@ -83,6 +87,12 @@ public class InputController : Singleton<InputController>
     }
 
     private void GameOver()
+    {
+        gameover = true;
+        EventManager.Instance.TriggerEvent("onGameover");
+    }
+
+    public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
