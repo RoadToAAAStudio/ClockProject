@@ -47,15 +47,17 @@ public class ClockSpawner : Singleton<ClockSpawner>
             Vector2 direction = (point - (Vector2)prevClock.transform.position).normalized;
 
             float radius = Random.Range(minRadius, maxRadius);
-            Vector2 newPos = direction * radius + point;
+            Vector2 newPos = direction * radius + point + (direction * radius).normalized * currentClock.ClockWidth; // adding additianal space to spacing clocks
             currentClock = Instantiate(clockPrefab, newPos, Quaternion.identity);
             currentClock.ClockRadius = radius;
             currentClock.HandAngularVelocity = -prevClock.HandAngularVelocity;
-            currentClock.DrawClock();
+            //currentClock.DrawClock();
             currentClock.DrawHand(Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg);
 
             // Success range of a clock is determined only when you spawn the next one
             prevClock.PerfectSuccessAngle = randomAngle;
+            // Drawing only after the subsequent clock has been spawned
+            prevClock.DrawClock();
         }
 
         clocks.Add(currentClock.gameObject);

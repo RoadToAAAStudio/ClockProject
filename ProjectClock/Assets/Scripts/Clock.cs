@@ -8,6 +8,7 @@ public class Clock : MonoBehaviour
     public int ClockSegments = 120;
     public float ClockWidth = 0.02f;
     public Color ClockColor = new Color(0.04f, 0.5f, 0.9f);
+    public Color SuccessZoneClockColor = new Color(0.0f, 1.0f, 0.0f);
 
     public float HandAngularVelocity = 1.0f;
     public float HandWidth = 0.04f;
@@ -60,8 +61,23 @@ public class Clock : MonoBehaviour
         _circleRenderer.startWidth = ClockWidth;
         _circleRenderer.endWidth = ClockWidth;
         _circleRenderer.loop = true;
-        _circleRenderer.startColor = ClockColor;
-        _circleRenderer.endColor = ClockColor;
+        //_circleRenderer.startColor = ClockColor;
+        //_circleRenderer.endColor = ClockColor;
+        
+        Gradient gradient = new Gradient();
+        gradient.SetKeys(
+            new GradientColorKey[] { 
+                new GradientColorKey(ClockColor, 0.0f), 
+                new GradientColorKey(ClockColor, (PerfectSuccessAngle - SuccessRelativeAngleRange() / 2) / 360.0f), 
+                new GradientColorKey(SuccessZoneClockColor, (PerfectSuccessAngle - SuccessRelativeAngleRange() / 2 + 1.0f ) / 360.0f), 
+                new GradientColorKey(SuccessZoneClockColor, (PerfectSuccessAngle + SuccessRelativeAngleRange() / 2 - 1.0f ) / 360.0f), 
+                new GradientColorKey(ClockColor, (PerfectSuccessAngle + SuccessRelativeAngleRange() / 2) / 360.0f), 
+                new GradientColorKey(ClockColor, 1.0f)},
+            new GradientAlphaKey[] { 
+                new GradientAlphaKey(1.0f, 0.0f), 
+                new GradientAlphaKey(1.0f, 1.0f) }
+            );
+        _circleRenderer.colorGradient = gradient;
 
         for (int i = 0; i < ClockSegments; i++)
         {
@@ -103,6 +119,8 @@ public class Clock : MonoBehaviour
     public float PerfectMaxDotProduct() => Mathf.Cos((SuccessRelativeAngleRange() * PerfectSuccessRatio / 2) * Mathf.Deg2Rad + Mathf.PI);
 
     public float CurrentAngle() => _handTransform.rotation.eulerAngles.z;
+
+    public float Circumference() => 2 * Mathf.PI * ClockRadius;
 
     public void ChangeHandColor(Color color)
     {
