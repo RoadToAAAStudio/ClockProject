@@ -182,18 +182,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23c62530f22ce348812f388a5693d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClockRadius: 1
   ClockSegments: 120
   ClockWidth: 0.02
   ClockColor: {r: 0.04, g: 0.5, b: 0.9, a: 1}
   SuccessZoneClockColor: {r: 0, g: 1, b: 0, a: 1}
-  HandAngularVelocity: 100
+  HandVelocityOnCircumference: 1
   HandWidth: 0.03
   HandLengthClockRadiusRatio: 0.95
   HandColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   HandDeactivatedColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   SuccessArcLength: 0.25
   PerfectSuccessRatio: 0.3
+  ClockRadius: 1
   PerfectSuccessAngle: 0
 --- !u!120 &8116360108137075936
 LineRenderer:

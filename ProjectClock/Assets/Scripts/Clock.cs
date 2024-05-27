@@ -4,21 +4,24 @@ using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
-    public float ClockRadius = 1.0f;
     public int ClockSegments = 120;
     public float ClockWidth = 0.02f;
     public Color ClockColor = new Color(0.04f, 0.5f, 0.9f);
     public Color SuccessZoneClockColor = new Color(0.0f, 1.0f, 0.0f);
 
-    public float HandAngularVelocity = 1.0f;
+    public float HandVelocityOnCircumference = 0.1f;
     public float HandWidth = 0.04f;
     public float HandLengthClockRadiusRatio = 0.95f;
     public Color HandColor = new Color(0.25f, 0.25f, 0.25f);
     public Color HandDeactivatedColor = new Color(0.25f, 0.25f, 0.25f);
 
+    [Tooltip("How long is the success arc")] 
     public float SuccessArcLength = 0.5f;
     public float PerfectSuccessRatio = 0.5f;
-    public float PerfectSuccessAngle = 0.0f;
+
+    [HideInInspector] public float ClockRadius = 1.0f;
+    //[HideInInspector] public float HandAngularVelocity = 1.0f;
+    [HideInInspector] public float PerfectSuccessAngle = 0.0f;
 
     private GameObject _handGO;
     private Transform _handTransform;
@@ -35,7 +38,7 @@ public class Clock : MonoBehaviour
 
     void Update()
     {
-        if (!InputController.Instance.gameover) DrawHand(_handTransform.rotation.eulerAngles.z + HandAngularVelocity * Time.deltaTime);
+        if (!InputController.Instance.gameover) DrawHand(_handTransform.rotation.eulerAngles.z + CurrentAngularVelocity() * Time.deltaTime);
     }
 
 #if UNITY_EDITOR
@@ -121,6 +124,8 @@ public class Clock : MonoBehaviour
     public float CurrentAngle() => _handTransform.rotation.eulerAngles.z;
 
     public float Circumference() => 2 * Mathf.PI * ClockRadius;
+
+    public float CurrentAngularVelocity() => ( HandVelocityOnCircumference / Circumference()) * 360.0f;
 
     public void ChangeHandColor(Color color)
     {

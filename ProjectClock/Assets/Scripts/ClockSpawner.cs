@@ -50,7 +50,7 @@ public class ClockSpawner : Singleton<ClockSpawner>
             Vector2 newPos = direction * radius + point + (direction * radius).normalized * currentClock.ClockWidth; // adding additianal space to spacing clocks
             currentClock = Instantiate(clockPrefab, newPos, Quaternion.identity);
             currentClock.ClockRadius = radius;
-            currentClock.HandAngularVelocity = -prevClock.HandAngularVelocity;
+            currentClock.HandVelocityOnCircumference = -prevClock.HandVelocityOnCircumference;
             //currentClock.DrawClock();
             currentClock.DrawHand(Mathf.Atan2(-direction.y, -direction.x) * Mathf.Rad2Deg);
 

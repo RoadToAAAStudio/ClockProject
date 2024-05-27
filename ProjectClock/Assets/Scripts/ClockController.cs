@@ -7,7 +7,8 @@ public class ClockController : MonoBehaviour
     public List<Color> Colors = new List<Color>();
     public float CurrentVelocity = 0.0f;
     public int CurrentClock = 0;
-    public float MaxAngularVelocity = 280f;
+    public float HandVelocityIncrementPerClock = 0.05f;
+    public float MaxHandVelocity = 10.0f;
 
     private Color _currentColor = new Color(1.0f, 1.0f, 1.0f);
     private Color _oldColor = new Color(1.0f, 1.0f, 1.0f);
@@ -49,13 +50,13 @@ public class ClockController : MonoBehaviour
         if (oldClockGO != null) 
         {         
             Clock oldClock = oldClockGO.GetComponent<Clock>();
-            newClock.HandAngularVelocity = newClock.HandAngularVelocity > 0 ? Mathf.Abs(oldClock.HandAngularVelocity) + 1 : -(Mathf.Abs(oldClock.HandAngularVelocity) + 1);
-            newClock.HandAngularVelocity = Mathf.Clamp(newClock.HandAngularVelocity, -MaxAngularVelocity, MaxAngularVelocity);
+            newClock.HandVelocityOnCircumference = newClock.HandVelocityOnCircumference > 0 ? Mathf.Abs(oldClock.HandVelocityOnCircumference) + HandVelocityIncrementPerClock : -(Mathf.Abs(oldClock.HandVelocityOnCircumference) + HandVelocityIncrementPerClock);
+            newClock.HandVelocityOnCircumference = Mathf.Clamp(newClock.HandVelocityOnCircumference, -MaxHandVelocity, MaxHandVelocity);
             oldClock.ChangeHandColor(oldClock.HandDeactivatedColor);
             oldClock.DrawHand(oldClock.CurrentAngle());
         }
 
-        CurrentVelocity = Mathf.Abs(newClock.HandAngularVelocity);
+        CurrentVelocity = Mathf.Abs(newClock.HandVelocityOnCircumference);
         CurrentClock++;
     }
 }
