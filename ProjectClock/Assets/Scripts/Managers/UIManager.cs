@@ -13,6 +13,7 @@ public class UIManager : Singleton<UIManager>
 
     [SerializeField] private string successString = "+1";
     [SerializeField] private string perfectString = "PEFFOZZA +3";
+    [SerializeField] private string comboString = "COMBO +5";
 
     public int score = 0;
 
@@ -40,6 +41,11 @@ public class UIManager : Singleton<UIManager>
             case CheckState.PERFECT:
                 score += 3;
                 SpawnText(Camera.main.transform.position, perfectString, Color.yellow);
+                break;
+
+            case CheckState.COMBO:
+                score += 5;
+                SpawnText(Camera.main.transform.position, comboString, Color.green);
                 break;
         }
 

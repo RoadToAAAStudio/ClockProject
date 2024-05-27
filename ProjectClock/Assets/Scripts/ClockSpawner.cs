@@ -37,7 +37,7 @@ public class ClockSpawner : Singleton<ClockSpawner>
         {
             currentClock = Instantiate(clockPrefab, spawnPos, Quaternion.identity);
             currentClock.DrawClock();
-            currentClock.DrawHand(0);
+            currentClock.DrawHand(270);
             currentClock.enabled = true;
         }
         else

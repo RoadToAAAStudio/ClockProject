@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9007040586333177890, guid: 693c6defbbfad1742a927bd756322a7d, type: 3}
       propertyPath: m_Volume
-      value: 0.7
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 9007040586333177890, guid: 693c6defbbfad1742a927bd756322a7d, type: 3}
       propertyPath: m_audioClip
@@ -354,6 +354,7 @@ MonoBehaviour:
   gameoverPanel: {fileID: 1562073118}
   successString: +1
   perfectString: PEFFOZZA +3
+  comboString: COMBO +5
   score: 0
 --- !u!4 &308802302
 Transform:
@@ -656,7 +657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -244, y: -537}
+  m_AnchoredPosition: {x: -244, y: -297}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &719381758
@@ -1086,7 +1087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -361, y: 0}
+  m_AnchoredPosition: {x: -361, y: -63}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1374976412
@@ -1214,8 +1215,8 @@ RectTransform:
   m_GameObject: {fileID: 1562073118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.73754, y: 0.23739, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2132807298}
   - {fileID: 1374976411}
@@ -1225,7 +1226,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1440, y: 3040}
+  m_SizeDelta: {x: 1700, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1562073120
 MonoBehaviour:
@@ -1531,7 +1532,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 502}
+  m_AnchoredPosition: {x: 0, y: 299}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2132807299

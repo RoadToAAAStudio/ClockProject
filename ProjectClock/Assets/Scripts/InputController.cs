@@ -16,6 +16,8 @@ public class InputController : Singleton<InputController>
 
     public bool canCheck;
     public bool gameover = false;
+    CheckState checkState = CheckState.UNSUCCESS;
+    CheckState prevCheckState = CheckState.UNSUCCESS;
 
     private void Start()
     {
@@ -33,8 +35,8 @@ public class InputController : Singleton<InputController>
             {
                 if (gameover) ReloadScene();
 
-
-                CheckState checkState = Check();
+                prevCheckState = checkState;
+                checkState = Check();
                 if (checkState != CheckState.UNSUCCESS)
                 {
                     canLose = false;
@@ -77,6 +79,7 @@ public class InputController : Singleton<InputController>
         {
             if (dotProduct <= hands[index].GetComponent<Clock>().PerfectMaxDotProduct())
             {
+                if (tries < 1 && (prevCheckState == CheckState.PERFECT || prevCheckState == CheckState.COMBO)) return CheckState.COMBO;
                 return CheckState.PERFECT;
             }
             return CheckState.SUCCESS;
@@ -103,5 +106,6 @@ enum CheckState
 {
     UNSUCCESS,
     SUCCESS,
-    PERFECT
+    PERFECT,
+    COMBO,
 }
