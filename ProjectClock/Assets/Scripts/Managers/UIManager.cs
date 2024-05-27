@@ -44,8 +44,9 @@ public class UIManager : Singleton<UIManager>
                 break;
 
             case CheckState.COMBO:
-                score += 5;
-                SpawnText(Camera.main.transform.position, comboString, Color.green);
+
+                score += ComboManager.Instance.CurrentCombo.score;
+                SpawnText(Camera.main.transform.position, ComboManager.Instance.CurrentCombo.message, Color.green);
                 break;
         }
 
