@@ -91,6 +91,7 @@ public class InputController : Singleton<InputController>
 
     private void GameOver()
     {
+        //hands[index].GetComponent<Clock>().enabled = false;
         gameover = true;
         EventManager.Instance.TriggerEvent("onGameover");
     }

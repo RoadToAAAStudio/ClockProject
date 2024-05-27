@@ -7,6 +7,7 @@ public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private FadingText scoreFadingText;
+    [SerializeField] private Vector2 fadingTextPosition;
     [SerializeField] private Canvas canvas;
 
     [SerializeField] private GameObject gameoverPanel;
@@ -55,7 +56,12 @@ public class UIManager : Singleton<UIManager>
 
     private void SpawnText(Vector2 position, string message, Color color)
     {
-        Instantiate(scoreFadingText, Camera.main.WorldToScreenPoint(position), Quaternion.identity, canvas.transform).Init(message, color);
+        FadingText text = Instantiate(scoreFadingText);
+        text.transform.localPosition = position;
+        text.transform.localRotation = Quaternion.identity;
+        text.transform.localScale = Vector2.one;
+        text.transform.SetParent(canvas.transform, false);
+        text.Init(message, color);
     }
 
     private void Gameover()

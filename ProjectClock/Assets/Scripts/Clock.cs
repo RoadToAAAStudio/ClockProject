@@ -39,6 +39,11 @@ public class Clock : MonoBehaviour
     void Update()
     {
         if (!InputController.Instance.gameover) DrawHand(_handTransform.rotation.eulerAngles.z + CurrentAngularVelocity() * Time.deltaTime);
+        else
+        {
+            _handRenderer.startColor = HandDeactivatedColor;
+            _handRenderer.endColor = HandDeactivatedColor;
+        }
     }
 
 #if UNITY_EDITOR
