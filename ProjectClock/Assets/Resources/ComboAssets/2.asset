@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d2e616c99b16f4189d89c120ac7b94, type: 3}
   m_Name: 2
   m_EditorClassIdentifier: 
-  score: 10
-  numberOfComboToChangeAsset: 10
-  message: FUNZIONA
+  score: 5
+  numberOfComboToChangeAsset: 5
+  message: Amazing +5
