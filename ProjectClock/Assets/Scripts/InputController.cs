@@ -19,6 +19,12 @@ public class InputController : Singleton<InputController>
     CheckState checkState = CheckState.UNSUCCESS;
     CheckState prevCheckState = CheckState.UNSUCCESS;
 
+    private int clockPassed;
+    public int ClockPassed
+    {
+        get { return clockPassed; }
+    }
+
     private void Start()
     {
         EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
@@ -48,6 +54,10 @@ public class InputController : Singleton<InputController>
 
                     hands[index].GetComponent<Clock>().enabled = true;
                     EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
+                    
+                    // Event for the VFX Manager
+                    //EventManagerTwoParams<GameObject, CheckState>.Instance.TriggerEvent("onNewClock", index > 0 ? hands[(index - 1)] : hands[1], checkState);
+                    
                     EventManager.Instance.TriggerEvent("onNewClock");
 
                     EventManagerOneParam<CheckState>.Instance.TriggerEvent("onNewClock", checkState);
@@ -77,6 +87,7 @@ public class InputController : Singleton<InputController>
     {
         if (dotProduct <= hands[index].GetComponent<Clock>().MaxDotProductAllowed())
         {
+            clockPassed++;
             if (dotProduct <= hands[index].GetComponent<Clock>().PerfectMaxDotProduct())
             {
                 if (tries < 1 && (prevCheckState == CheckState.PERFECT || prevCheckState == CheckState.COMBO)) return CheckState.COMBO;
@@ -91,7 +102,6 @@ public class InputController : Singleton<InputController>
 
     private void GameOver()
     {
-        //hands[index].GetComponent<Clock>().enabled = false;
         gameover = true;
         EventManager.Instance.TriggerEvent("onGameover");
     }

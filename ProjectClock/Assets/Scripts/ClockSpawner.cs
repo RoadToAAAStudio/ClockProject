@@ -6,7 +6,9 @@ using UnityEngine;
 public class ClockSpawner : Singleton<ClockSpawner>
 {
     [SerializeField] private Clock clockPrefab;
-    public List<GameObject> clocks;
+    
+    public int clockToPass = 0;
+
     private Vector2 spawnPos = Vector2.zero;
     private Clock prevClock;
     private Clock currentClock;
@@ -56,11 +58,16 @@ public class ClockSpawner : Singleton<ClockSpawner>
 
             // Success range of a clock is determined only when you spawn the next one
             prevClock.PerfectSuccessAngle = randomAngle;
+
+            if (InputController.Instance.ClockPassed > clockToPass)
+            {
+                prevClock.SuccessZoneClockColor = prevClock.ClockColor;
+            }
+
             // Drawing only after the subsequent clock has been spawned
             prevClock.DrawClock();
         }
 
-        clocks.Add(currentClock.gameObject);
         InputController.Instance.hands.Add(currentClock.gameObject);
         prevClock = currentClock;
     }

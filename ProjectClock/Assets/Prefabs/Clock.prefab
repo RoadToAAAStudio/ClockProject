@@ -185,7 +185,7 @@ MonoBehaviour:
   ClockSegments: 120
   ClockWidth: 0.02
   ClockColor: {r: 0.04, g: 0.5, b: 0.9, a: 1}
-  SuccessZoneClockColor: {r: 0, g: 1, b: 0, a: 1}
+  SuccessZoneClockColor: {r: 0, g: 1, b: 0.8734224, a: 1}
   HandVelocityOnCircumference: 1
   HandWidth: 0.03
   HandLengthClockRadiusRatio: 0.95

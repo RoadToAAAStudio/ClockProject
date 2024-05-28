@@ -8,4 +8,5 @@ public class ComboAsset : ScriptableObject
     public int score;
     public int numberOfComboToChangeAsset;
     public string message;
+    public Color messageColor;
 }

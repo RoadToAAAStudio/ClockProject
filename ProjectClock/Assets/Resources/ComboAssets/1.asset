@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d2e616c99b16f4189d89c120ac7b94, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  score: 3
+  score: 4
   numberOfComboToChangeAsset: 1
-  message: Combo +3
+  message: COMBO +4

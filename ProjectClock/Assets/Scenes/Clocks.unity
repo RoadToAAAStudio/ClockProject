@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clockPrefab: {fileID: 364454482977642183, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
-  clocks: []
+  clockToPass: 6
   minRadius: 0.5
   maxRadius: 1
 --- !u!4 &296118219
@@ -354,7 +354,7 @@ MonoBehaviour:
   canvas: {fileID: 1658262286}
   gameoverPanel: {fileID: 1562073118}
   successString: +1
-  perfectString: PEFFOZZA +3
+  perfectString: PERFECT +3
   comboString: COMBO +5
   score: 0
 --- !u!4 &308802302
@@ -1420,7 +1420,7 @@ Canvas:
   m_GameObject: {fileID: 1658262283}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 968624138}
   m_PlaneDistance: 0.06
   m_PixelPerfect: 0
