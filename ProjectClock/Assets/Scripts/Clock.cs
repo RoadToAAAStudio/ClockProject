@@ -69,23 +69,24 @@ public class Clock : MonoBehaviour
         _circleRenderer.startWidth = ClockWidth;
         _circleRenderer.endWidth = ClockWidth;
         _circleRenderer.loop = true;
-        //_circleRenderer.startColor = ClockColor;
-        //_circleRenderer.endColor = ClockColor;
-        
-        Gradient gradient = new Gradient();
-        gradient.SetKeys(
-            new GradientColorKey[] { 
-                new GradientColorKey(ClockColor, 0.0f), 
-                new GradientColorKey(ClockColor, (PerfectSuccessAngle - SuccessRelativeAngleRange() / 2) / 360.0f), 
-                new GradientColorKey(SuccessZoneClockColor, (PerfectSuccessAngle - SuccessRelativeAngleRange() / 2 + 1.0f ) / 360.0f), 
-                new GradientColorKey(SuccessZoneClockColor, (PerfectSuccessAngle + SuccessRelativeAngleRange() / 2 - 1.0f ) / 360.0f), 
-                new GradientColorKey(ClockColor, (PerfectSuccessAngle + SuccessRelativeAngleRange() / 2) / 360.0f), 
-                new GradientColorKey(ClockColor, 1.0f)},
-            new GradientAlphaKey[] { 
-                new GradientAlphaKey(1.0f, 0.0f), 
-                new GradientAlphaKey(1.0f, 1.0f) }
-            );
-        _circleRenderer.colorGradient = gradient;
+
+        _circleRenderer.startColor = ClockColor;
+        _circleRenderer.endColor = ClockColor;
+
+        //Gradient gradient = new Gradient();
+        //gradient.SetKeys(
+        //    new GradientColorKey[] { 
+        //        new GradientColorKey(ClockColor, 0.0f), 
+        //        new GradientColorKey(ClockColor, (PerfectSuccessAngle - SuccessRelativeAngleRange() / 2) / 360.0f), 
+        //        new GradientColorKey(SuccessZoneClockColor, (PerfectSuccessAngle - SuccessRelativeAngleRange() / 2 + 1.0f ) / 360.0f), 
+        //        new GradientColorKey(SuccessZoneClockColor, (PerfectSuccessAngle + SuccessRelativeAngleRange() / 2 - 1.0f ) / 360.0f), 
+        //        new GradientColorKey(ClockColor, (PerfectSuccessAngle + SuccessRelativeAngleRange() / 2) / 360.0f), 
+        //        new GradientColorKey(ClockColor, 1.0f)},
+        //    new GradientAlphaKey[] { 
+        //        new GradientAlphaKey(1.0f, 0.0f), 
+        //        new GradientAlphaKey(1.0f, 1.0f) }
+        //    );
+        //_circleRenderer.colorGradient = gradient;
 
         for (int i = 0; i < ClockSegments; i++)
         {

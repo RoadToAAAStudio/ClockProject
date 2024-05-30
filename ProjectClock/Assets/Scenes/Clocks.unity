@@ -355,8 +355,8 @@ MonoBehaviour:
   gameoverPanel: {fileID: 1562073118}
   successString: +1
   perfectString: PERFECT +3
-  comboString: COMBO +5
   score: 0
+  perfectScore: 3
 --- !u!4 &308802302
 Transform:
   m_ObjectHideFlags: 0
