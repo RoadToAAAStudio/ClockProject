@@ -45,7 +45,7 @@ public class ComboManager : Singleton<ComboManager>
         
         comboNumber++;
 
-        if (comboNumber > currentCombo.numberOfComboToChangeAsset)
+        if (comboNumber >= currentCombo.numberOfComboToChangeAsset)
         {
             comboIndex++;
             comboNumber = 0;

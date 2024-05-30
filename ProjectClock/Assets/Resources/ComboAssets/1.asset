@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: 1
   m_EditorClassIdentifier: 
   score: 4
-  numberOfComboToChangeAsset: 1
+  numberOfComboToChangeAsset: 2
   message: COMBO +4
   messageColor: {r: 0, g: 1, b: 0, a: 1}
