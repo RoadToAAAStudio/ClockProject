@@ -13,10 +13,10 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject gameoverPanel;
 
     [SerializeField] private string successString = "+1";
-    [SerializeField] private string perfectString = "PEFFOZZA +3";
-    [SerializeField] private string comboString = "COMBO +5";
+    [SerializeField] private string perfectString = "PERFECT +3";
 
     public int score = 0;
+    public int perfectScore = 3;
 
     private void OnEnable()
     {
@@ -40,7 +40,7 @@ public class UIManager : Singleton<UIManager>
                 break;
 
             case CheckState.PERFECT:
-                score += 3;
+                score += perfectScore;
                 SpawnText(Camera.main.transform.position, perfectString, Color.yellow);
                 break;
 
