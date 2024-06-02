@@ -143,6 +143,7 @@ namespace RoadToAAA.ProjectClock.Core
 
     public enum EventType
     {
+        OnMainMenu
 
     }
 }
