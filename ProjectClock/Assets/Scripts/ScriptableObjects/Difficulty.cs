@@ -8,22 +8,73 @@ namespace RoadToAAA.ProjectClock.Scriptables
     {
         public CurvePoint[] Points;
 
-        public static float GetLerpedHandAbsoluteSpeed(CurvePoint pre, CurvePoint post, int currentNumberOfClearedClock)
+        public float GetLerpedHandAbsoluteSpeed(int currentNumberOfClearedClock)
         {
-            Debug.Assert( pre.NumberOfClearedClock > 0 && post.NumberOfClearedClock > 0 , "Curve Point mus have positive Number of Cleared Clocks!");
-            Debug.Assert( pre.NumberOfClearedClock < post.NumberOfClearedClock, "Pre Curve Point must be precedent the post Curve Point!");
+            Debug.Assert(currentNumberOfClearedClock >= 0 , "Curve Point mus have positive Number of Cleared Clocks!");
+            Debug.Assert(IsValid(), "Difficulty asset is not valid!");
 
-            float percentage = (currentNumberOfClearedClock - pre.NumberOfClearedClock) / (float)(post.NumberOfClearedClock - pre.NumberOfClearedClock);
+            if (currentNumberOfClearedClock == 0)
+            {
+                return Points[0].HandAbsoluteSpeed;
+            }
 
-            return Mathf.Lerp(pre.HandAbsoluteSpeed, post.HandAbsoluteSpeed, percentage);
+            // Saturate to the last speed
+            if (currentNumberOfClearedClock > Points[Points.Length - 1].NumberOfClearedClocks)
+            {
+                return Points[Points.Length - 1].HandAbsoluteSpeed;
+            }
+
+
+            for (int i = 1; i < Points.Length; i++)
+            {
+                CurvePoint point = Points[i];
+                if (point.NumberOfClearedClocks == currentNumberOfClearedClock)
+                {
+                    return point.HandAbsoluteSpeed;
+                }
+                else if (point.NumberOfClearedClocks > currentNumberOfClearedClock)
+                {
+                    CurvePoint pre = Points[i - 1];
+                    float percentage = (currentNumberOfClearedClock - pre.NumberOfClearedClocks) / (float)(point.NumberOfClearedClocks - pre.NumberOfClearedClocks);
+
+                    return Mathf.Lerp(pre.HandAbsoluteSpeed, point.HandAbsoluteSpeed, percentage);
+                }
+            }
+
+            // Should be unreachable
+            return Points[Points.Length - 1].HandAbsoluteSpeed;
+        }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            Debug.Assert(IsValid(), "Difficulty asset is not valid!");      
+        }
+#endif
+        private bool IsValid()
+        {
+            if (Points.Length == 0) return false;
+            if (Points.Length == 1) return Points[0].NumberOfClearedClocks == 0;
+
+            for (int i = 1; i < Points.Length; i++) 
+            {
+                CurvePoint prePoint = Points[i - 1];
+                CurvePoint currentPoint = Points[i];
+                
+                if (prePoint.NumberOfClearedClocks >= currentPoint.NumberOfClearedClocks)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 
     [Serializable]
     public class CurvePoint
     {
-        [Range(0, int.MaxValue)]
-        public int NumberOfClearedClock = 0;
+        public int NumberOfClearedClocks = 0;
 
         [Range(0.0f, 10.0f)]
         public float HandAbsoluteSpeed = 0.0f;

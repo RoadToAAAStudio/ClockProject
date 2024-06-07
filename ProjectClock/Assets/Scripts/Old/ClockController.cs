@@ -1,3 +1,4 @@
+using RoadToAAA.ProjectClock.Scriptables;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class ClockController : MonoBehaviour
     public int CurrentClock = 0;
     public float HandVelocityIncrementPerClock = 0.05f;
     public float MaxHandVelocity = 10.0f;
+    public Difficulty Difficulty;
 
     private Color _currentColor = new Color(1.0f, 1.0f, 1.0f);
     private Color _oldColor = new Color(1.0f, 1.0f, 1.0f);
@@ -36,6 +38,7 @@ public class ClockController : MonoBehaviour
 
     private void NewClockSelected(GameObject newClockGO, GameObject oldClockGO)
     {
+
         // Set Color
         Color newColor = Colors[Random.Range(0, Colors.Count)];
         _oldColor = _currentColor;
@@ -47,11 +50,13 @@ public class ClockController : MonoBehaviour
 
         // Add Angular Velocity
         Clock newClock = newClockGO.GetComponent<Clock>();
+        newClock.HandVelocityOnCircumference = Difficulty.GetLerpedHandAbsoluteSpeed(CurrentClock);
+
         if (oldClockGO != null) 
         {         
             Clock oldClock = oldClockGO.GetComponent<Clock>();
-            newClock.HandVelocityOnCircumference = newClock.HandVelocityOnCircumference > 0 ? Mathf.Abs(oldClock.HandVelocityOnCircumference) + HandVelocityIncrementPerClock : -(Mathf.Abs(oldClock.HandVelocityOnCircumference) + HandVelocityIncrementPerClock);
-            newClock.HandVelocityOnCircumference = Mathf.Clamp(newClock.HandVelocityOnCircumference, -MaxHandVelocity, MaxHandVelocity);
+            //newClock.HandVelocityOnCircumference = newClock.HandVelocityOnCircumference > 0 ? Mathf.Abs(oldClock.HandVelocityOnCircumference) + HandVelocityIncrementPerClock : -(Mathf.Abs(oldClock.HandVelocityOnCircumference) + HandVelocityIncrementPerClock);
+            //newClock.HandVelocityOnCircumference = Mathf.Clamp(newClock.HandVelocityOnCircumference, -MaxHandVelocity, MaxHandVelocity);
             oldClock.ChangeHandColor(oldClock.HandDeactivatedColor);
             oldClock.DrawHand(oldClock.CurrentAngle());
         }
