@@ -59,6 +59,7 @@ public class ClockController : MonoBehaviour
             //newClock.HandVelocityOnCircumference = Mathf.Clamp(newClock.HandVelocityOnCircumference, -MaxHandVelocity, MaxHandVelocity);
             oldClock.ChangeHandColor(oldClock.HandDeactivatedColor);
             oldClock.DrawHand(oldClock.CurrentAngle());
+            newClock.HandVelocityOnCircumference = oldClock.HandVelocityOnCircumference > 0 ? -newClock.HandVelocityOnCircumference : newClock.HandVelocityOnCircumference;
         }
 
         CurrentVelocity = Mathf.Abs(newClock.HandVelocityOnCircumference);
