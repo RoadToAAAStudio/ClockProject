@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Points:
   - NumberOfClearedClocks: 0
-    HandAbsoluteSpeed: 0.5
-  - NumberOfClearedClocks: 2
-    HandAbsoluteSpeed: 1
+    HandAbsoluteSpeed: 0.8
   - NumberOfClearedClocks: 5
     HandAbsoluteSpeed: 1
-  - NumberOfClearedClocks: 10
-    HandAbsoluteSpeed: 1.2
+  - NumberOfClearedClocks: 30
+    HandAbsoluteSpeed: 1.5
+  - NumberOfClearedClocks: 100
+    HandAbsoluteSpeed: 1.75
