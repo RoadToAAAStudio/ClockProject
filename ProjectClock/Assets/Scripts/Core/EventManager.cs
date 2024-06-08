@@ -143,7 +143,10 @@ namespace RoadToAAA.ProjectClock.Core
 
     public enum EventType
     {
-        OnMainMenu
-
+        #region GameloopEvents
+        OnMainMenu,
+        OnStart,
+        OnGameOver
+        #endregion
     }
 }
