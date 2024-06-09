@@ -141,12 +141,77 @@ namespace RoadToAAA.ProjectClock.Core
         }
     }
 
+    public class EventManager<T1, T2>
+    {
+        private static EventManager<T1, T2> _instance;
+        public static EventManager<T1, T2> Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new EventManager<T1, T2>();
+                }
+                return _instance;
+            }
+        }
+
+        private Dictionary<EventType, Action<T1, T2>> _listeners = new Dictionary<EventType, Action<T1, T2>>();
+
+        private EventManager()
+        {
+        }
+
+        public void Subscribe(EventType eventName, Action<T1, T2> listener)
+        {
+            Debug.Assert(listener != null, "An empty delegate can't be subscribed");
+
+            if (_listeners.ContainsKey(eventName))
+            {
+                _listeners[eventName] += listener;
+            }
+            else
+            {
+                _listeners[eventName] = listener;
+            }
+        }
+
+        public void Unsubscribe(EventType eventName, Action<T1, T2> listener)
+        {
+            Debug.Assert(listener != null, "An empty delegate can't be unsubscribed");
+
+            if (!_listeners.ContainsKey(eventName)) return;
+
+            _listeners[eventName] -= listener;
+
+            if (_listeners[eventName] != null) return;
+
+            _listeners.Remove(eventName);
+        }
+
+        public void Publish(EventType eventName, T1 param1, T2 param2)
+        {
+            if (!_listeners.ContainsKey(eventName)) return;
+
+            _listeners[eventName]?.Invoke(param1, param2);
+        }
+
+        public override string ToString()
+        {
+            string text = string.Empty;
+
+            foreach (EventType e in _listeners.Keys)
+            {
+                text += "Event registred: " + e + "\tListeners: " + _listeners[e]?.GetInvocationList().Length + Environment.NewLine;
+            }
+
+            return text;
+        }
+    }
     public enum EventType
     {
         #region GameloopEvents
-        OnMainMenu,
-        OnStart,
-        OnGameOver
+        OnGameStateChanged
         #endregion
     }
 }

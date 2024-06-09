@@ -2,22 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoadToAAA.ProjectClock.Core
+namespace RoadToAAA.ProjectClock.Manager
 {
 
     public class GameManager : MonoBehaviour
     {
         public enum EGameState
         {
+            //Initial state
+            InitialState,
+            //State when the game is in main menu
             MainMenu,
-            Start,
-            Idle,
-            Resume,
-            Pause,
+            //State when you go for any reason in the effective play (new game, revive, resume from pause)
+            Playing,
+            //Stated when the player "dies"
             GameOver
         }
 
-        private EGameState State;
+        private EGameState oldState = EGameState.InitialState;
+        private EGameState newState;
 
 
 
@@ -34,71 +37,25 @@ namespace RoadToAAA.ProjectClock.Core
         }
 
         private void ChangeState(EGameState state)
-        {
-            State = state;
-            switch (State)
-            {
-                case EGameState.MainMenu:
-                    EventManager.Instance.Publish(EventType.OnMainMenu);
-                    //Time.timeScale = 0;
-                    //UIController.DisablePanels();
-                    //UIController.EnableTitlePanel();
-                    break;
-
-                case EGameState.Start:
-                    //UIController.DisablePanels();
-                    //UIController.EnablePlayerHUD();
-                    // UIController.ResetScore();
-                    Time.timeScale = 1;
-                    SetIdleState();
-                    break;
-
-                case EGameState.Pause:
-                    Time.timeScale = 0;
-                    //UIController.DisablePanels();
-                    //UIController.EnablePausePanel();
-                    break;
-
-                case EGameState.Resume:
-                    Time.timeScale = 1;
-                    //UIController.DisablePanels();
-                    //UIController.EnablePlayerHUD();
-                    SetIdleState();
-                    break;
-
-                case EGameState.GameOver:
-                    Time.timeScale = 0;
-                    //UIController.EnableGameOverPanel();
-                    break;
-
-                case EGameState.Idle:
-                    break;
-            }
-        }
-
-        public void StartGame()
-        {
-            State = EGameState.Start;
-        }
-
-        public void Resume()
-        {
-            State = EGameState.Resume;
+        {           
+            newState = state;
+            Core.EventManager<EGameState, EGameState>.Instance.Publish(Core.EventType.OnGameStateChanged, oldState, newState);
+            oldState = newState;
         }
 
         public void QuitPlay()
         {
-            State = EGameState.MainMenu;
+            newState = EGameState.MainMenu;
         }
 
-        private void SetIdleState()
+        private void SetPlayingState()
         {
-            State = EGameState.Idle;
+            newState = EGameState.Playing;
         }
 
         private void GameOver()
         {
-            State = EGameState.GameOver;
+            newState = EGameState.GameOver;
         }
     }
 }

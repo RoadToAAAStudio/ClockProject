@@ -23,7 +23,7 @@ namespace RoadToAAA.ProjectClock.Manager
 
         private void OnEnable()
         {
-            Core.EventManager.Instance.Subscribe(Core.EventType.OnMainMenu, MainMenu);
+            Core.EventManager.Instance.Subscribe(Core.EventType.OnGameStateChanged, MainMenu);
 
             EventManagerOneParam<CheckState>.Instance.StartListening("onNewClock", AddScore);
             EventManager.Instance.StartListening("onGameover", Gameover);
