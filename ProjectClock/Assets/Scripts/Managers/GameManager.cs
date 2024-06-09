@@ -5,9 +5,9 @@ using UnityEngine;
 namespace RoadToAAA.ProjectClock.Core
 {
 
-    public class GameController : MonoBehaviour
+    public class GameManager : MonoBehaviour
     {
-        private enum eGameState
+        public enum EGameState
         {
             MainMenu,
             Start,
@@ -17,14 +17,14 @@ namespace RoadToAAA.ProjectClock.Core
             GameOver
         }
 
-        private eGameState State;
+        private EGameState State;
 
 
 
         // Start is called before the first frame update
         void Start()
         {
-            ChangeState(eGameState.MainMenu);
+            ChangeState(EGameState.MainMenu);
         }
 
         // Update is called once per frame
@@ -33,19 +33,19 @@ namespace RoadToAAA.ProjectClock.Core
 
         }
 
-        private void ChangeState(eGameState state)
+        private void ChangeState(EGameState state)
         {
             State = state;
             switch (State)
             {
-                case eGameState.MainMenu:
+                case EGameState.MainMenu:
                     EventManager.Instance.Publish(EventType.OnMainMenu);
                     //Time.timeScale = 0;
                     //UIController.DisablePanels();
                     //UIController.EnableTitlePanel();
                     break;
 
-                case eGameState.Start:
+                case EGameState.Start:
                     //UIController.DisablePanels();
                     //UIController.EnablePlayerHUD();
                     // UIController.ResetScore();
@@ -53,52 +53,52 @@ namespace RoadToAAA.ProjectClock.Core
                     SetIdleState();
                     break;
 
-                case eGameState.Pause:
+                case EGameState.Pause:
                     Time.timeScale = 0;
                     //UIController.DisablePanels();
                     //UIController.EnablePausePanel();
                     break;
 
-                case eGameState.Resume:
+                case EGameState.Resume:
                     Time.timeScale = 1;
                     //UIController.DisablePanels();
                     //UIController.EnablePlayerHUD();
                     SetIdleState();
                     break;
 
-                case eGameState.GameOver:
+                case EGameState.GameOver:
                     Time.timeScale = 0;
                     //UIController.EnableGameOverPanel();
                     break;
 
-                case eGameState.Idle:
+                case EGameState.Idle:
                     break;
             }
         }
 
         public void StartGame()
         {
-            State = eGameState.Start;
+            State = EGameState.Start;
         }
 
         public void Resume()
         {
-            State = eGameState.Resume;
+            State = EGameState.Resume;
         }
 
         public void QuitPlay()
         {
-            State = eGameState.MainMenu;
+            State = EGameState.MainMenu;
         }
 
         private void SetIdleState()
         {
-            State = eGameState.Idle;
+            State = EGameState.Idle;
         }
 
         private void GameOver()
         {
-            State = eGameState.GameOver;
+            State = EGameState.GameOver;
         }
     }
 }
