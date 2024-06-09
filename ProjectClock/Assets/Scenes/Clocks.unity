@@ -227,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab3e5e4e68b6554d8ce7655a5cdcf8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockPrefab: {fileID: 364454482977642183, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
+  clockPrefab: {fileID: 8745098762158808469, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
   clockToPass: 6
   minRadius: 0.5
   maxRadius: 1

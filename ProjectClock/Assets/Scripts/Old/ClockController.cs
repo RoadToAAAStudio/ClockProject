@@ -10,7 +10,7 @@ public class ClockController : MonoBehaviour
     public int CurrentClock = 0;
     public float HandVelocityIncrementPerClock = 0.05f;
     public float MaxHandVelocity = 10.0f;
-    public Difficulty Difficulty;
+    public DifficultyAsset Difficulty;
 
     private Color _currentColor = new Color(1.0f, 1.0f, 1.0f);
     private Color _oldColor = new Color(1.0f, 1.0f, 1.0f);

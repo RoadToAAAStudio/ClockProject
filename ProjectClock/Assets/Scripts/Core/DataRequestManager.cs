@@ -23,25 +23,25 @@ namespace RoadToAAA.ProjectClock.Core
             }
         }
 
-        private Dictionary<RequestType, Func<T>> _providers = new Dictionary<RequestType, Func<T>>();
+        private Dictionary<ERequestType, Func<T>> _providers = new Dictionary<ERequestType, Func<T>>();
 
         private DataRequestManager() { }
 
-        public void Subscribe(RequestType requestName, Func<T> provider)
+        public void Subscribe(ERequestType requestName, Func<T> provider)
         {
             Debug.Assert(provider != null, "An empty delegate can't be subscribed");
 
             _providers[requestName] = provider;
         }
 
-        public void Unsubscribe(RequestType requestName, Func<T> provider)
+        public void Unsubscribe(ERequestType requestName, Func<T> provider)
         {
             Debug.Assert(provider != null, "An empty delegate can't be unsubscribed");
 
             _providers.Remove(requestName);
         }
 
-        public T Request(RequestType requestName, T defaultValue) 
+        public T Request(ERequestType requestName, T defaultValue) 
         {
             if (!_providers.ContainsKey(requestName)) return defaultValue;
 
@@ -59,7 +59,7 @@ namespace RoadToAAA.ProjectClock.Core
         {
             string text = string.Empty;
 
-            foreach (RequestType r in _providers.Keys)
+            foreach (ERequestType r in _providers.Keys)
             {
                 text += "Request registred: " + r + "\tProvider: " + _providers[r]?.GetInvocationList().Length + Environment.NewLine;
             }
@@ -68,7 +68,7 @@ namespace RoadToAAA.ProjectClock.Core
         }
     }
 
-    public enum RequestType
+    public enum ERequestType
     {
 
     }

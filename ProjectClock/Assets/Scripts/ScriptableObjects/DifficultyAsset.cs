@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace RoadToAAA.ProjectClock.Scriptables
 {
-    [CreateAssetMenu(fileName = "CurveContainer", menuName = "ScriptableObjects/CurveContainer")]
-    public class Difficulty : ScriptableObject
+    [CreateAssetMenu(fileName = "DifficultyAsset", menuName = "ConfigurationAssets/DifficultyAsset")]
+    public class DifficultyAsset : ScriptableObject
     {
         public CurvePoint[] Points;
 
