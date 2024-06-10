@@ -27,7 +27,7 @@ public class SfxController : MonoBehaviour
     {
 
         source.clip = _clip;
-        source.pitch = Random.Range(0.47f, 0.53f);
+        source.pitch = Random.Range(0.95f, 1.05f);
         source.Play();
     }
 

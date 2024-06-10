@@ -44,7 +44,7 @@ namespace RoadToAAA.ProjectClock.Manager
         {
 
             sfxSource.clip = clip;
-            sfxSource.pitch = Random.Range(0.47f, 0.53f);
+            sfxSource.pitch = Random.Range(0.95f, 1.05f);
             sfxSource.Play();
         }
 

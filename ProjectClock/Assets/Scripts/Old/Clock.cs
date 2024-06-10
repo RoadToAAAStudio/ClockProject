@@ -107,7 +107,7 @@ public class Clock : MonoBehaviour
     {
         _handRenderer.positionCount = 2;
         _handRenderer.startWidth = HandWidth;
-        _handRenderer.endWidth = HandWidth;
+        _handRenderer.endWidth = 0.01f;
         _handRenderer.loop = false;
         _handRenderer.startColor = HandColor;
         _handRenderer.endColor = HandColor;
