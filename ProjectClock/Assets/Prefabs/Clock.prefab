@@ -295,7 +295,7 @@ MonoBehaviour:
   HandLengthClockRadiusRatio: 0.95
   HandColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   HandDeactivatedColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
-  SuccessArcLength: 0.5
-  PerfectSuccessRatio: 0.5
+  SuccessArcLength: 0.4
+  PerfectSuccessRatio: 0.125
   ClockRadius: 1
   PerfectSuccessAngle: 0
