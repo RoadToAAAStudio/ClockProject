@@ -211,7 +211,10 @@ namespace RoadToAAA.ProjectClock.Core
     public enum EventType
     {
         #region GameloopEvents
-        OnGameStateChanged
+        OnGameStateChanged,
+        #endregion
+        #region InputsEvents
+        OnPlayerTapped
         #endregion
     }
 }

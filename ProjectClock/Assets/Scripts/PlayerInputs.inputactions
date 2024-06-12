@@ -1,0 +1,82 @@
+{
+    "name": "PlayerInputs",
+    "maps": [
+        {
+            "name": "PlayingMap",
+            "id": "82a9036e-6a5b-41b3-896f-4932d8bd02a9",
+            "actions": [
+                {
+                    "name": "PlayTap",
+                    "type": "Button",
+                    "id": "ae0d6c6f-1bda-4a56-82b9-ebf0f2a67287",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4eb4a27f-4765-466e-aff9-59b30ca9176a",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayTap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "MenuMap",
+            "id": "38f2be8f-63bb-409b-ab2a-016b16ef91c4",
+            "actions": [
+                {
+                    "name": "MapTap",
+                    "type": "Button",
+                    "id": "9f9089b0-0426-481e-aeb4-f99c5fe65341",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Swipe",
+                    "type": "Button",
+                    "id": "2bffecdd-deb3-4c22-b2bc-a4c8314e7653",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b4137781-9da3-4226-86f8-a619f523fbfe",
+                    "path": "<Touchscreen>/primaryTouch/tap",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MapTap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ced3a7ce-3bf4-4d60-af73-5732b0cca9c6",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
