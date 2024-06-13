@@ -214,7 +214,8 @@ namespace RoadToAAA.ProjectClock.Core
         OnGameStateChanged,
         #endregion
         #region InputsEvents
-        OnPlayerTapped
+        OnPlayTap,
+        OnMenuTap
         #endregion
     }
 }

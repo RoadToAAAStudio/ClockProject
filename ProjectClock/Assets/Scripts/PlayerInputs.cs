@@ -66,12 +66,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Swipe"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""2bffecdd-deb3-4c22-b2bc-a4c8314e7653"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -89,7 +89,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ced3a7ce-3bf4-4d60-af73-5732b0cca9c6"",
-                    ""path"": """",
+                    ""path"": ""<Touchscreen>/touch0/delta/x"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

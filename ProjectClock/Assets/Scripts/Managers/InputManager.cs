@@ -29,6 +29,7 @@ namespace RoadToAAA.ProjectClock.Manager
         {            
             playerInputs.PlayingMap.Enable();
             playTap.started += PlayTap;
+
             menuTap.started += MenuTap;
         }
 
@@ -36,16 +37,18 @@ namespace RoadToAAA.ProjectClock.Manager
         {
             playTap.started -= PlayTap;
             playerInputs.PlayingMap.Disable();
+
+            menuTap.started -= MenuTap;
         }
 
         private void PlayTap(InputAction.CallbackContext context)
         {
-            Core.EventManager.Instance.Publish(Core.EventType.OnPlayerTapped);
+            Core.EventManager.Instance.Publish(Core.EventType.OnPlayTap);
         }
 
         private void MenuTap(InputAction.CallbackContext context)
         {
-        
+            Core.EventManager.Instance.Publish(Core.EventType.OnMenuTap);
         }
 
 
