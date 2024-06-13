@@ -10,8 +10,8 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public float MaxClockRadius = 2.0f;
         public float MinSpawnAngle = 45.0f;
         public float MaxSpawnAngle = 135.0f;
-        public int ClockPoolSize = 10;
-
+        public int ClockPoolSize = 11;
+        public int RenderingDistance = 5;
 
 #if UNITY_EDITOR
         private void OnValidate()
@@ -26,7 +26,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
             if (MinClockRadius > MaxClockRadius) return false;
             if (MinSpawnAngle > MaxSpawnAngle) return false;
             if (ClockPoolSize < 1) return false;
-
+            if (RenderingDistance <= 0 || RenderingDistance > ClockPoolSize / 2) return false;
             return true;
         }
     }

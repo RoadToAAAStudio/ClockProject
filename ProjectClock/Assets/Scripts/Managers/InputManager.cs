@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using RoadToAAA.ProjectClock.Core;
+using RoadToAAA.ProjectClock.Utilities;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -29,7 +27,6 @@ namespace RoadToAAA.ProjectClock.Managers
         {            
             playerInputs.PlayingMap.Enable();
             playTap.started += PlayTap;
-
             menuTap.started += MenuTap;
         }
 
@@ -42,12 +39,12 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void PlayTap(InputAction.CallbackContext context)
         {
-            Core.EventManager.Instance.Publish(Core.EventType.OnPlayTap);
+            EventManager.Instance.Publish(EEventType.OnPlayTap);
         }
 
         private void MenuTap(InputAction.CallbackContext context)
         {
-            Core.EventManager.Instance.Publish(Core.EventType.OnMenuTap);
+            EventManager.Instance.Publish(EEventType.OnMenuTap);
         }
 
 

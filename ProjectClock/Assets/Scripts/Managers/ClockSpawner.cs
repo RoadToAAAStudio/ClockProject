@@ -1,11 +1,12 @@
 ﻿using RoadToAAA.ProjectClock.Scriptables;
-using RoadToAAA.ProjectClock.Utility;
+using RoadToAAA.ProjectClock.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
     /*
-     * It implements pcg for clock spawning 
+     * It implements pcg for clock spawning and despawning
      */
     public class ClockSpawner
     {
@@ -32,30 +33,32 @@ namespace RoadToAAA.ProjectClock.Managers
             _currentNumberOfClocksSpawned = 0;
         }
 
-        public GameObject GenerateClock(GameObject previousClockGameObject)
+        // Return a new ClockGameObject if it was possible to generate one
+        public Clock SpawnClock(Clock previousClock)
         {
             Debug.Assert(_spawnerAsset != null, "Spawner Asset is null!");
             Debug.Assert(_spawnerAsset.IsValid(), "Spawner Asset is not valid!");
 
-            GameObject clockGameObject;
+            if (!_clockPool.HasItems()) return null;
+
+            Clock newClock = null;
 
             // Decide parameters based on pcg
             float handSpeed = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfClocksSpawned);
             handSpeed *= _currentNumberOfClocksSpawned % 2 == 0 ? 1 : -1;
 
-            if (previousClockGameObject == null)
+            if (previousClock == null)
             {
                 // Default
                 float clockRadius = _spawnerAsset.MaxClockRadius;
                 Color handColor = _paletteAsset.GetRandomHandColor();
 
-                clockGameObject = _clockPool.Get(true, Vector3.zero);
-                clockGameObject.GetComponent<Clock>().UpdateParameters(clockRadius, handSpeed, Vector3.zero, handColor, null);
+                newClock = _clockPool.Get(true, Vector3.zero).GetComponent<Clock>();
+                newClock.UpdateParameters(clockRadius, handSpeed, Vector3.zero, handColor, null);
             }
             else
             {
                 // Spawn based on previous
-                Clock previousClock = previousClockGameObject.GetComponent<Clock>();
                 float clockRadius = Random.Range(_spawnerAsset.MinClockRadius, _spawnerAsset.MaxClockRadius);
                 float randomAngle = Random.Range(_spawnerAsset.MinSpawnAngle, _spawnerAsset.MaxSpawnAngle);
                 float randomRadAngle = randomAngle * Mathf.Deg2Rad;
@@ -64,13 +67,18 @@ namespace RoadToAAA.ProjectClock.Managers
                 Vector3 spawnPoint = previousClockPosition + spawnDirection * (previousClock.Radius + clockRadius + _clockRendererAsset.ClockWidth);
                 Color handColor = _paletteAsset.GetRandomHandColor(previousClock.HandColor);
 
-                clockGameObject = _clockPool.Get(true, spawnPoint);
-                clockGameObject.GetComponent<Clock>().UpdateParameters(clockRadius, handSpeed, spawnDirection, handColor, previousClock);
+                newClock = _clockPool.Get(true, spawnPoint).GetComponent<Clock>();
+                newClock.UpdateParameters(clockRadius, handSpeed, spawnDirection, handColor, previousClock);
             }
 
             _currentNumberOfClocksSpawned++;
 
-            return clockGameObject;
+            return newClock;
+        }
+
+        public void DespawnClock(Clock clock)
+        {
+            _clockPool.Release(clock.gameObject);
         }
     }
 }

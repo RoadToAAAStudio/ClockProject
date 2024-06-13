@@ -29,10 +29,14 @@ namespace RoadToAAA.ProjectClock.Scriptables
             Debug.Assert(IsValid(), "Palette asset is not valid!");
             Color color = HandColors[Random.Range(0, HandColors.Count)];
 
-            // 4 tries to get a different color from the list
-            for (int i = 0; i < 4; i++) 
+            // 15 tries to get a different color from the list
+            for (int i = 0; i < 15; i++) 
             {
-                if (color == currentColor) continue;
+                if (color == currentColor)
+                {
+                    color = HandColors[Random.Range(0, HandColors.Count)];
+                    continue;
+                }
                 else break;
             }
             return color;

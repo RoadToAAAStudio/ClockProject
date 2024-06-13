@@ -16,12 +16,12 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", NewClockSelected);    
+        //EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", NewClockSelected);    
     }
 
     private void OnDisable()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", NewClockSelected);
+        //EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", NewClockSelected);
     }
 
     private void Update()

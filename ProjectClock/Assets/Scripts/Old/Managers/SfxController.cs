@@ -10,12 +10,12 @@ public class SfxController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", GoodTap);
+        //EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", GoodTap);
     }
 
     private void OnDisable()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", GoodTap);
+        //EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", GoodTap);
     }
 
     private void Awake()

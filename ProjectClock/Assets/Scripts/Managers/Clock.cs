@@ -52,18 +52,21 @@ namespace RoadToAAA.ProjectClock.Managers
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength * 360.0f) / (2 * Mathf.PI * Radius);
+            float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength) / (Radius);
             float successAngle = Mathf.Atan2(SuccessDirection.y, SuccessDirection.x);
             float perfectSuccessRatio = _difficultyAsset.PerfectSuccessRatio;
+            
             Gizmos.color = Color.green;
-            Vector3 successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange / 2) * Mathf.Deg2Rad), Mathf.Sin((successAngle - successRelativeAngleRange / 2) * Mathf.Deg2Rad), 0.0f);
-            Vector3 successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange / 2) * Mathf.Deg2Rad), Mathf.Sin((successAngle + successRelativeAngleRange / 2) * Mathf.Deg2Rad), 0.0f);
+            Vector3 successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange / 2)), Mathf.Sin((successAngle - successRelativeAngleRange / 2)), 0.0f);
+            Vector3 successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange / 2)), Mathf.Sin((successAngle + successRelativeAngleRange / 2)), 0.0f);
+
             Gizmos.DrawLine(transform.position, transform.position + successArcStart * Radius);
             Gizmos.DrawLine(transform.position, transform.position + successArcEnd * Radius);
 
             Gizmos.color = Color.yellow;
-            successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2) * Mathf.Deg2Rad), Mathf.Sin((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2) * Mathf.Deg2Rad), 0.0f);
-            successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2) * Mathf.Deg2Rad), Mathf.Sin((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2) * Mathf.Deg2Rad), 0.0f);
+            successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2)), Mathf.Sin((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2)), 0.0f);
+            successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2)), Mathf.Sin((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2)), 0.0f);
+            
             Gizmos.DrawLine(transform.position, transform.position + successArcStart * Radius);
             Gizmos.DrawLine(transform.position, transform.position + successArcEnd * Radius);
         }
@@ -121,7 +124,7 @@ namespace RoadToAAA.ProjectClock.Managers
             Circumference = 2 * Mathf.PI * Radius;
             AngularSpeed = handSpeedOnCircumference / Circumference * 360.0f;
             SpawnDirection = spawnDirection;
-
+            
             if (spawnDirection != Vector3.zero) 
             { 
                 HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Atan2(-spawnDirection.y, -spawnDirection.x) * Mathf.Rad2Deg);

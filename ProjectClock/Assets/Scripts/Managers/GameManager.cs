@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RoadToAAA.ProjectClock.Utilities;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -39,7 +40,7 @@ namespace RoadToAAA.ProjectClock.Managers
         private void ChangeState(EGameState state)
         {           
             newState = state;
-            Core.EventManager<EGameState, EGameState>.Instance.Publish(Core.EventType.OnGameStateChanged, oldState, newState);
+            EventManager<EGameState, EGameState>.Instance.Publish(EEventType.OnGameStateChanged, oldState, newState);
             oldState = newState;
         }
 

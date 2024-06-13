@@ -24,11 +24,11 @@ namespace RoadToAAA.ProjectClock.Utilities
             }
         }
 
-        private Dictionary<EventType, Action> _listeners = new Dictionary<EventType, Action>();
+        private Dictionary<EEventType, Action> _listeners = new Dictionary<EEventType, Action>();
 
         private EventManager() { }
 
-        public void Subscribe(EventType eventName, Action listener)
+        public void Subscribe(EEventType eventName, Action listener)
         {
             Debug.Assert(listener != null, "An empty delegate can't be subscribed");
 
@@ -42,7 +42,7 @@ namespace RoadToAAA.ProjectClock.Utilities
             }
         }
 
-        public void Unsubscribe(EventType eventName, Action listener)
+        public void Unsubscribe(EEventType eventName, Action listener)
         {
             Debug.Assert(listener != null, "An empty delegate can't be unsubscribed");
 
@@ -55,8 +55,11 @@ namespace RoadToAAA.ProjectClock.Utilities
             _listeners.Remove(eventName);
         }
 
-        public void Publish(EventType eventName)
+        public void Publish(EEventType eventName)
         {
+#if UNITY_EDITOR
+            Debug.Log(string.Format("EventManager: {0}", eventName));
+#endif
             if (!_listeners.ContainsKey(eventName)) return;
                 
             _listeners[eventName]?.Invoke();
@@ -66,7 +69,7 @@ namespace RoadToAAA.ProjectClock.Utilities
         {
             string text = string.Empty;
 
-            foreach (EventType e in _listeners.Keys)
+            foreach (EEventType e in _listeners.Keys)
             {
                 text += "Event registred: " + e + "\tListeners: " + _listeners[e]?.GetInvocationList().Length + Environment.NewLine;
             }
@@ -90,11 +93,11 @@ namespace RoadToAAA.ProjectClock.Utilities
             }
         }
 
-        private Dictionary<EventType, Action<T>> _listeners = new Dictionary<EventType, Action<T>>();
+        private Dictionary<EEventType, Action<T>> _listeners = new Dictionary<EEventType, Action<T>>();
 
         private EventManager() { }
 
-        public void Subscribe(EventType eventName, Action<T> listener)
+        public void Subscribe(EEventType eventName, Action<T> listener)
         {
             Debug.Assert(listener != null, "An empty delegate can't be subscribed");
 
@@ -108,7 +111,7 @@ namespace RoadToAAA.ProjectClock.Utilities
             }
         }
 
-        public void Unsubscribe(EventType eventName, Action<T> listener)
+        public void Unsubscribe(EEventType eventName, Action<T> listener)
         {
             Debug.Assert(listener != null, "An empty delegate can't be unsubscribed");
 
@@ -121,8 +124,11 @@ namespace RoadToAAA.ProjectClock.Utilities
             _listeners.Remove(eventName);
         }
 
-        public void Publish(EventType eventName, T param)
+        public void Publish(EEventType eventName, T param)
         {
+#if UNITY_EDITOR
+            Debug.Log(string.Format("EventManager: {0}", eventName));
+#endif
             if (!_listeners.ContainsKey(eventName)) return;
 
             _listeners[eventName]?.Invoke(param);
@@ -132,7 +138,7 @@ namespace RoadToAAA.ProjectClock.Utilities
         {
             string text = string.Empty;
 
-            foreach (EventType e in _listeners.Keys)
+            foreach (EEventType e in _listeners.Keys)
             {
                 text += "Event registred: " + e + "\tListeners: " + _listeners[e]?.GetInvocationList().Length + Environment.NewLine;
             }
@@ -156,13 +162,11 @@ namespace RoadToAAA.ProjectClock.Utilities
             }
         }
 
-        private Dictionary<EventType, Action<T1, T2>> _listeners = new Dictionary<EventType, Action<T1, T2>>();
+        private Dictionary<EEventType, Action<T1, T2>> _listeners = new Dictionary<EEventType, Action<T1, T2>>();
 
-        private EventManager()
-        {
-        }
+        private EventManager() { }
 
-        public void Subscribe(EventType eventName, Action<T1, T2> listener)
+        public void Subscribe(EEventType eventName, Action<T1, T2> listener)
         {
             Debug.Assert(listener != null, "An empty delegate can't be subscribed");
 
@@ -176,7 +180,7 @@ namespace RoadToAAA.ProjectClock.Utilities
             }
         }
 
-        public void Unsubscribe(EventType eventName, Action<T1, T2> listener)
+        public void Unsubscribe(EEventType eventName, Action<T1, T2> listener)
         {
             Debug.Assert(listener != null, "An empty delegate can't be unsubscribed");
 
@@ -189,8 +193,11 @@ namespace RoadToAAA.ProjectClock.Utilities
             _listeners.Remove(eventName);
         }
 
-        public void Publish(EventType eventName, T1 param1, T2 param2)
+        public void Publish(EEventType eventName, T1 param1, T2 param2)
         {
+#if UNITY_EDITOR
+            Debug.Log(string.Format("EventManager: {0}", eventName));
+#endif
             if (!_listeners.ContainsKey(eventName)) return;
 
             _listeners[eventName]?.Invoke(param1, param2);
@@ -200,7 +207,7 @@ namespace RoadToAAA.ProjectClock.Utilities
         {
             string text = string.Empty;
 
-            foreach (EventType e in _listeners.Keys)
+            foreach (EEventType e in _listeners.Keys)
             {
                 text += "Event registred: " + e + "\tListeners: " + _listeners[e]?.GetInvocationList().Length + Environment.NewLine;
             }
@@ -208,14 +215,21 @@ namespace RoadToAAA.ProjectClock.Utilities
             return text;
         }
     }
-    public enum EventType
+    public enum EEventType
     {
         #region GameloopEvents
         OnGameStateChanged,
         #endregion
-        #region InputsEvents
+
+        #region InputEvents
         OnPlayTap,
-        OnMenuTap
+        OnMenuTap,
+        #endregion
+
+        #region GameplayEvents
+        OnSuccess,
+        OnPerfectSuccess,
+        OnUnsuccess
         #endregion
     }
 }

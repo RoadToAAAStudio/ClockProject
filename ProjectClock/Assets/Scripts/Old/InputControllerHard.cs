@@ -19,7 +19,7 @@ public class InputControllerHard : MonoBehaviour
 
     private void Start()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
+        //EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
     }
 
     // Update is called once per frame
@@ -44,7 +44,7 @@ public class InputControllerHard : MonoBehaviour
                     }
 
                     hands[index].GetComponent<Clock>().enabled = true;
-                    EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
+                    //EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
                 }
             }
         }

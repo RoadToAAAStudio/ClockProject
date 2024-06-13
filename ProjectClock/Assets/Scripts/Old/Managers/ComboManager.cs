@@ -23,12 +23,12 @@ public class ComboManager : Singleton<ComboManager>
 
     private void OnEnable()
     {
-        EventManagerOneParam<CheckState>.Instance.StartListening("onNewClock", ChangeCombo);
+        //EventManagerOneParam<CheckState>.Instance.StartListening("onNewClock", ChangeCombo);
     }
 
     private void OnDisable()
     {
-        EventManagerOneParam<CheckState>.Instance.StopListening("onNewClock", ChangeCombo);
+        //EventManagerOneParam<CheckState>.Instance.StopListening("onNewClock", ChangeCombo);
     }
 
     private void ChangeCombo(CheckState state)

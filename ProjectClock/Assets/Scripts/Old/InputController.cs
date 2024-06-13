@@ -27,7 +27,7 @@ public class InputController : Singleton<InputController>
 
     private void Start()
     {
-        EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
+        //EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], null);
     }
 
     // Update is called once per frame
@@ -53,14 +53,14 @@ public class InputController : Singleton<InputController>
                     oldProduct = float.NegativeInfinity;
 
                     hands[index].GetComponent<Clock>().enabled = true;
-                    EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
+                    //EventManagerTwoParams<GameObject, GameObject>.Instance.TriggerEvent("onNewClock", hands[index], index > 0 ? hands[(index - 1)] : hands[1]);
                     
                     // Event for the VFX Manager
                     //EventManagerTwoParams<GameObject, CheckState>.Instance.TriggerEvent("onNewClock", index > 0 ? hands[(index - 1)] : hands[1], checkState);
                     
-                    EventManager.Instance.TriggerEvent("onNewClock");
+                    //EventManager.Instance.TriggerEvent("onNewClock");
 
-                    EventManagerOneParam<CheckState>.Instance.TriggerEvent("onNewClock", checkState);
+                    //EventManagerOneParam<CheckState>.Instance.TriggerEvent("onNewClock", checkState);
                 }
             }
         }
@@ -103,7 +103,7 @@ public class InputController : Singleton<InputController>
     private void GameOver()
     {
         gameover = true;
-        EventManager.Instance.TriggerEvent("onGameover");
+        //EventManager.Instance.TriggerEvent("onGameover");
     }
 
     public void ReloadScene()

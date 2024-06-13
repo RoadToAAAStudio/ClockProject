@@ -146,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 919241326338995790}
   - component: {fileID: 8116360108137075936}
-  - component: {fileID: 8745098762158808469}
+  - component: {fileID: 3095131747440780720}
   m_Layer: 0
   m_Name: Clock
   m_TagString: Untagged
@@ -274,28 +274,18 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &8745098762158808469
+--- !u!114 &3095131747440780720
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8109456233941987389}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a23c62530f22ce348812f388a5693d08, type: 3}
+  m_Script: {fileID: 11500000, guid: ecd912faaf5756e4389c88d730062858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClockSegments: 120
-  ClockWidth: 0.02
-  ClockColor: {r: 0.04, g: 0.5, b: 0.9, a: 1}
-  SuccessZoneClockColor: {r: 0, g: 1, b: 0, a: 1}
-  HandVelocityOnCircumference: 0.1
-  HandWidth: 0.04
-  HandLengthClockRadiusRatio: 0.95
-  HandColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
-  HandDeactivatedColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
-  SuccessArcLength: 0.3
-  PerfectSuccessRatio: 0.2
-  ClockRadius: 1
-  PerfectSuccessAngle: 0
+  _difficultyAsset: {fileID: 11400000, guid: 8c71625b0afbeac45a44b05092cfa564, type: 2}
+  _clockRendererAsset: {fileID: 11400000, guid: f4fb87e08e2827f40910090090537079, type: 2}
+  _paletteAsset: {fileID: 11400000, guid: 65ef92f0e6af24745839d03f1bbb2ebc, type: 2}

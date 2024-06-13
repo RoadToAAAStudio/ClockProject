@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClockPrefab: {fileID: 8109456233941987389, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
   MinClockRadius: 0.5
-  MaxClockRadius: 2
+  MaxClockRadius: 1
   MinSpawnAngle: 45
   MaxSpawnAngle: 135
-  ClockPoolSize: 10
+  ClockPoolSize: 9
+  RenderingDistance: 4

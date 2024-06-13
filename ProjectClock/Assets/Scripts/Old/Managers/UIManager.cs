@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using RoadToAAA.ProjectClock.Utilities;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -23,16 +24,18 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void OnEnable()
         {
-            Core.EventManager.Instance.Subscribe(Core.EventType.OnGameStateChanged, MainMenu);
+            EventManager.Instance.Subscribe(EEventType.OnGameStateChanged, MainMenu);
 
-            EventManagerOneParam<CheckState>.Instance.StartListening("onNewClock", AddScore);
-            EventManager.Instance.StartListening("onGameover", Gameover);
+            //EventManagerOneParam<CheckState>.Instance.StartListening("onNewClock", AddScore);
+            //EventManager.Instance.StartListening("onGameover", Gameover);
         }
 
         private void OnDisable()
         {
-            EventManagerOneParam<CheckState>.Instance.StopListening("onNewClock", AddScore);
-            EventManager.Instance.StopListening("onGameover", Gameover);
+            EventManager.Instance.Unsubscribe(EEventType.OnGameStateChanged, MainMenu);
+
+            //EventManagerOneParam<CheckState>.Instance.StopListening("onNewClock", AddScore);
+            //EventManager.Instance.StopListening("onGameover", Gameover);
         }
 
         private void AddScore(CheckState state)

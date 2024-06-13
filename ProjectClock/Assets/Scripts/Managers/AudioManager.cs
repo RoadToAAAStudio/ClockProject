@@ -5,7 +5,7 @@ using UnityEngine;
 namespace RoadToAAA.ProjectClock.Managers
 {
 
-    public class AudioController : MonoBehaviour
+    public class AudioManager : MonoBehaviour
     {
         public List<AudioClip> musicList;
         public List<AudioClip> sfxList;
@@ -14,12 +14,12 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void OnEnable()
         {
-            EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", GoodTap);
+            //EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", GoodTap);
         }
 
         private void OnDisable()
         {
-            EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", GoodTap);
+            //EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", GoodTap);
         }
 
         private void Awake()
