@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoadToAAA.ProjectClock.Core
+namespace RoadToAAA.ProjectClock.Utilities
 {
     /*
      * This manager handles all timers in the game

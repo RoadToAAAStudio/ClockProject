@@ -17,6 +17,7 @@ namespace RoadToAAA.ProjectClock.Managers
         [SerializeField] private GameObject ClockPrefab;
 
         private ClockSpawner _clockSpawner;
+        private ClockChecker _clockChecker;
         private List<GameObject> _clocks;
         private int _currentClockIndex;
 
@@ -24,6 +25,8 @@ namespace RoadToAAA.ProjectClock.Managers
         private void Awake()
         {
             _clockSpawner = new ClockSpawner(SpawnerAsset, ClockRendererAsset, PaletteAsset, DifficultyAsset, ClockPrefab);
+            _clockChecker = new ClockChecker(DifficultyAsset);
+
             _clocks = new List<GameObject>();
 
             Initialize();
@@ -41,16 +44,20 @@ namespace RoadToAAA.ProjectClock.Managers
             _clocks.Clear();
             _currentClockIndex = 0;
 
-            // Spawn a certain amount of Clock
-            for (int i = 0; i < SpawnerAsset.ClockPoolSize; i++)
-            {
-                GameObject previousClockGameObject = i > 0 ? _clocks[i - 1] : null;
-                GameObject generatedClockGameObject = _clockSpawner.GenerateClock(previousClockGameObject);
-                Clock generatedClock = generatedClockGameObject.GetComponent<Clock>();
+            // Spawn frist Clock
+            GameObject generatedClockGameObject = _clockSpawner.GenerateClock(null);
+            Clock generatedClock = generatedClockGameObject.GetComponent<Clock>();
+            generatedClock.DrawClock();
+            generatedClock.DrawHand(generatedClock.GetHandAngle());
+            _clocks.Add(generatedClockGameObject);
 
+            // Spawn a certain amount of Clock
+            for (int i = 1; i < SpawnerAsset.ClockPoolSize - 1; i++)
+            {
+                GameObject previousClockGameObject = _clocks[i - 1];
+                generatedClockGameObject = _clockSpawner.GenerateClock(previousClockGameObject);
                 generatedClock.DrawClock();
                 generatedClock.DrawHand(generatedClock.GetHandAngle());
-
                 _clocks.Add(generatedClockGameObject);
             }
 

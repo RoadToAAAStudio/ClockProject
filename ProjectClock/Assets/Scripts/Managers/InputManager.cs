@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using RoadToAAA.ProjectClock.Core;
 
-namespace RoadToAAA.ProjectClock.Manager
+namespace RoadToAAA.ProjectClock.Managers
 {
     public class InputManager : MonoBehaviour
     {
@@ -33,7 +33,6 @@ namespace RoadToAAA.ProjectClock.Manager
             playerInputs.MenuMap.Disable();
             playerInputs.PlayingMap.Disable();
         }
-
 
         private void PlayTap(InputAction.CallbackContext context)
         {

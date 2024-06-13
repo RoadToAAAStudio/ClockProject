@@ -6,7 +6,9 @@ namespace RoadToAAA.ProjectClock.Scriptables
     [CreateAssetMenu(fileName = "DifficultyAsset", menuName = "ConfigurationAssets/DifficultyAsset")]
     public class DifficultyAsset : ScriptableObject
     {
-        public CurvePoint[] Points;
+        public float SuccessArcLength = 0.5f;
+        public float PerfectSuccessRatio = 0.5f;
+        public DifficultyCurvePoint[] Points;
 
         public float GetLerpedHandAbsoluteSpeed(int currentNumberOfClearedClock)
         {
@@ -24,17 +26,16 @@ namespace RoadToAAA.ProjectClock.Scriptables
                 return Points[Points.Length - 1].HandAbsoluteSpeed;
             }
 
-
             for (int i = 1; i < Points.Length; i++)
             {
-                CurvePoint point = Points[i];
+                DifficultyCurvePoint point = Points[i];
                 if (point.NumberOfClearedClocks == currentNumberOfClearedClock)
                 {
                     return point.HandAbsoluteSpeed;
                 }
                 else if (point.NumberOfClearedClocks > currentNumberOfClearedClock)
                 {
-                    CurvePoint pre = Points[i - 1];
+                    DifficultyCurvePoint pre = Points[i - 1];
                     float percentage = (currentNumberOfClearedClock - pre.NumberOfClearedClocks) / (float)(point.NumberOfClearedClocks - pre.NumberOfClearedClocks);
 
                     return Mathf.Lerp(pre.HandAbsoluteSpeed, point.HandAbsoluteSpeed, percentage);
@@ -53,13 +54,15 @@ namespace RoadToAAA.ProjectClock.Scriptables
 #endif
         private bool IsValid()
         {
+            if (SuccessArcLength <= 0.0f) return false;
+            if (PerfectSuccessRatio < 0.0f || PerfectSuccessRatio > 1.0f) return false;
             if (Points.Length == 0) return false;
             if (Points.Length == 1) return Points[0].NumberOfClearedClocks == 0;
 
             for (int i = 1; i < Points.Length; i++) 
             {
-                CurvePoint prePoint = Points[i - 1];
-                CurvePoint currentPoint = Points[i];
+                DifficultyCurvePoint prePoint = Points[i - 1];
+                DifficultyCurvePoint currentPoint = Points[i];
                 
                 if (prePoint.NumberOfClearedClocks >= currentPoint.NumberOfClearedClocks)
                 {
@@ -72,12 +75,11 @@ namespace RoadToAAA.ProjectClock.Scriptables
     }
 
     [Serializable]
-    public class CurvePoint
+    public class DifficultyCurvePoint
     {
         public int NumberOfClearedClocks = 0;
 
         [Range(0.0f, 10.0f)]
         public float HandAbsoluteSpeed = 0.0f;
     }
-
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace RoadToAAA.ProjectClock.Manager
+namespace RoadToAAA.ProjectClock.Managers
 {
     public class UIManager : Singleton<UIManager>
     {

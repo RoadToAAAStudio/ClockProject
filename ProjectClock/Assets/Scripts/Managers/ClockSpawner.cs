@@ -50,7 +50,7 @@ namespace RoadToAAA.ProjectClock.Managers
                 Color handColor = _paletteAsset.GetRandomHandColor();
 
                 clockGameObject = _clockPool.Get(true, Vector3.zero);
-                clockGameObject.GetComponent<Clock>().UpdateParameters(clockRadius, handSpeed, Vector3.zero, handColor);
+                clockGameObject.GetComponent<Clock>().UpdateParameters(clockRadius, handSpeed, Vector3.zero, handColor, null);
             }
             else
             {
@@ -65,7 +65,7 @@ namespace RoadToAAA.ProjectClock.Managers
                 Color handColor = _paletteAsset.GetRandomHandColor(previousClock.HandColor);
 
                 clockGameObject = _clockPool.Get(true, spawnPoint);
-                clockGameObject.GetComponent<Clock>().UpdateParameters(clockRadius, handSpeed, spawnDirection, handColor);
+                clockGameObject.GetComponent<Clock>().UpdateParameters(clockRadius, handSpeed, spawnDirection, handColor, previousClock);
             }
 
             _currentNumberOfClocksSpawned++;

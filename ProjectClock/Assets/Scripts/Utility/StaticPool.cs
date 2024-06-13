@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace RoadToAAA.ProjectClock.Utility
+namespace RoadToAAA.ProjectClock.Utilities
 {
     /*
      * This class represent a pool of objects with a fixed capacity

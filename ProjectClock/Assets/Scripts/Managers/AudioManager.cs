@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoadToAAA.ProjectClock.Manager
+namespace RoadToAAA.ProjectClock.Managers
 {
 
     public class AudioController : MonoBehaviour

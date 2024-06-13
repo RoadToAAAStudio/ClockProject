@@ -20,6 +20,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
         // Input Parameters
         public float Radius { get; private set; }
+        public Vector3 SuccessDirection { get; private set; }
         public Vector3 SpawnDirection { get; private set; }
         public Color HandColor { get; private set; }
 
@@ -31,6 +32,7 @@ namespace RoadToAAA.ProjectClock.Managers
         public float GetHandAngle() => HandTransform.rotation.eulerAngles.z;
 
         // Configs
+        [SerializeField] private DifficultyAsset _difficultyAsset;
         [SerializeField] private ClockRendererAsset _clockRendererAsset;
         [SerializeField] private PaletteAsset _paletteAsset;
 
@@ -46,6 +48,26 @@ namespace RoadToAAA.ProjectClock.Managers
             ClockRenderer = ClockGameObject.GetComponent<LineRenderer>();
             HandRenderer = HandGameObject.GetComponent<LineRenderer>();
         }
+
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength * 360.0f) / (2 * Mathf.PI * Radius);
+            float successAngle = Mathf.Atan2(SuccessDirection.y, SuccessDirection.x);
+            float perfectSuccessRatio = _difficultyAsset.PerfectSuccessRatio;
+            Gizmos.color = Color.green;
+            Vector3 successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange / 2) * Mathf.Deg2Rad), Mathf.Sin((successAngle - successRelativeAngleRange / 2) * Mathf.Deg2Rad), 0.0f);
+            Vector3 successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange / 2) * Mathf.Deg2Rad), Mathf.Sin((successAngle + successRelativeAngleRange / 2) * Mathf.Deg2Rad), 0.0f);
+            Gizmos.DrawLine(transform.position, transform.position + successArcStart * Radius);
+            Gizmos.DrawLine(transform.position, transform.position + successArcEnd * Radius);
+
+            Gizmos.color = Color.yellow;
+            successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2) * Mathf.Deg2Rad), Mathf.Sin((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2) * Mathf.Deg2Rad), 0.0f);
+            successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2) * Mathf.Deg2Rad), Mathf.Sin((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2) * Mathf.Deg2Rad), 0.0f);
+            Gizmos.DrawLine(transform.position, transform.position + successArcStart * Radius);
+            Gizmos.DrawLine(transform.position, transform.position + successArcEnd * Radius);
+        }
+#endif
         #endregion
 
         public void DrawClock()
@@ -93,7 +115,7 @@ namespace RoadToAAA.ProjectClock.Managers
         }
 
         // Update derived data according to new one
-        public void UpdateParameters(float radius, float handSpeedOnCircumference, Vector3 spawnDirection, Color handColor)
+        public void UpdateParameters(float radius, float handSpeedOnCircumference, Vector3 spawnDirection, Color handColor, Clock previousClock)
         {
             Radius = radius;
             Circumference = 2 * Mathf.PI * Radius;
@@ -111,6 +133,13 @@ namespace RoadToAAA.ProjectClock.Managers
             }
 
             HandColor = handColor;
+
+            if (previousClock != null) 
+            { 
+                previousClock.SuccessDirection = SpawnDirection;
+            }
+
+            Debug.Assert(IsValid(), "Clock is not valid!");
         }
 
         public bool IsValid()
