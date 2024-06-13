@@ -11,7 +11,10 @@ namespace RoadToAAA.ProjectClock.Manager
         private PlayerInputs playerInputs;
         private InputAction playTap;
         private InputAction menuTap;
-        private InputAction swipe;
+        private InputAction menuSwipe;
+
+        //remember to change initial value when completing this class
+        private bool isInMenu = false;
 
 
         private void Awake()
@@ -19,25 +22,47 @@ namespace RoadToAAA.ProjectClock.Manager
             playerInputs = new PlayerInputs();
             playTap = playerInputs.PlayingMap.PlayTap;
             menuTap = playerInputs.MenuMap.MapTap;
-            swipe = playerInputs.MenuMap.Swipe;
+            menuSwipe = playerInputs.MenuMap.Swipe;
         }
         
         private void OnEnable()
-        {
-            playerInputs.MenuMap.Disable();
-            playerInputs.PlayingMap.Enable();       
+        {            
+            playerInputs.PlayingMap.Enable();
+            playTap.started += PlayTap;
+            menuTap.started += MenuTap;
         }
 
         private void OnDisable()
         {
-            playerInputs.MenuMap.Disable();
+            playTap.started -= PlayTap;
             playerInputs.PlayingMap.Disable();
         }
-
 
         private void PlayTap(InputAction.CallbackContext context)
         {
             Core.EventManager.Instance.Publish(Core.EventType.OnPlayerTapped);
         }
+
+        private void MenuTap(InputAction.CallbackContext context)
+        {
+        
+        }
+
+
+
+        private void SwitchActionMap()
+        {
+            if (isInMenu)
+            {
+                playerInputs.MenuMap.Disable();
+                playerInputs.PlayingMap.Enable();
+            }
+            else
+            {
+                playerInputs.PlayingMap.Disable();
+                playerInputs.MenuMap.Enable();
+            }
+        }
     }
+
 }
