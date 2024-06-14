@@ -14,23 +14,22 @@ namespace RoadToAAA.ProjectClock.Managers
         private ClockRendererAsset _clockRendererAsset;
         private PaletteAsset _paletteAsset;
         private DifficultyAsset _difficultyAsset;
+        private GameObject _clockPrefab;
 
         private StaticPool _clockPool;
         private int _currentNumberOfClocksSpawned = 0;
 
-        public ClockSpawner(SpawnerAsset spawnerAsset, ClockRendererAsset clockRendererAsset, PaletteAsset paletteAsset, DifficultyAsset difficultyAsset, GameObject clockGameObject)
-        {
-            _spawnerAsset = spawnerAsset;
-            _clockRendererAsset = clockRendererAsset;
-            _paletteAsset = paletteAsset;
-            _difficultyAsset = difficultyAsset;
-
-            _clockPool = new StaticPool(clockGameObject, _spawnerAsset.ClockPoolSize);
-        }
-
         public void Initialize()
         {
             _currentNumberOfClocksSpawned = 0;
+
+            _spawnerAsset = ConfigurationManager.Instance.SpawnerAsset;
+            _clockRendererAsset = ConfigurationManager.Instance.ClockRendererAsset;
+            _paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
+            _difficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
+            _clockPrefab = ConfigurationManager.Instance.ClockPrefab;
+
+            _clockPool = new StaticPool(_clockPrefab, _spawnerAsset.ClockPoolSize);
         }
 
         // Return a new ClockGameObject if it was possible to generate one

@@ -32,14 +32,19 @@ namespace RoadToAAA.ProjectClock.Managers
         public float GetHandAngle() => HandTransform.rotation.eulerAngles.z;
 
         // Configs
-        [SerializeField] private DifficultyAsset _difficultyAsset;
-        [SerializeField] private ClockRendererAsset _clockRendererAsset;
-        [SerializeField] private PaletteAsset _paletteAsset;
+        private DifficultyAsset _difficultyAsset;
+        private ClockRendererAsset _clockRendererAsset;
+        private PaletteAsset _paletteAsset;
 
         #region UnityMessages
         private void Awake()
         {
             ClockGameObject = gameObject;
+
+            // Configs
+            _difficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
+            _clockRendererAsset = ConfigurationManager.Instance.ClockRendererAsset;
+            _paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
 
             // Deduce other data
             ClockTransform = ClockGameObject.transform;
@@ -52,6 +57,8 @@ namespace RoadToAAA.ProjectClock.Managers
 #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
+            if (_difficultyAsset == null) return;
+
             float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength) / (Radius);
             float successAngle = Mathf.Atan2(SuccessDirection.y, SuccessDirection.x);
             float perfectSuccessRatio = _difficultyAsset.PerfectSuccessRatio;

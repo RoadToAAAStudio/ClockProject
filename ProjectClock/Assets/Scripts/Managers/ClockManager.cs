@@ -11,17 +11,16 @@ namespace RoadToAAA.ProjectClock.Managers
      */
     public class ClockManager : MonoBehaviour 
     {
-        [SerializeField] private SpawnerAsset SpawnerAsset;
-        [SerializeField] private ClockRendererAsset ClockRendererAsset;
-        [SerializeField] private PaletteAsset PaletteAsset;
-        [SerializeField] private DifficultyAsset DifficultyAsset;
-        [SerializeField] private ComboAsset ComboAsset;
-        [SerializeField] private GameObject ClockPrefab;
+        // Configs
+        private SpawnerAsset SpawnerAsset;
 
+        // Combonents
         private ClockSpawner _clockSpawner;
         private ClockChecker _clockChecker;
         private ClocksMover _clocksMover;
         private ClockComboHandler _clockComboHandler;
+        
+        // Runtime variables
         private List<Clock> _clocks;
         private int _currentClockIndex;
 
@@ -32,13 +31,21 @@ namespace RoadToAAA.ProjectClock.Managers
         #region UnityMessages
         private void Awake()
         {
-            _clockSpawner = new ClockSpawner(SpawnerAsset, ClockRendererAsset, PaletteAsset, DifficultyAsset, ClockPrefab);
-            _clockChecker = new ClockChecker(DifficultyAsset);
+            // Components
+            _clockSpawner = new ClockSpawner();
+            _clockChecker = new ClockChecker();
             _clocksMover = new ClocksMover();
-            _clockComboHandler = new ClockComboHandler(ComboAsset);
+            _clockComboHandler = new ClockComboHandler();
 
             _clocks = new List<Clock>();
+        }
 
+        private void Start()
+        {
+            // Configs
+            SpawnerAsset = ConfigurationManager.Instance.SpawnerAsset;
+
+            // Initialize self and components
             Initialize();
         }
 
@@ -66,6 +73,7 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             // Initialize components
             _clockSpawner.Initialize();
+            _clockChecker.Initialize();
             _clockComboHandler.Initialize();
 
             // Initialize Manager

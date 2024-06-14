@@ -9,16 +9,13 @@ namespace RoadToAAA.ProjectClock.Managers
         private int _currentState = 0;
         private int _currentNumberOFSuccessConditions = 0;
 
-        public ClockComboHandler(ComboAsset comboAsset)
-        {
-            _comboAsset = comboAsset;
-        }
-
         public void Initialize()
         {
             _currentState = 0;
             _currentNumberOFSuccessConditions = 0;
-    }
+
+            _comboAsset = ConfigurationManager.Instance.ComboAsset;
+        }
 
         public ComboResult HandleCheckResult(ECheckResult checkResult)
         {

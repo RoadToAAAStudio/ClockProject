@@ -7,9 +7,9 @@ namespace RoadToAAA.ProjectClock.Managers
     {
         private DifficultyAsset _difficultyAsset;
 
-        public ClockChecker(DifficultyAsset difficultyAsset)
+        public void Initialize()
         {
-            _difficultyAsset = difficultyAsset;
+            _difficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
         }
 
         public ECheckResult Check(Clock clock)
