@@ -54,8 +54,8 @@ namespace RoadToAAA.ProjectClock.Managers
 
                 case CheckState.COMBO:
 
-                    score += ComboManager.Instance.CurrentCombo.score;
-                    SpawnText(Camera.main.transform.position, ComboManager.Instance.CurrentCombo.message, ComboManager.Instance.CurrentCombo.messageColor);
+                    //score += ComboManager.Instance.CurrentCombo.score;
+                    //SpawnText(Camera.main.transform.position, ComboManager.Instance.CurrentCombo.message, ComboManager.Instance.CurrentCombo.messageColor);
                     break;
             }
 

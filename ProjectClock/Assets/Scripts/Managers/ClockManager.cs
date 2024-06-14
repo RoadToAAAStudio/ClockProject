@@ -15,11 +15,13 @@ namespace RoadToAAA.ProjectClock.Managers
         [SerializeField] private ClockRendererAsset ClockRendererAsset;
         [SerializeField] private PaletteAsset PaletteAsset;
         [SerializeField] private DifficultyAsset DifficultyAsset;
+        [SerializeField] private ComboAsset ComboAsset;
         [SerializeField] private GameObject ClockPrefab;
 
         private ClockSpawner _clockSpawner;
         private ClockChecker _clockChecker;
         private ClocksMover _clocksMover;
+        private ClockComboHandler _clockComboHandler;
         private List<Clock> _clocks;
         private int _currentClockIndex;
 
@@ -33,6 +35,7 @@ namespace RoadToAAA.ProjectClock.Managers
             _clockSpawner = new ClockSpawner(SpawnerAsset, ClockRendererAsset, PaletteAsset, DifficultyAsset, ClockPrefab);
             _clockChecker = new ClockChecker(DifficultyAsset);
             _clocksMover = new ClocksMover();
+            _clockComboHandler = new ClockComboHandler(ComboAsset);
 
             _clocks = new List<Clock>();
 
@@ -61,8 +64,11 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void Initialize()
         {
+            // Initialize components
             _clockSpawner.Initialize();
+            _clockComboHandler.Initialize();
 
+            // Initialize Manager
             _clocks.Clear();
             _currentClockIndex = 0;
 
@@ -77,8 +83,8 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             Debug.Assert(_currentClock != null, "Current clock object is null!");
 
-            ECheckResult checkResult = _clockChecker.Check(_currentClock);
-            
+            // Take Check result
+            ECheckResult checkResult = _clockChecker.Check(_currentClock);         
             switch (checkResult) 
             { 
                 case ECheckResult.Success:
@@ -92,7 +98,6 @@ namespace RoadToAAA.ProjectClock.Managers
                         SpawnClock();
                     }
                     _clocksMover.MoveClocks(this, _clocks, _currentClock.transform.position);
-                    EventManager.Instance.Publish(EEventType.OnSuccess);
                     break;
 
                 case ECheckResult.Perfect:
@@ -106,13 +111,17 @@ namespace RoadToAAA.ProjectClock.Managers
                         SpawnClock();
                     }
                     _clocksMover.MoveClocks(this, _clocks, _currentClock.transform.position);
-                    EventManager.Instance.Publish(EEventType.OnPerfectSuccess);
                     break;
 
                 case ECheckResult.Unsuccess:
-                    EventManager.Instance.Publish(EEventType.OnUnsuccess);
                     break;
             }
+
+            // Take Combo Result
+            ComboResult comboResult = _clockComboHandler.HandleCheckResult(checkResult);
+
+            EventManager<ECheckResult>.Instance.Publish(EEventType.OnCheckerResult, checkResult);
+            EventManager<ComboResult>.Instance.Publish(EEventType.OnComboStateChanged, comboResult);
         }
 
         private void SpawnClock()

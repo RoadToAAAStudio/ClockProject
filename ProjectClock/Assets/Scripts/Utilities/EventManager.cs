@@ -58,7 +58,7 @@ namespace RoadToAAA.ProjectClock.Utilities
         public void Publish(EEventType eventName)
         {
 #if UNITY_EDITOR
-            Debug.Log(string.Format("EventManager: {0}", eventName));
+            Debug.Log(string.Format("<color=silver>EventManager: {0}</color>", eventName));
 #endif
             if (!_listeners.ContainsKey(eventName)) return;
                 
@@ -127,7 +127,7 @@ namespace RoadToAAA.ProjectClock.Utilities
         public void Publish(EEventType eventName, T param)
         {
 #if UNITY_EDITOR
-            Debug.Log(string.Format("EventManager: {0}", eventName));
+            Debug.Log(string.Format("<color=silver>EventManager: {0} param({1})</color>", eventName, param));
 #endif
             if (!_listeners.ContainsKey(eventName)) return;
 
@@ -196,7 +196,7 @@ namespace RoadToAAA.ProjectClock.Utilities
         public void Publish(EEventType eventName, T1 param1, T2 param2)
         {
 #if UNITY_EDITOR
-            Debug.Log(string.Format("EventManager: {0}", eventName));
+            Debug.Log(string.Format("<color=silver>EventManager: {0} param1({1}) param2 ({2})</color>", eventName, param1, param2));
 #endif
             if (!_listeners.ContainsKey(eventName)) return;
 
@@ -227,9 +227,8 @@ namespace RoadToAAA.ProjectClock.Utilities
         #endregion
 
         #region GameplayEvents
-        OnSuccess,
-        OnPerfectSuccess,
-        OnUnsuccess
+        OnCheckerResult,
+        OnComboStateChanged
         #endregion
     }
 }

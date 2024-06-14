@@ -609,6 +609,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01601ab0bc461704d98a2f175a5f2196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  comboAssets: []
+  comboIndex: 0
+  comboNumber: 0
+  currentCombo: {fileID: 0}
 --- !u!4 &398027860
 Transform:
   m_ObjectHideFlags: 0
@@ -1453,6 +1457,7 @@ MonoBehaviour:
   ClockRendererAsset: {fileID: 11400000, guid: f4fb87e08e2827f40910090090537079, type: 2}
   PaletteAsset: {fileID: 11400000, guid: 65ef92f0e6af24745839d03f1bbb2ebc, type: 2}
   DifficultyAsset: {fileID: 11400000, guid: 8c71625b0afbeac45a44b05092cfa564, type: 2}
+  ComboAsset: {fileID: 11400000, guid: a614c0a31427e7c46b6a0f0d4505f1dc, type: 2}
   ClockPrefab: {fileID: 8109456233941987389, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
 --- !u!1 &925265932
 GameObject:

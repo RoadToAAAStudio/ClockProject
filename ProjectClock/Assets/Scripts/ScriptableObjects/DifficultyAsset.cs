@@ -12,7 +12,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
 
         public float GetLerpedHandAbsoluteSpeed(int currentNumberOfClearedClock)
         {
-            Debug.Assert(currentNumberOfClearedClock >= 0 , "Curve Point mus have positive Number of Cleared Clocks!");
+            Debug.Assert(currentNumberOfClearedClock >= 0 , "Curve Point must have positive Number of Cleared Clocks!");
             Debug.Assert(IsValid(), "Difficulty asset is not valid!");
 
             if (currentNumberOfClearedClock == 0)

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b20f547e5ab7bc44f81f1a7a7e580175, type: 3}
+  m_Name: ComboAsset
+  m_EditorClassIdentifier: 
+  ProgressConditions: 02000000
+  FailConditions: 0000000001000000
+  ComboStates:
+  - Score: 1
+    Message: +1
+    MessageColor: {r: 1, g: 1, b: 1, a: 1}
+    NumberOfSuccessConditionsToChangeAsset: 1
+  - Score: 3
+    Message: +3 Perfect!
+    MessageColor: {r: 1, g: 0.8260877, b: 0, a: 1}
+    NumberOfSuccessConditionsToChangeAsset: 1
+  - Score: 4
+    Message: +4 Combo!
+    MessageColor: {r: 0, g: 0.8962264, b: 0.14321916, a: 1}
+    NumberOfSuccessConditionsToChangeAsset: 2
+  - Score: 5
+    Message: +5 Amazing!
+    MessageColor: {r: 1, g: 0, b: 0.6308284, a: 1}
+    NumberOfSuccessConditionsToChangeAsset: 1
