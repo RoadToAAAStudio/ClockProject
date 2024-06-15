@@ -69,7 +69,7 @@ namespace RoadToAAA.ProjectClock.Managers
             text.transform.localRotation = Quaternion.identity;
             text.transform.localScale = Vector2.one;
             text.transform.SetParent(canvas.transform, false);
-            text.Init(message, color);
+            text.Initialize(message, color);
         }
 
         private void Gameover()

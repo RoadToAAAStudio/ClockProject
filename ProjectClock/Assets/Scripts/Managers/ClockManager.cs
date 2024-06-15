@@ -128,8 +128,7 @@ namespace RoadToAAA.ProjectClock.Managers
             // Take Combo Result
             ComboResult comboResult = _clockComboHandler.HandleCheckResult(checkResult);
 
-            EventManager<ECheckResult>.Instance.Publish(EEventType.OnCheckerResult, checkResult);
-            EventManager<ComboResult>.Instance.Publish(EEventType.OnComboStateChanged, comboResult);
+            EventManager<ECheckResult, ComboResult>.Instance.Publish(EEventType.OnCheckerResult, checkResult, comboResult);
         }
 
         private void SpawnClock()
