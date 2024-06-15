@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2886384422725790404}
   - component: {fileID: 3757564084885073415}
   - component: {fileID: -5320963421620231632}
+  - component: {fileID: 3915510402354731493}
   m_Layer: 5
   m_Name: FadingText
   m_TagString: Untagged
@@ -149,5 +150,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24c2bd75473ae63448274775ad4efcc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDespawn: 0.75
-  timeOnScreen: 0.5
+  TimeToDespawn: 0.75
+  TimeOnScreen: 0.5
+--- !u!114 &3915510402354731493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525261385963103686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effa2f009b17a6b4d8dc3bf60d038316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MovingSpeed: 50

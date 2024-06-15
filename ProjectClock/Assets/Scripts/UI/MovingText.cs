@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class MovingText : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private int MovingSpeed = 50;
+
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position = new Vector2(transform.position.x, transform.position.y + MovingSpeed * Time.deltaTime);
     }
 }

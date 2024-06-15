@@ -5,31 +5,31 @@ using UnityEngine;
 
 public class FadingText : MonoBehaviour
 {
-    private TextMeshProUGUI textComponent;
-    public float timeToDespawn = 0.75f;
-    public float timeOnScreen = 0.5f;
-    private float elapsedTime = 0;
+    private TextMeshProUGUI _textComponent;
+    private float _elapsedTime = 0;
+    [SerializeField] private float TimeToDespawn = 0.75f;
+    [SerializeField] private float TimeOnScreen = 0.5f;
 
     public void Initialize(string message, Color color)
     {
-        textComponent = GetComponent<TextMeshProUGUI>();
-        textComponent.text = message;
-        textComponent.color = color;
+        _textComponent = GetComponent<TextMeshProUGUI>();
+        _textComponent.text = message;
+        _textComponent.color = color;
         StartCoroutine(FadeCO());
     }
 
     private IEnumerator FadeCO()
     {
-        yield return new WaitForSeconds(timeOnScreen);
+        yield return new WaitForSeconds(TimeOnScreen);
 
-        while (elapsedTime < timeToDespawn)
+        while (_elapsedTime < TimeToDespawn)
         {
-            elapsedTime += Time.deltaTime;
-            textComponent.alpha = Mathf.Lerp(1, 0, elapsedTime / timeToDespawn);
+            _elapsedTime += Time.deltaTime;
+            _textComponent.alpha = Mathf.Lerp(1, 0, _elapsedTime / TimeToDespawn);
             yield return null;
         }
 
-        if (textComponent.alpha <= 0)
+        if (_textComponent.alpha <= 0)
         {
             Destroy(gameObject);
         }
