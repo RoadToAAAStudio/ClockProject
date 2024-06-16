@@ -26,9 +26,10 @@ namespace RoadToAAA.ProjectClock.Managers
 
         // Derived Parameters
         public float Circumference { get; private set; }
-        public float AngularSpeed { get; private set; } 
+        public float AngularSpeed { get; private set; }
 
         // Runtime data
+        public EClockState ClockState { get; private set; }
         public float GetHandAngle() => HandTransform.rotation.eulerAngles.z;
 
         // Configs
@@ -114,8 +115,9 @@ namespace RoadToAAA.ProjectClock.Managers
             HandRenderer.startWidth = _clockRendererAsset.HandWidth;
             HandRenderer.endWidth = _clockRendererAsset.HandWidth;
             HandRenderer.loop = false;
-            HandRenderer.startColor = HandColor;
-            HandRenderer.endColor = HandColor;
+          
+            HandRenderer.startColor = ClockState == EClockState.Activated ? HandColor : _paletteAsset.DeactivatedHandColor;
+            HandRenderer.endColor = ClockState == EClockState.Activated ? HandColor : _paletteAsset.DeactivatedHandColor;
 
             HandRenderer.SetPosition(0, HandTransform.position);
             Vector3 offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad) * Radius * _clockRendererAsset.HandLengthClockRadiusRatio, Mathf.Sin(angle * Mathf.Deg2Rad) * Radius * _clockRendererAsset.HandLengthClockRadiusRatio);
@@ -149,7 +151,15 @@ namespace RoadToAAA.ProjectClock.Managers
                 previousClock.SuccessDirection = SpawnDirection;
             }
 
+            ClockState = EClockState.Activated;
+
             Debug.Assert(IsValid(), "Clock is not valid!");
+        }
+
+        public void DeactivateHand()
+        {
+            ClockState = EClockState.Deactivated;
+            DrawHand(GetHandAngle());
         }
 
         public bool IsValid()
@@ -165,5 +175,16 @@ namespace RoadToAAA.ProjectClock.Managers
 
             return true;
         }
+
+        public override string ToString()
+        {
+            return gameObject.name;
+        }
+    }
+
+    public enum EClockState
+    {
+        Activated,
+        Deactivated
     }
 }

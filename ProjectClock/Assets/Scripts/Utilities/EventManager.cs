@@ -227,7 +227,8 @@ namespace RoadToAAA.ProjectClock.Utilities
         #endregion
 
         #region GameplayEvents
-        OnCheckerResult
+        OnCheckerResult,
+        OnNewClockSelected
         #endregion
     }
 }

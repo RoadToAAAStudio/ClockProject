@@ -8,7 +8,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
     {
         public Color ClockColor = new Color(0.04f, 0.5f, 0.9f);
         public List<Color> HandColors = new List<Color>();
-        public Color HandDeactivatedColor = new Color(0.25f, 0.25f, 0.25f);
+        public Color DeactivatedHandColor = new Color(0.25f, 0.25f, 0.25f);
 
 #if UNITY_EDITOR
         private void OnValidate()

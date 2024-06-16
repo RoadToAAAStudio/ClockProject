@@ -17,7 +17,6 @@ namespace RoadToAAA.ProjectClock.Managers
         // Combonents
         private ClockSpawner _clockSpawner;
         private ClockChecker _clockChecker;
-        private ClocksMover _clocksMover;
         private ClockComboHandler _clockComboHandler;
         
         // Runtime variables
@@ -34,7 +33,6 @@ namespace RoadToAAA.ProjectClock.Managers
             // Components
             _clockSpawner = new ClockSpawner();
             _clockChecker = new ClockChecker();
-            _clocksMover = new ClocksMover();
             _clockComboHandler = new ClockComboHandler();
 
             _clocks = new List<Clock>();
@@ -64,7 +62,8 @@ namespace RoadToAAA.ProjectClock.Managers
             Debug.Assert(_currentClock != null, "Current clock object is null!");
 
             Clock currentClock = _currentClock.GetComponent<Clock>();
-            currentClock.DrawHand(currentClock.HandTransform.rotation.eulerAngles.z + currentClock.AngularSpeed * Time.deltaTime);
+            float handAngle = currentClock.HandTransform.rotation.eulerAngles.z + currentClock.AngularSpeed * Time.deltaTime;
+            currentClock.DrawHand(handAngle);
 
         }
         #endregion
@@ -96,19 +95,8 @@ namespace RoadToAAA.ProjectClock.Managers
             switch (checkResult) 
             { 
                 case ECheckResult.Success:
-                    if (_currentClockIndex < SpawnerAsset.RenderingDistance)
-                    {
-                        _currentClockIndex++;
-                    }
-                    else
-                    {
-                        DespawnClock();
-                        SpawnClock();
-                    }
-                    _clocksMover.MoveClocks(this, _clocks, _currentClock.transform.position);
-                    break;
-
                 case ECheckResult.Perfect:
+                    _currentClock.DeactivateHand();
                     if (_currentClockIndex < SpawnerAsset.RenderingDistance)
                     {
                         _currentClockIndex++;
@@ -118,7 +106,8 @@ namespace RoadToAAA.ProjectClock.Managers
                         DespawnClock();
                         SpawnClock();
                     }
-                    _clocksMover.MoveClocks(this, _clocks, _currentClock.transform.position);
+
+                    EventManager<Clock, Clock>.Instance.Publish(EEventType.OnNewClockSelected, _currentClock, _clocks[_currentClockIndex - 1]);
                     break;
 
                 case ECheckResult.Unsuccess:
