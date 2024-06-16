@@ -223,7 +223,6 @@ namespace RoadToAAA.ProjectClock.Utilities
 
         #region InputEvents
         OnPlayTap,
-        OnMenuTap,
         #endregion
 
         #region GameplayEvents
@@ -232,11 +231,13 @@ namespace RoadToAAA.ProjectClock.Utilities
         #endregion
 
         #region UIEvents
+        OnPlayButtonPressed,
         OnShopButtonPressed,
         OnLeaderboardButtonPressed,
         OnAudioButtonPressed,
-        OnShopReturnButtonPressed,
-        OnLeaderboardReturnButtonPressed
+        OnReturnButtonPressed,
+        OnLeaderboardReturnButtonPressed,
+        OnRetryButtonPressed
         #endregion
     }
 }

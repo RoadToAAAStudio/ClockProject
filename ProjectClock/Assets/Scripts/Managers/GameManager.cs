@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RoadToAAA.ProjectClock.Utilities;
+using RoadToAAA.ProjectClock.Scriptables;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -26,11 +27,17 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void OnEnable()
         {
-            EventManager.Instance.Subscribe(EEventType.OnMenuTap, StartPlay);
+            EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, CheckGameOver);
+            EventManager.Instance.Subscribe(EEventType.OnPlayButtonPressed, StartPlay);
+            EventManager.Instance.Subscribe(EEventType.OnRetryButtonPressed, QuitPlay);
+            EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, CheckReturnFromShop);
         }
         private void OnDisable()
         {
-            EventManager.Instance.Unsubscribe(EEventType.OnMenuTap, StartPlay);
+            EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, CheckGameOver);
+            EventManager.Instance.Unsubscribe(EEventType.OnPlayButtonPressed, StartPlay);
+            EventManager.Instance.Unsubscribe(EEventType.OnRetryButtonPressed, QuitPlay);
+            EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, CheckReturnFromShop);
         }
 
         // Start is called before the first frame update
@@ -58,6 +65,26 @@ namespace RoadToAAA.ProjectClock.Managers
         private void GameOver()
         {
             ChangeState(EGameState.GameOver);
+        }
+
+        private void CheckGameOver(ECheckResult checkResult, ComboResult comboResult)
+        {
+            if (checkResult == ECheckResult.Unsuccess)
+            {
+                GameOver();
+            }
+        }
+
+        private void CheckReturnFromShop()
+        {
+            if (oldState == EGameState.MainMenu)
+            {
+                return;
+            }
+            else
+            {
+                ChangeState(EGameState.MainMenu);
+            }
         }
     }
 }

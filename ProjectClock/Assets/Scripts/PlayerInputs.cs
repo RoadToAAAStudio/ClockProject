@@ -56,15 +56,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             ""id"": ""38f2be8f-63bb-409b-ab2a-016b16ef91c4"",
             ""actions"": [
                 {
-                    ""name"": ""MapTap"",
-                    ""type"": ""Button"",
-                    ""id"": ""9f9089b0-0426-481e-aeb4-f99c5fe65341"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Swipe"",
                     ""type"": ""Value"",
                     ""id"": ""2bffecdd-deb3-4c22-b2bc-a4c8314e7653"",
@@ -75,17 +66,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""b4137781-9da3-4226-86f8-a619f523fbfe"",
-                    ""path"": ""<Touchscreen>/primaryTouch/press"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""MapTap"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""ced3a7ce-3bf4-4d60-af73-5732b0cca9c6"",
@@ -107,7 +87,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_PlayingMap_PlayTap = m_PlayingMap.FindAction("PlayTap", throwIfNotFound: true);
         // MenuMap
         m_MenuMap = asset.FindActionMap("MenuMap", throwIfNotFound: true);
-        m_MenuMap_MapTap = m_MenuMap.FindAction("MapTap", throwIfNotFound: true);
         m_MenuMap_Swipe = m_MenuMap.FindAction("Swipe", throwIfNotFound: true);
     }
 
@@ -216,13 +195,11 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     // MenuMap
     private readonly InputActionMap m_MenuMap;
     private List<IMenuMapActions> m_MenuMapActionsCallbackInterfaces = new List<IMenuMapActions>();
-    private readonly InputAction m_MenuMap_MapTap;
     private readonly InputAction m_MenuMap_Swipe;
     public struct MenuMapActions
     {
         private @PlayerInputs m_Wrapper;
         public MenuMapActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
-        public InputAction @MapTap => m_Wrapper.m_MenuMap_MapTap;
         public InputAction @Swipe => m_Wrapper.m_MenuMap_Swipe;
         public InputActionMap Get() { return m_Wrapper.m_MenuMap; }
         public void Enable() { Get().Enable(); }
@@ -233,9 +210,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_MenuMapActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_MenuMapActionsCallbackInterfaces.Add(instance);
-            @MapTap.started += instance.OnMapTap;
-            @MapTap.performed += instance.OnMapTap;
-            @MapTap.canceled += instance.OnMapTap;
             @Swipe.started += instance.OnSwipe;
             @Swipe.performed += instance.OnSwipe;
             @Swipe.canceled += instance.OnSwipe;
@@ -243,9 +217,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IMenuMapActions instance)
         {
-            @MapTap.started -= instance.OnMapTap;
-            @MapTap.performed -= instance.OnMapTap;
-            @MapTap.canceled -= instance.OnMapTap;
             @Swipe.started -= instance.OnSwipe;
             @Swipe.performed -= instance.OnSwipe;
             @Swipe.canceled -= instance.OnSwipe;
@@ -272,7 +243,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     }
     public interface IMenuMapActions
     {
-        void OnMapTap(InputAction.CallbackContext context);
         void OnSwipe(InputAction.CallbackContext context);
     }
 }

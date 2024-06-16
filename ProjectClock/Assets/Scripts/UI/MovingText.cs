@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovingText : MonoBehaviour
 {
-    [SerializeField] private int MovingSpeed = 50;
+    [SerializeField] private float MovingSpeed = 0.5f;
 
 
     // Update is called once per frame

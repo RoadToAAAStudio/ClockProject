@@ -1,18 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RoadToAAA.ProjectClock.Utilities;
+using TMPro;
 
-public class GameOverPanel : MonoBehaviour
+namespace RoadToAAA.ProjectClock.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GameOverPanel : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private TextMeshProUGUI scoreText;
+        [SerializeField] private TextMeshProUGUI highScoreText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        private void OnEnable()
+        {
+            
+        }
+
+
+        public void Initialize(int score, int bestScore)
+        {
+            scoreText.text = "Score: " + score.ToString();
+            highScoreText.text = "Best score: " + bestScore.ToString();
+        }
+
+        public void RetryButton()
+        {
+            EventManager.Instance.Publish(EEventType.OnRetryButtonPressed);
+        }
+
+        public void ShopButton()
+        {
+            EventManager.Instance.Publish(EEventType.OnShopButtonPressed);
+        }
     }
 }

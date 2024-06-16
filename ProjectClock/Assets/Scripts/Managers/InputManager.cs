@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using RoadToAAA.ProjectClock.Utilities;
+using static RoadToAAA.ProjectClock.Managers.GameManager;
+using UnityEngine.UI;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -11,30 +13,32 @@ namespace RoadToAAA.ProjectClock.Managers
         private InputAction menuTap;
         private InputAction menuSwipe;
 
-        //remember to change initial value when completing this class
-        private bool isInMenu = false;
-
 
         private void Awake()
         {
             playerInputs = new PlayerInputs();
             playTap = playerInputs.PlayingMap.PlayTap;
-            menuTap = playerInputs.MenuMap.MapTap;
             menuSwipe = playerInputs.MenuMap.Swipe;
         }
         
         private void OnEnable()
-        {            
-            playerInputs.PlayingMap.Enable();
+        {
+            playerInputs.MenuMap.Enable();
+            playerInputs.PlayingMap.Disable();
             playTap.started += PlayTap;
-            menuTap.started += MenuTap;
+
+
+            EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, CheckSwitchActionMap);
         }
 
         private void OnDisable()
         {
+
             playTap.started -= PlayTap;
+
+            playerInputs.MenuMap.Disable();
             playerInputs.PlayingMap.Disable();
-            menuTap.started -= MenuTap;
+
         }
 
         private void PlayTap(InputAction.CallbackContext context)
@@ -42,22 +46,17 @@ namespace RoadToAAA.ProjectClock.Managers
             EventManager.Instance.Publish(EEventType.OnPlayTap);
         }
 
-        private void MenuTap(InputAction.CallbackContext context)
+
+
+        private void CheckSwitchActionMap(EGameState oldState, EGameState newState)
         {
-            EventManager.Instance.Publish(EEventType.OnMenuTap);
-        }
-
-
-
-        private void SwitchActionMap()
-        {
-            if (isInMenu)
+            if (newState == EGameState.Playing)
             {
                 playerInputs.MenuMap.Disable();
                 playerInputs.PlayingMap.Enable();
             }
             else
-            {
+            {                        
                 playerInputs.PlayingMap.Disable();
                 playerInputs.MenuMap.Enable();
             }

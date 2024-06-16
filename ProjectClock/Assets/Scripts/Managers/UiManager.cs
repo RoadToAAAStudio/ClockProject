@@ -19,14 +19,22 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateUIFromGameState);
             EventManager.Instance.Subscribe(EEventType.OnShopButtonPressed, OpenShop);
-            EventManager.Instance.Subscribe(EEventType.OnShopReturnButtonPressed, OpenMainMenu);
+            EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, OpenMainMenu);
             EventManager.Instance.Subscribe(EEventType.OnLeaderboardButtonPressed, OpenLeaderboard);
             EventManager.Instance.Subscribe(EEventType.OnLeaderboardReturnButtonPressed, OpenMainMenu);
+            EventManager.Instance.Subscribe(EEventType.OnRetryButtonPressed, OpenMainMenu);
+            EventManager.Instance.Subscribe(EEventType.OnPlayButtonPressed, StartPlaying);
         }
 
         private void OnDisable()
         {
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateUIFromGameState);
+            EventManager.Instance.Unsubscribe(EEventType.OnShopButtonPressed, OpenShop);
+            EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, OpenMainMenu);
+            EventManager.Instance.Unsubscribe(EEventType.OnLeaderboardButtonPressed, OpenLeaderboard);
+            EventManager.Instance.Unsubscribe(EEventType.OnLeaderboardReturnButtonPressed, OpenMainMenu);
+            EventManager.Instance.Unsubscribe(EEventType.OnRetryButtonPressed, OpenMainMenu);
+            EventManager.Instance.Unsubscribe(EEventType.OnPlayButtonPressed, StartPlaying);
         }
 
         private void UpdateUIFromGameState(EGameState oldState, EGameState newState)
@@ -85,6 +93,5 @@ namespace RoadToAAA.ProjectClock.Managers
             LeaderboardPanel.SetActive(false);
             GameplayPanel.SetActive(false);
         }
-
     }
 }

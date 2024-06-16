@@ -34,15 +34,6 @@
             "id": "38f2be8f-63bb-409b-ab2a-016b16ef91c4",
             "actions": [
                 {
-                    "name": "MapTap",
-                    "type": "Button",
-                    "id": "9f9089b0-0426-481e-aeb4-f99c5fe65341",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Swipe",
                     "type": "Value",
                     "id": "2bffecdd-deb3-4c22-b2bc-a4c8314e7653",
@@ -53,17 +44,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "b4137781-9da3-4226-86f8-a619f523fbfe",
-                    "path": "<Touchscreen>/primaryTouch/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "MapTap",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "ced3a7ce-3bf4-4d60-af73-5732b0cca9c6",

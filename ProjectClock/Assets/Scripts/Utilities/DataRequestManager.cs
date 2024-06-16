@@ -70,6 +70,9 @@ namespace RoadToAAA.ProjectClock.Utilities
 
     public enum ERequestType
     {
-
+        #region UI Requests
+        ScoreRequest,
+        BestScoreRequest
+        #endregion
     }
 }

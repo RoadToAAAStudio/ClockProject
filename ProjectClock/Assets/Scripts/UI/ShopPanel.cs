@@ -7,6 +7,7 @@ public class ShopPanel : MonoBehaviour
 {
     public void ReturnButton()
     {
-        EventManager.Instance.Publish(EEventType.OnShopReturnButtonPressed);
+
+        EventManager.Instance.Publish(EEventType.OnReturnButtonPressed);
     }
 }

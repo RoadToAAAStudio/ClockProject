@@ -8,6 +8,13 @@ namespace RoadToAAA.ProjectClock.UI
 {
     public class MainMenuPanel : MonoBehaviour
     {
+
+        public void PlayButton()
+        {
+            Debug.Log("Play Pressed");
+            EventManager.Instance.Publish(EEventType.OnPlayButtonPressed);
+        }
+
         public void ShopButton()
         {
             EventManager.Instance.Publish(EEventType.OnShopButtonPressed); 
