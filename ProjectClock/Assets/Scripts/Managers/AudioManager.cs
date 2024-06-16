@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RoadToAAA.ProjectClock.Utilities;
+using RoadToAAA.ProjectClock.Scriptables;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -14,12 +16,12 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void OnEnable()
         {
-            //EventManagerTwoParams<GameObject, GameObject>.Instance.StartListening("onNewClock", GoodTap);
+            EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, GoodTap);
         }
 
         private void OnDisable()
         {
-            //EventManagerTwoParams<GameObject, GameObject>.Instance.StopListening("onNewClock", GoodTap);
+            EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, GoodTap);
         }
 
         private void Awake()
@@ -77,11 +79,12 @@ namespace RoadToAAA.ProjectClock.Managers
         }
 
 
-        private void GoodTap(GameObject newClockGO, GameObject oldClockGO)
+        private void GoodTap(ECheckResult checkResult, ComboResult comboResult)
         {
-            if (oldClockGO == null) return;
-
-            PlaySfx(sfxList[0]);
+            if (checkResult != ECheckResult.Unsuccess)
+            {
+                PlaySfx(sfxList[0]);
+            }
         }
     }
 }

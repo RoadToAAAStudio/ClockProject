@@ -2,8 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using RoadToAAA.ProjectClock.Utilities;
 
-public class MainMenuPanel : MonoBehaviour
+namespace RoadToAAA.ProjectClock.UI
 {
+    public class MainMenuPanel : MonoBehaviour
+    {
+        public void ShopButton()
+        {
+            EventManager.Instance.Publish(EEventType.OnShopButtonPressed); 
+        }
 
+        public void LeaderboardButton()
+        {
+            EventManager.Instance.Publish(EEventType.OnLeaderboardButtonPressed);
+        }
+
+        public void SoundButton()
+        {
+            EventManager.Instance.Publish(EEventType.OnAudioButtonPressed);
+        }
+
+    }
 }

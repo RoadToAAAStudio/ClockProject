@@ -228,7 +228,15 @@ namespace RoadToAAA.ProjectClock.Utilities
 
         #region GameplayEvents
         OnCheckerResult,
-        OnNewClockSelected
+        OnNewClockSelected,
+        #endregion
+
+        #region UIEvents
+        OnShopButtonPressed,
+        OnLeaderboardButtonPressed,
+        OnAudioButtonPressed,
+        OnShopReturnButtonPressed,
+        OnLeaderboardReturnButtonPressed
         #endregion
     }
 }

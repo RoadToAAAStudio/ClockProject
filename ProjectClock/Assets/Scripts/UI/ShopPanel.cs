@@ -1,18 +1,12 @@
+using RoadToAAA.ProjectClock.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShopPanel : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void ReturnButton()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        EventManager.Instance.Publish(EEventType.OnShopReturnButtonPressed);
     }
 }

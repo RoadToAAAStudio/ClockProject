@@ -24,17 +24,19 @@ namespace RoadToAAA.ProjectClock.Managers
         private EGameState newState;
 
 
+        private void OnEnable()
+        {
+            EventManager.Instance.Subscribe(EEventType.OnMenuTap, StartPlay);
+        }
+        private void OnDisable()
+        {
+            EventManager.Instance.Unsubscribe(EEventType.OnMenuTap, StartPlay);
+        }
 
         // Start is called before the first frame update
         void Start()
         {
             ChangeState(EGameState.MainMenu);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         private void ChangeState(EGameState state)
@@ -44,19 +46,18 @@ namespace RoadToAAA.ProjectClock.Managers
             oldState = newState;
         }
 
+        public void StartPlay()
+        {
+            ChangeState(EGameState.Playing);
+        }
         public void QuitPlay()
         {
-            newState = EGameState.MainMenu;
-        }
-
-        private void SetPlayingState()
-        {
-            newState = EGameState.Playing;
+            ChangeState(EGameState.MainMenu);
         }
 
         private void GameOver()
         {
-            newState = EGameState.GameOver;
+            ChangeState(EGameState.GameOver);
         }
     }
 }

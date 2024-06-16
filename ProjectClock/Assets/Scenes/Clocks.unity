@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 173162362}
   - component: {fileID: 173162361}
   m_Layer: 5
-  m_Name: Button
+  m_Name: LeaderboardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -247,7 +247,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 173162362}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1459144555}
+        m_TargetAssemblyTypeName: RoadToAAA.ProjectClock.UI.MainMenuPanel, Assembly-CSharp
+        m_MethodName: LeaderboardButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &173162362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +402,7 @@ GameObject:
   - component: {fileID: 242260136}
   - component: {fileID: 242260135}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: PaletteButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -458,7 +470,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 242260136}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1459144555}
+        m_TargetAssemblyTypeName: RoadToAAA.ProjectClock.UI.MainMenuPanel, Assembly-CSharp
+        m_MethodName: ShopButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &242260136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1115,7 +1139,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 849256900}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 701453792400700108, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_Name
@@ -1123,7 +1147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 701453792400700108, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 959271549231132335, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_Pitch
@@ -1132,6 +1156,10 @@ PrefabInstance:
     - target: {fileID: 959271549231132335, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_Volume
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 959271549231132335, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: m_audioClip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2262704183230781715, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: sfxList.Array.data[0]
@@ -1143,15 +1171,19 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: a198b725052cd6440b596f24451c566d, type: 3}
     - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: Loop
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_Volume
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_PlayOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7794274177929065312, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1198,11 +1230,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
---- !u!4 &657585017 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7794274177929065312, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
-  m_PrefabInstance: {fileID: 657585016}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &661058436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,7 +1627,6 @@ Transform:
   - {fileID: 1030193730}
   - {fileID: 1696711957}
   - {fileID: 837684741}
-  - {fileID: 657585017}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &872674334
@@ -2304,7 +2330,6 @@ GameObject:
   - component: {fileID: 1459144557}
   - component: {fileID: 1459144556}
   - component: {fileID: 1459144555}
-  - component: {fileID: 1459144558}
   m_Layer: 5
   m_Name: MainMenuPanel
   m_TagString: Untagged
@@ -2386,18 +2411,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459144553}
   m_CullTransparentMesh: 1
---- !u!114 &1459144558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459144553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1e86db56813f0b459e50d382758d5fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1546566943
 GameObject:
   m_ObjectHideFlags: 0
@@ -2746,7 +2759,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1572700404}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 525159191}
+        m_TargetAssemblyTypeName: ShopPanel, Assembly-CSharp
+        m_MethodName: ReturnButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1572700404
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3380,7 +3405,7 @@ GameObject:
   - component: {fileID: 2034233094}
   - component: {fileID: 2034233093}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: AudioButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3448,7 +3473,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2034233094}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1459144555}
+        m_TargetAssemblyTypeName: RoadToAAA.ProjectClock.UI.MainMenuPanel, Assembly-CSharp
+        m_MethodName: SoundButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2034233094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3531,7 +3568,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066962755}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -3544,7 +3581,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3746,12 +3783,13 @@ SceneRoots:
   m_Roots:
   - {fileID: 968624139}
   - {fileID: 661058439}
-  - {fileID: 1658262287}
   - {fileID: 1679001077}
   - {fileID: 849256900}
+  - {fileID: 1658262287}
   - {fileID: 894262798}
   - {fileID: 131861684}
   - {fileID: 2143844721}
+  - {fileID: 657585016}
   - {fileID: 906604345}
   - {fileID: 1134894398}
   - {fileID: 403417575}
