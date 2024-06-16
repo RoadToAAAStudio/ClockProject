@@ -69,7 +69,13 @@ namespace RoadToAAA.ProjectClock.Managers
                 newClock.UpdateParameters(clockRadius, handSpeed, spawnDirection, handColor, previousClock);
             }
 
+            
             _currentNumberOfClocksSpawned++;
+
+            // Rendering
+            newClock.DeactivateHand();
+            newClock.DrawClock();
+            newClock.DrawHand(newClock.GetHandAngle());
 
             return newClock;
         }

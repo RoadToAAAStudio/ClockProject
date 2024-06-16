@@ -36,6 +36,8 @@ namespace RoadToAAA.ProjectClock.Managers
 
             Transform handTransform = oldClock.HandTransform;
 
+            if (!_handExplosionsPool.HasItems()) return;
+
             GameObject HandExplosionGameObject = _handExplosionsPool.Get(true, handTransform.position);
             ParticleSystem particleSystem = HandExplosionGameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
 

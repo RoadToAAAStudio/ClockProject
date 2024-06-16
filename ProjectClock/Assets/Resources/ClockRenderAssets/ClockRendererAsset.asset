@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClockNumberOfSegments: 120
   ClockWidth: 0.02
-  HandWidth: 0.04
+  StartHandWidth: 0.05
+  EndHandWidth: 0.015
   HandLengthClockRadiusRatio: 0.95
+  HandBackOffsetClockRadiusRatio: 0.08

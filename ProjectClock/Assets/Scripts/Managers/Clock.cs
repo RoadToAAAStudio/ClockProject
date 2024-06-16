@@ -112,16 +112,19 @@ namespace RoadToAAA.ProjectClock.Managers
             Debug.Assert(IsValid(), "Clock is not valid!");
 
             HandRenderer.positionCount = 2;
-            HandRenderer.startWidth = _clockRendererAsset.HandWidth;
-            HandRenderer.endWidth = _clockRendererAsset.HandWidth;
+            HandRenderer.startWidth = _clockRendererAsset.StartHandWidth;
+            HandRenderer.endWidth = _clockRendererAsset.EndHandWidth;
             HandRenderer.loop = false;
           
             HandRenderer.startColor = ClockState == EClockState.Activated ? HandColor : _paletteAsset.DeactivatedHandColor;
             HandRenderer.endColor = ClockState == EClockState.Activated ? HandColor : _paletteAsset.DeactivatedHandColor;
+            
+            float angleRad = angle * Mathf.Deg2Rad;
 
-            HandRenderer.SetPosition(0, HandTransform.position);
-            Vector3 offset = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad) * Radius * _clockRendererAsset.HandLengthClockRadiusRatio, Mathf.Sin(angle * Mathf.Deg2Rad) * Radius * _clockRendererAsset.HandLengthClockRadiusRatio);
-            HandRenderer.SetPosition(1, HandTransform.position + offset);
+            Vector3 handBackOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * Radius * _clockRendererAsset.HandBackOffsetClockRadiusRatio;
+            HandRenderer.SetPosition(0, HandTransform.position - handBackOffset);
+            Vector3 handLength = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * Radius * _clockRendererAsset.HandLengthClockRadiusRatio;
+            HandRenderer.SetPosition(1, HandTransform.position + handLength);
 
             HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
         }
@@ -156,10 +159,14 @@ namespace RoadToAAA.ProjectClock.Managers
             Debug.Assert(IsValid(), "Clock is not valid!");
         }
 
+        public void ActivateHand()
+        {
+            ClockState = EClockState.Activated;
+        }
+
         public void DeactivateHand()
         {
             ClockState = EClockState.Deactivated;
-            DrawHand(GetHandAngle());
         }
 
         public bool IsValid()
