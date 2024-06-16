@@ -84,6 +84,10 @@ namespace RoadToAAA.ProjectClock.Managers
             {
                 SpawnClock();
             }
+
+            // Rendering
+            _currentClock.ActivateHand();
+            _currentClock.DrawHand(_currentClock.GetHandAngle());
         }
 
         private void PlayTapPerformed()
@@ -96,17 +100,7 @@ namespace RoadToAAA.ProjectClock.Managers
             { 
                 case ECheckResult.Success:
                 case ECheckResult.Perfect:
-                    _currentClock.DeactivateHand();
-                    if (_currentClockIndex < SpawnerAsset.RenderingDistance)
-                    {
-                        _currentClockIndex++;
-                    }
-                    else
-                    {
-                        DespawnClock();
-                        SpawnClock();
-                    }
-
+                    SelectNewClock();
                     EventManager<Clock, Clock>.Instance.Publish(EEventType.OnNewClockSelected, _currentClock, _clocks[_currentClockIndex - 1]);
                     break;
 
@@ -116,8 +110,28 @@ namespace RoadToAAA.ProjectClock.Managers
 
             // Take Combo Result
             ComboResult comboResult = _clockComboHandler.HandleCheckResult(checkResult);
-
             EventManager<ECheckResult, ComboResult>.Instance.Publish(EEventType.OnCheckerResult, checkResult, comboResult);
+        }
+
+        private void SelectNewClock()
+        {
+            // Rendering
+            _currentClock.DeactivateHand();
+            _currentClock.DrawHand(_currentClock.GetHandAngle());
+
+            if (_currentClockIndex < SpawnerAsset.RenderingDistance)
+            {
+                _currentClockIndex++;
+            }
+            else
+            {
+                DespawnClock();
+                SpawnClock();
+            }
+
+            // Rendering
+            _currentClock.ActivateHand();
+            _currentClock.DrawHand(_currentClock.GetHandAngle());
         }
 
         private void SpawnClock()
@@ -126,8 +140,6 @@ namespace RoadToAAA.ProjectClock.Managers
 
             Debug.Assert(generatedClock != null, "Generated clock is null!");
 
-            generatedClock.DrawClock();
-            generatedClock.DrawHand(generatedClock.GetHandAngle());
             _clocks.Add(generatedClock);
         }
 
