@@ -1,6 +1,6 @@
 using RoadToAAA.ProjectClock.Scriptables;
 using RoadToAAA.ProjectClock.Utilities;
-using System.Collections;
+using RoadToAAA.ProjectClock.Core;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +30,9 @@ namespace RoadToAAA.ProjectClock.Managers
         #region UnityMessages
         private void Awake()
         {
+            // Configs
+            SpawnerAsset = ConfigurationManager.Instance.SpawnerAsset;
+
             // Components
             _clockSpawner = new ClockSpawner();
             _clockChecker = new ClockChecker();
@@ -38,22 +41,15 @@ namespace RoadToAAA.ProjectClock.Managers
             _clocks = new List<Clock>();
         }
 
-        private void Start()
-        {
-            // Configs
-            SpawnerAsset = ConfigurationManager.Instance.SpawnerAsset;
-
-            // Initialize self and components
-            Initialize();
-        }
-
         private void OnEnable()
         {
+            EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, GameStateChanged);
             EventManager.Instance.Subscribe(EEventType.OnPlayTap, PlayTapPerformed);
         }
 
         private void OnDisable()
         {
+            EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, GameStateChanged);
             EventManager.Instance.Unsubscribe(EEventType.OnPlayTap, PlayTapPerformed);
         }
 
@@ -76,18 +72,33 @@ namespace RoadToAAA.ProjectClock.Managers
             _clockComboHandler.Initialize();
 
             // Initialize Manager
-            _clocks.Clear();
+            // Despawn all clocks
+            while(_clocks.Count > 0 ) 
+            {
+                DespawnClockInFirstPosition();
+            }
+
             _currentClockIndex = 0;
 
             // Spawn a certain amount of Clock
             for (int i = 0; i < SpawnerAsset.ClockPoolSize; i++)
             {
-                SpawnClock();
+                SpawnClockInLastPosition();
             }
 
             // Rendering
             _currentClock.ActivateHand();
             _currentClock.DrawHand(_currentClock.GetHandAngle());
+        }
+
+        private void GameStateChanged(EGameState oldState, EGameState newState)
+        {
+            switch (newState)
+            {
+                case EGameState.MainMenu:
+                    Initialize();
+                    break;
+            }
         }
 
         private void PlayTapPerformed()
@@ -125,8 +136,8 @@ namespace RoadToAAA.ProjectClock.Managers
             }
             else
             {
-                DespawnClock();
-                SpawnClock();
+                DespawnClockInFirstPosition();
+                SpawnClockInLastPosition();
             }
 
             // Rendering
@@ -134,7 +145,7 @@ namespace RoadToAAA.ProjectClock.Managers
             _currentClock.DrawHand(_currentClock.GetHandAngle());
         }
 
-        private void SpawnClock()
+        private void SpawnClockInLastPosition()
         {
             Clock generatedClock = _clockSpawner.SpawnClock(_lastClock);
 
@@ -143,7 +154,7 @@ namespace RoadToAAA.ProjectClock.Managers
             _clocks.Add(generatedClock);
         }
 
-        private void DespawnClock()
+        private void DespawnClockInFirstPosition()
         {
             Debug.Assert(_firstClock != null, "First clock object is null!");
 

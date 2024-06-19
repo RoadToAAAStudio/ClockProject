@@ -1,11 +1,9 @@
+using RoadToAAA.ProjectClock.Core;
 using RoadToAAA.ProjectClock.Managers;
 using RoadToAAA.ProjectClock.Scriptables;
 using RoadToAAA.ProjectClock.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace RoadToAAA.ProjectClock.UI
 {

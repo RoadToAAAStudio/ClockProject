@@ -1,5 +1,5 @@
 ﻿using RoadToAAA.ProjectClock.Scriptables;
-using RoadToAAA.ProjectClock.Utilities;
+using RoadToAAA.ProjectClock.Core;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -9,12 +9,15 @@ namespace RoadToAAA.ProjectClock.Managers
         private int _currentState = 0;
         private int _currentNumberOFSuccessConditions = 0;
 
+        public ClockComboHandler()
+        {
+            _comboAsset = ConfigurationManager.Instance.ComboAsset;
+        }
+
         public void Initialize()
         {
             _currentState = 0;
-            _currentNumberOFSuccessConditions = 0;
-
-            _comboAsset = ConfigurationManager.Instance.ComboAsset;
+            _currentNumberOFSuccessConditions = 0;  
         }
 
         public ComboResult HandleCheckResult(ECheckResult checkResult)

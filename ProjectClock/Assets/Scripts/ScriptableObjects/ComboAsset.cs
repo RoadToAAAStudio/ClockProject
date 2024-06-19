@@ -65,7 +65,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
             Debug.Assert(IsValid(), "Combo asset is not valid!");
         }
 #endif
-        private bool IsValid()
+        public bool IsValid()
         {
             if (ProgressConditions.Length <= 0) return false;
             if (FailConditions.Length <= 0) return false;

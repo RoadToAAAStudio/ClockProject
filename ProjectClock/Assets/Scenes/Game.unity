@@ -2130,57 +2130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe049a14375507c4fa7658da763353d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &906604343
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 906604345}
-  - component: {fileID: 906604344}
-  m_Layer: 0
-  m_Name: ConfigurationManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &906604344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 906604343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 604d0e7618313ab4e8c68535cb9c3319, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnerAsset: {fileID: 11400000, guid: 4b498f536c3d4464ab6a9a303cd475f7, type: 2}
-  ClockRendererAsset: {fileID: 11400000, guid: f4fb87e08e2827f40910090090537079, type: 2}
-  PaletteAssets:
-  - {fileID: 11400000, guid: 65ef92f0e6af24745839d03f1bbb2ebc, type: 2}
-  DifficultyAsset: {fileID: 11400000, guid: 8c71625b0afbeac45a44b05092cfa564, type: 2}
-  ComboAsset: {fileID: 11400000, guid: a614c0a31427e7c46b6a0f0d4505f1dc, type: 2}
-  ClockPrefab: {fileID: 8109456233941987389, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
---- !u!4 &906604345
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 906604343}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &968624136
 GameObject:
   m_ObjectHideFlags: 0
@@ -4959,7 +4908,6 @@ SceneRoots:
   - {fileID: 131861684}
   - {fileID: 2143844721}
   - {fileID: 657585016}
-  - {fileID: 906604345}
   - {fileID: 1134894398}
   - {fileID: 403417575}
   - {fileID: 692868254}

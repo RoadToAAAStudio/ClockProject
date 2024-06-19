@@ -1,4 +1,5 @@
 ﻿using RoadToAAA.ProjectClock.Scriptables;
+using RoadToAAA.ProjectClock.Core;
 using UnityEngine;
 
 namespace RoadToAAA.ProjectClock.Managers
@@ -7,9 +8,14 @@ namespace RoadToAAA.ProjectClock.Managers
     {
         private DifficultyAsset _difficultyAsset;
 
-        public void Initialize()
+        public ClockChecker() 
         {
             _difficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
+        }
+
+        public void Initialize()
+        {
+            
         }
 
         public ECheckResult Check(Clock clock)

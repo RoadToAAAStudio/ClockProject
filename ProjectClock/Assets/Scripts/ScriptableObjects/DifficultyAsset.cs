@@ -52,7 +52,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
             Debug.Assert(IsValid(), "Difficulty asset is not valid!");      
         }
 #endif
-        private bool IsValid()
+        public bool IsValid()
         {
             if (SuccessArcLength <= 0.0f) return false;
             if (PerfectSuccessRatio < 0.0f || PerfectSuccessRatio > 1.0f) return false;

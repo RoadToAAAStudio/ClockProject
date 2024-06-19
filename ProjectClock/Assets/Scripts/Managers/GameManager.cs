@@ -9,18 +9,6 @@ namespace RoadToAAA.ProjectClock.Managers
 
     public class GameManager : MonoBehaviour
     {
-        public enum EGameState
-        {
-            //Initial state
-            InitialState,
-            //State when the game is in main menu
-            MainMenu,
-            //State when you go for any reason in the effective play (new game, revive, resume from pause)
-            Playing,
-            //Stated when the player "dies"
-            GameOver
-        }
-
         private EGameState oldState = EGameState.InitialState;
         private EGameState newState;
 
@@ -86,5 +74,17 @@ namespace RoadToAAA.ProjectClock.Managers
                 ChangeState(EGameState.MainMenu);
             }
         }
+    }
+
+    public enum EGameState
+    {
+        //Initial state
+        InitialState,
+        //State when the game is in main menu
+        MainMenu,
+        //State when you go for any reason in the effective play (new game, revive, resume from pause)
+        Playing,
+        //Stated when the player "dies"
+        GameOver
     }
 }

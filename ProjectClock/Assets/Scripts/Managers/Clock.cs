@@ -1,5 +1,5 @@
 ﻿using RoadToAAA.ProjectClock.Scriptables;
-using System;
+using RoadToAAA.ProjectClock.Core;
 using UnityEngine;
 
 namespace RoadToAAA.ProjectClock.Managers
@@ -34,7 +34,6 @@ namespace RoadToAAA.ProjectClock.Managers
 
         // Configs
         private DifficultyAsset _difficultyAsset;
-        private ClockRendererAsset _clockRendererAsset;
         private PaletteAsset _paletteAsset;
 
         #region UnityMessages
@@ -44,7 +43,6 @@ namespace RoadToAAA.ProjectClock.Managers
 
             // Configs
             _difficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
-            _clockRendererAsset = ConfigurationManager.Instance.ClockRendererAsset;
             _paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
 
             // Deduce other data
@@ -85,16 +83,16 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             Debug.Assert(IsValid(), "Clock is not valid!");
 
-            ClockRenderer.positionCount = _clockRendererAsset.ClockNumberOfSegments;
-            ClockRenderer.startWidth = _clockRendererAsset.ClockWidth;
-            ClockRenderer.endWidth = _clockRendererAsset.ClockWidth;
+            ClockRenderer.positionCount = _paletteAsset.ClockNumberOfSegments;
+            ClockRenderer.startWidth = _paletteAsset.ClockWidth;
+            ClockRenderer.endWidth = _paletteAsset.ClockWidth;
             ClockRenderer.loop = true;
             ClockRenderer.startColor = _paletteAsset.ClockColor;
             ClockRenderer.endColor = _paletteAsset.ClockColor;
 
-            for (int i = 0; i < _clockRendererAsset.ClockNumberOfSegments; i++)
+            for (int i = 0; i < _paletteAsset.ClockNumberOfSegments; i++)
             {
-                float circumferenceProgress = (float)i / _clockRendererAsset.ClockNumberOfSegments;
+                float circumferenceProgress = (float)i / _paletteAsset.ClockNumberOfSegments;
                 float currentRadian = circumferenceProgress * 2 * Mathf.PI;
 
                 float xScaled = Mathf.Cos(currentRadian);
@@ -112,8 +110,8 @@ namespace RoadToAAA.ProjectClock.Managers
             Debug.Assert(IsValid(), "Clock is not valid!");
 
             HandRenderer.positionCount = 2;
-            HandRenderer.startWidth = _clockRendererAsset.StartHandWidth;
-            HandRenderer.endWidth = _clockRendererAsset.EndHandWidth;
+            HandRenderer.startWidth = _paletteAsset.StartHandWidth;
+            HandRenderer.endWidth = _paletteAsset.EndHandWidth;
             HandRenderer.loop = false;
           
             HandRenderer.startColor = ClockState == EClockState.Activated ? HandColor : _paletteAsset.DeactivatedHandColor;
@@ -121,9 +119,9 @@ namespace RoadToAAA.ProjectClock.Managers
             
             float angleRad = angle * Mathf.Deg2Rad;
 
-            Vector3 handBackOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * Radius * _clockRendererAsset.HandBackOffsetClockRadiusRatio;
+            Vector3 handBackOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * Radius * _paletteAsset.HandBackOffsetClockRadiusRatio;
             HandRenderer.SetPosition(0, HandTransform.position - handBackOffset);
-            Vector3 handLength = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * Radius * _clockRendererAsset.HandLengthClockRadiusRatio;
+            Vector3 handLength = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * Radius * _paletteAsset.HandLengthClockRadiusRatio;
             HandRenderer.SetPosition(1, HandTransform.position + handLength);
 
             HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
@@ -177,7 +175,6 @@ namespace RoadToAAA.ProjectClock.Managers
             if (Radius <= 0) return false;
             if (ClockRenderer == null) return false;
             if (HandRenderer == null) return false;
-            if (_clockRendererAsset == null) return false;
             if (_paletteAsset == null) return false;
 
             return true;

@@ -1,5 +1,6 @@
 ﻿using RoadToAAA.ProjectClock.Scriptables;
 using RoadToAAA.ProjectClock.Utilities;
+using RoadToAAA.ProjectClock.Core;
 using UnityEngine;
 
 namespace RoadToAAA.ProjectClock.Managers
@@ -10,7 +11,6 @@ namespace RoadToAAA.ProjectClock.Managers
     public class ClockSpawner
     {
         private SpawnerAsset _spawnerAsset;
-        private ClockRendererAsset _clockRendererAsset;
         private PaletteAsset _paletteAsset;
         private DifficultyAsset _difficultyAsset;
         private GameObject _clockPrefab;
@@ -18,17 +18,19 @@ namespace RoadToAAA.ProjectClock.Managers
         private StaticPool _clocksPool;
         private int _currentNumberOfClocksSpawned = 0;
 
-        public void Initialize()
+        public ClockSpawner()
         {
-            _currentNumberOfClocksSpawned = 0;
-
             _spawnerAsset = ConfigurationManager.Instance.SpawnerAsset;
-            _clockRendererAsset = ConfigurationManager.Instance.ClockRendererAsset;
             _paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
             _difficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
             _clockPrefab = ConfigurationManager.Instance.ClockPrefab;
 
             _clocksPool = new StaticPool(_clockPrefab, _spawnerAsset.ClockPoolSize);
+        }
+
+        public void Initialize()
+        {
+            _currentNumberOfClocksSpawned = 0;
         }
 
         // Return a new ClockGameObject if it was possible to generate one
@@ -62,7 +64,7 @@ namespace RoadToAAA.ProjectClock.Managers
                 float randomRadAngle = randomAngle * Mathf.Deg2Rad;
                 Vector3 previousClockPosition = previousClock.ClockTransform.position;
                 Vector3 spawnDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
-                Vector3 spawnPoint = previousClockPosition + spawnDirection * (previousClock.Radius + clockRadius + _clockRendererAsset.ClockWidth);
+                Vector3 spawnPoint = previousClockPosition + spawnDirection * (previousClock.Radius + clockRadius + _paletteAsset.ClockWidth);
                 Color handColor = _paletteAsset.GetRandomHandColor(previousClock.HandColor);
 
                 newClock = _clocksPool.Get(true, spawnPoint).GetComponent<Clock>();

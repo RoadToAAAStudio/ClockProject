@@ -217,6 +217,10 @@ namespace RoadToAAA.ProjectClock.Utilities
     }
     public enum EEventType
     {
+        #region CoreSystemEvents
+        OnBootSystemsLoaded,
+        #endregion
+
         #region GameloopEvents
         OnGameStateChanged,
         #endregion
