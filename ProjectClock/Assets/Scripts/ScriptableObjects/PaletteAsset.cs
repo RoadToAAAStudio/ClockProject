@@ -4,7 +4,7 @@ using UnityEngine;
 namespace RoadToAAA.ProjectClock.Scriptables
 {
     [CreateAssetMenu(fileName = "PaletteAsset", menuName = "ConfigurationAssets/PaletteAsset")]
-    public class PaletteAsset : ScriptableObject
+    public class PaletteAsset : ValidableScriptableObject
     {
         [Header("ClockColor")]
         public Color ClockColor = new Color(0.04f, 0.5f, 0.9f);
@@ -20,23 +20,16 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public float HandLengthClockRadiusRatio = 0.95f;
         public float HandBackOffsetClockRadiusRatio = 0.05f;
 
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            Debug.Assert(IsValid(), "Palette asset is not valid!");
-        }
-#endif
-
         public Color GetRandomHandColor()
         {
-            Debug.Assert(IsValid(), "Palette asset is not valid!");
+            Debug.Assert(CheckValidation().IsValid, "Palette asset is not valid!");
 
             return HandColors[Random.Range(0, HandColors.Count)];
         }
 
         public Color GetRandomHandColor(Color currentColor)
         {
-            Debug.Assert(IsValid(), "Palette asset is not valid!");
+            Debug.Assert(CheckValidation().IsValid, "Palette asset is not valid!");
             Color color = HandColors[Random.Range(0, HandColors.Count)];
 
             // 15 tries to get a different color from the list
@@ -52,17 +45,48 @@ namespace RoadToAAA.ProjectClock.Scriptables
             return color;
         }
 
-        public bool IsValid()
+        public override ScriptableObjectValidateResult CheckValidation()
         {
-            if (HandColors.Count == 0) return false;
-            if (ClockNumberOfSegments <= 2) return false;
-            if (ClockWidth <= 0.0f) return false;
-            if (StartHandWidth <= 0.0f) return false;
-            if (EndHandWidth <= 0.0f) return false;
-            if (HandLengthClockRadiusRatio < 0.0f || HandLengthClockRadiusRatio > 1.0f) return false;
-            if (HandBackOffsetClockRadiusRatio < 0.0f || HandBackOffsetClockRadiusRatio > 1.0f) return false;
+            ScriptableObjectValidateResult result = new ScriptableObjectValidateResult();
+            result.IsValid = true;
 
-            return true;
+            if (ClockNumberOfSegments <= 2)
+            {
+                result.IsValid = false;
+                result.Message += "Clock must have at least 2 segments!\n";
+            }
+            if (ClockWidth <= 0.0f)
+            {
+                result.IsValid = false;
+                result.Message += "Clock width can't be negative!\n";
+            }
+            if (StartHandWidth <= 0.0f)
+            {
+                result.IsValid = false;
+                result.Message += "Hand width can't be negative!\n";
+            }
+            if (EndHandWidth <= 0.0f)
+            {
+                result.IsValid = false;
+                result.Message += "Hand width can't be negative!\n";
+            }
+            if (HandLengthClockRadiusRatio < 0.0f || HandLengthClockRadiusRatio > 1.0f)
+            {
+                result.IsValid = false;
+                result.Message += "HandLengthClockRadiusRatio must be a percentage!\n";
+            }
+            if (HandBackOffsetClockRadiusRatio < 0.0f || HandBackOffsetClockRadiusRatio > 1.0f)
+            {
+                result.IsValid = false;
+                result.Message += "HandBackOffsetClockRadiusRatio!\n";
+            }
+
+            if (result.IsValid)
+            {
+                result.Message += "Successful!";
+            }
+
+            return result;
         }
     }
 }

@@ -4,16 +4,62 @@ using UnityEngine;
 namespace RoadToAAA.ProjectClock.Scriptables
 {
     [CreateAssetMenu(fileName = "DifficultyAsset", menuName = "ConfigurationAssets/DifficultyAsset")]
-    public class DifficultyAsset : ScriptableObject
+    public class DifficultyAsset : ValidableScriptableObject
     {
         public float SuccessArcLength = 0.5f;
         public float PerfectSuccessRatio = 0.5f;
         public DifficultyCurvePoint[] Points;
 
+        public override ScriptableObjectValidateResult CheckValidation()
+        {
+            ScriptableObjectValidateResult result = new ScriptableObjectValidateResult();
+            result.IsValid = true;
+
+            if (SuccessArcLength <= 0.0f)
+            {
+                result.IsValid = false;
+                result.Message += "Success arc length must be positive!\n";
+            }
+            if (PerfectSuccessRatio < 0.0f || PerfectSuccessRatio > 1.0f)
+            {
+                result.IsValid = false;
+                result.Message += "Perfect success ratio must be a percentage!\n";
+            }
+            if (Points.Length == 0)
+            {
+                result.IsValid = false;
+                result.Message += "Define at least one point of the curve!\n";
+            }
+            if (Points.Length == 1 && Points[0].NumberOfClearedClocks != 0)
+            {
+                result.IsValid = false;
+                result.Message += "First point of the curve must refer to cleared clocks equal to 0!\n";
+            }
+
+            for (int i = 1; i < Points.Length; i++)
+            {
+                DifficultyCurvePoint prePoint = Points[i - 1];
+                DifficultyCurvePoint currentPoint = Points[i];
+
+                if (prePoint.NumberOfClearedClocks >= currentPoint.NumberOfClearedClocks)
+                {
+                    result.IsValid = false;
+                    result.Message += "Number of cleared clocks of one curve point must be higher than the previous one's!\n";
+                }
+            }
+
+            if (result.IsValid)
+            {
+                result.Message += "Successful!";
+            }
+
+            return result;
+        }
+
         public float GetLerpedHandAbsoluteSpeed(int currentNumberOfClearedClock)
         {
             Debug.Assert(currentNumberOfClearedClock >= 0 , "Curve Point must have positive Number of Cleared Clocks!");
-            Debug.Assert(IsValid(), "Difficulty asset is not valid!");
+            Debug.Assert(CheckValidation().IsValid, "Difficulty asset is not valid!");
 
             if (currentNumberOfClearedClock == 0)
             {
@@ -44,33 +90,6 @@ namespace RoadToAAA.ProjectClock.Scriptables
 
             // Should be unreachable
             return Points[Points.Length - 1].HandAbsoluteSpeed;
-        }
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            Debug.Assert(IsValid(), "Difficulty asset is not valid!");      
-        }
-#endif
-        public bool IsValid()
-        {
-            if (SuccessArcLength <= 0.0f) return false;
-            if (PerfectSuccessRatio < 0.0f || PerfectSuccessRatio > 1.0f) return false;
-            if (Points.Length == 0) return false;
-            if (Points.Length == 1) return Points[0].NumberOfClearedClocks == 0;
-
-            for (int i = 1; i < Points.Length; i++) 
-            {
-                DifficultyCurvePoint prePoint = Points[i - 1];
-                DifficultyCurvePoint currentPoint = Points[i];
-                
-                if (prePoint.NumberOfClearedClocks >= currentPoint.NumberOfClearedClocks)
-                {
-                    return false;
-                }
-            }
-
-            return true;
         }
     }
 

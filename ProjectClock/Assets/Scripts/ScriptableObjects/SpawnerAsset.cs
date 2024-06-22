@@ -3,7 +3,7 @@
 namespace RoadToAAA.ProjectClock.Scriptables
 {
     [CreateAssetMenu(fileName = "SpawnerAsset", menuName = "ConfigurationAssets/SpawnerAsset")]
-    public class SpawnerAsset : ScriptableObject
+    public class SpawnerAsset : ValidableScriptableObject
     {
         public GameObject ClockPrefab;
         public float MinClockRadius = 0.5f;
@@ -13,21 +13,44 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public int ClockPoolSize = 11;
         public int RenderingDistance = 5;
 
-#if UNITY_EDITOR
-        private void OnValidate()
+        public override ScriptableObjectValidateResult CheckValidation()
         {
-            Debug.Assert(IsValid(), "Spawner asset is not valid!");
-        }
-#endif
+            ScriptableObjectValidateResult result = new ScriptableObjectValidateResult();
+            result.IsValid = true;
 
-        public bool IsValid()
-        {
-            if (MinClockRadius <= 0 || MaxClockRadius <= 0) return false;
-            if (MinClockRadius > MaxClockRadius) return false;
-            if (MinSpawnAngle > MaxSpawnAngle) return false;
-            if (ClockPoolSize < 1) return false;
-            if (RenderingDistance <= 0 || RenderingDistance > ClockPoolSize / 2) return false;
-            return true;
+            if (MinClockRadius <= 0 || MaxClockRadius <= 0)
+            {
+                result.IsValid = false;
+                result.Message += "Radius must be positive!\n";
+            }
+            if (MinClockRadius > MaxClockRadius)
+            {
+                result.IsValid = false;
+                result.Message += "Min radius can't be higher then max radius!\n";
+            }
+            if (MinSpawnAngle > MaxSpawnAngle)
+            {
+                result.IsValid = false;
+                result.Message += "Min spawn angle can't be higher then max spawn angle!\n";
+            }
+            if (ClockPoolSize <= 0)
+            {
+                result.IsValid = false;
+                result.Message += "Clock pool size must be positive!\n";
+            }
+            if (RenderingDistance <= 0 || RenderingDistance > ClockPoolSize / 2)
+            {
+                result.IsValid = false;
+                result.Message += "Rendering distance must be positive and less than half the clock pool size!\n";
+            }
+
+            if (result.IsValid)
+            {
+                result.Message += "Successful!";
+            }
+
+            return result;
+
         }
     }
 }

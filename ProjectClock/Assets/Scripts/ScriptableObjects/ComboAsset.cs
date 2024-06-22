@@ -6,7 +6,7 @@ using UnityEngine;
 namespace RoadToAAA.ProjectClock.Scriptables
 {
     [CreateAssetMenu(fileName = "ComboAsset", menuName = "ConfigurationAssets/ComboAsset")]
-    public class ComboAsset : ScriptableObject
+    public class ComboAsset : ValidableScriptableObject
     {
         public ECheckResult[] ProgressConditions;
         public ECheckResult[] FailConditions;
@@ -58,32 +58,63 @@ namespace RoadToAAA.ProjectClock.Scriptables
             return result;
         }
 
-
-#if UNITY_EDITOR
-        private void OnValidate()
+        public override ScriptableObjectValidateResult CheckValidation()
         {
-            Debug.Assert(IsValid(), "Combo asset is not valid!");
-        }
-#endif
-        public bool IsValid()
-        {
-            if (ProgressConditions.Length <= 0) return false;
-            if (FailConditions.Length <= 0) return false;
-            if (ComboStates.Length <= 0) return false;
-            if (ProgressConditions.Intersect(FailConditions).Any()) return false;
-            if (ComboStates[ComboStates.Length - 1].NumberOfSuccessConditionsToChangeAsset > 1) return false;
+            ScriptableObjectValidateResult result = new ScriptableObjectValidateResult();
+            result.IsValid = true;
 
+            if (ProgressConditions.Length <= 0)
+            {
+                result.IsValid = false;
+                result.Message += "This combo asset does not have a progress condition!\n";
+            }
+            if (FailConditions.Length <= 0)
+            {
+                result.IsValid = false;
+                result.Message += "This combo asset does not have a fail condition!\n";
+            }
+            if (ComboStates.Length <= 0)
+            {
+                result.IsValid = false;
+                result.Message += "At least one combo state must be specified!\n";
+            }
+            if (ProgressConditions.Intersect(FailConditions).Any())
+            {
+                result.IsValid = false;
+                result.Message += "Progress condition can't be used as fail condition!\n";
+            }
+            if (ComboStates[ComboStates.Length - 1].NumberOfSuccessConditionsToChangeAsset > 1)
+            {
+                result.IsValid = false;
+                result.Message += "Each combo state must have at least 1 as number of success conditions to change state!\n";
+            }
             for (int i = 0; i < ComboStates.Length; i++)
             {
                 ComboState currentState = ComboStates[i];
 
-                if (currentState.Score <= 0) return false;
+                if (currentState.Score <= 0)
+                {
+                    result.IsValid = false;
+                    result.Message += "A combo state must give a positive amount of score!\n";
+                }
 
-                if (currentState.Message == "") return false;
+                if (currentState.Message == "")
+                {
+                    result.IsValid = false;
+                    result.Message += "The combo state message can't be empty!\n";
+                }
 
-                if (currentState.NumberOfSuccessConditionsToChangeAsset <= 0) return false;
+                if (currentState.NumberOfSuccessConditionsToChangeAsset <= 0)
+                {
+                    result.IsValid = false;
+                    result.Message += "Each combo state must have at least 1 as number of success conditions to change state!\n";
+                }
 
-                if (currentState.MessageColor.a != 1.0f) return false;
+                if (currentState.MessageColor.a != 1.0f)
+                {
+                    result.IsValid = false;
+                    result.Message += "Each combo state message must have alpha value equal to 1!\n";
+                }
             }
 
             for (int i = 1; i < ComboStates.Length; i++)
@@ -93,11 +124,17 @@ namespace RoadToAAA.ProjectClock.Scriptables
 
                 if (preState.Score > currentState.Score)
                 {
-                    return false;
+                    result.IsValid = false;
+                    result.Message += "Each combo state must score higher then the previous one!\n";
                 }
             }
 
-            return true;
+            if (result.IsValid)
+            {
+                result.Message += "Successful!";
+            }
+
+            return result;
         }
     }
 

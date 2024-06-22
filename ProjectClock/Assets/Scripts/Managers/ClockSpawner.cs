@@ -37,7 +37,7 @@ namespace RoadToAAA.ProjectClock.Managers
         public Clock SpawnClock(Clock previousClock)
         {
             Debug.Assert(_spawnerAsset != null, "Spawner Asset is null!");
-            Debug.Assert(_spawnerAsset.IsValid(), "Spawner Asset is not valid!");
+            Debug.Assert(_spawnerAsset.CheckValidation().IsValid, "Spawner Asset is not valid!");
 
             if (!_clocksPool.HasItems()) return null;
 
