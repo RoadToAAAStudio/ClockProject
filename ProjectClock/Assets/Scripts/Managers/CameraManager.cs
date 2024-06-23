@@ -3,17 +3,18 @@ using RoadToAAA.ProjectClock.Scriptables;
 using RoadToAAA.ProjectClock.Utilities;
 using System;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
     public class CameraManager : MonoBehaviour
     {
-
         public float CameraLerpVelocity = 10.0f;
         public float CameraUpOffset = 0.4f;
         private Camera _camera;
         private Vector3 _cameraStartPosition;
         private Vector3 _targetPosition;
+        private PostProcessVolume _postProcessVolume;
 
         // Configs
         private PaletteAsset _paletteAsset;
@@ -24,9 +25,11 @@ namespace RoadToAAA.ProjectClock.Managers
             _camera = Camera.main;
             _cameraStartPosition = _camera.transform.position +  Vector3.up * CameraUpOffset;
             _targetPosition = _cameraStartPosition;
+            _postProcessVolume = GameObject.FindFirstObjectByType<PostProcessVolume>();
 
             _paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
             _camera.backgroundColor = _paletteAsset.BackgroundColor;
+            _postProcessVolume.profile = _paletteAsset.Profile;
         }
 
         private void OnEnable()

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 namespace RoadToAAA.ProjectClock.Scriptables
 {
@@ -12,13 +13,13 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public List<Color> HandColors = new List<Color>();
         public Color DeactivatedHandColor = new Color(0.25f, 0.25f, 0.25f);
 
-        [Header("Other")]
+        [Header("Camera")]
         public Color BackgroundColor = Color.black;
+        public PostProcessProfile Profile;
 
         [Header("ClockRendering")]
         public int ClockNumberOfSegments = 120;
         public float ClockWidth = 0.02f;
-
         public float StartHandWidth = 0.04f;
         public float EndHandWidth = 0.04f;
         public float HandLengthClockRadiusRatio = 0.95f;

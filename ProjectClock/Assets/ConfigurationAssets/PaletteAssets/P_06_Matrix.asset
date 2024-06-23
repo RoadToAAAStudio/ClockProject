@@ -18,6 +18,7 @@ MonoBehaviour:
   - {r: 0.107600555, g: 0.735849, b: 0.2035829, a: 0.95686275}
   DeactivatedHandColor: {r: 0, g: 0.3301887, b: 0.05044546, a: 1}
   BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  Profile: {fileID: 11400000, guid: e8ff706dad787e2429f44af747cf9db5, type: 2}
   ClockNumberOfSegments: 120
   ClockWidth: 0.02
   StartHandWidth: 0.04
