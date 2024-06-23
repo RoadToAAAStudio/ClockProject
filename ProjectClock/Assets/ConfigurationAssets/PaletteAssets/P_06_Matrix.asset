@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
+  m_Name: P_06_Matrix
+  m_EditorClassIdentifier: 
+  ClockColor: {r: 0.019312933, g: 0.5849056, b: 0.10528164, a: 1}
+  SpecialClockColor: {r: 0.3726415, g: 1, b: 0.46614975, a: 1}
+  HandColors:
+  - {r: 0.107600555, g: 0.735849, b: 0.2035829, a: 0.95686275}
+  DeactivatedHandColor: {r: 0, g: 0.3301887, b: 0.05044546, a: 1}
+  BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+  ClockNumberOfSegments: 120
+  ClockWidth: 0.02
+  StartHandWidth: 0.04
+  EndHandWidth: 0.04
+  HandLengthClockRadiusRatio: 0.95
+  HandBackOffsetClockRadiusRatio: 0.05

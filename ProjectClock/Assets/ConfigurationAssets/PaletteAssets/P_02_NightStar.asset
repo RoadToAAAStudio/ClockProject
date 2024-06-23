@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
+  m_Name: P_02_NightStar
+  m_EditorClassIdentifier: 
+  ClockColor: {r: 0.6320754, g: 0.6147377, b: 0.11627804, a: 1}
+  SpecialClockColor: {r: 0.9622642, g: 0.7673248, b: 0.049928807, a: 1}
+  HandColors:
+  - {r: 0.43467426, g: 0.7320339, b: 0.8301887, a: 0.99215686}
+  - {r: 0.7922184, g: 0.43529412, b: 0.83137256, a: 1}
+  - {r: 0.43529412, g: 0.83137256, b: 0.5938782, a: 1}
+  DeactivatedHandColor: {r: 0.10074324, g: 0.095007114, b: 0.3301887, a: 1}
+  BackgroundColor: {r: 0.030745126, g: 0.026432898, b: 0.20754719, a: 1}
+  ClockNumberOfSegments: 120
+  ClockWidth: 0.02
+  StartHandWidth: 0.04
+  EndHandWidth: 0.04
+  HandLengthClockRadiusRatio: 0.95
+  HandBackOffsetClockRadiusRatio: 0.05

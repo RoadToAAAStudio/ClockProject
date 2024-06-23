@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
+  m_Name: P_01_GameBoy
+  m_EditorClassIdentifier: 
+  ClockColor: {r: 0.4392157, g: 0.5019608, b: 0.15686275, a: 1}
+  SpecialClockColor: {r: 0.8156863, g: 0.8156863, b: 0.34509805, a: 1}
+  HandColors:
+  - {r: 0.627451, g: 0.65882355, b: 0.2509804, a: 1}
+  DeactivatedHandColor: {r: 0.4392157, g: 0.5019608, b: 0.15686275, a: 1}
+  BackgroundColor: {r: 0.2509804, g: 0.3137255, b: 0.0627451, a: 1}
+  ClockNumberOfSegments: 120
+  ClockWidth: 0.02
+  StartHandWidth: 0.04
+  EndHandWidth: 0.01
+  HandLengthClockRadiusRatio: 0.95
+  HandBackOffsetClockRadiusRatio: 0.05

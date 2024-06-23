@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
+  m_Name: P_05_Vaporwave
+  m_EditorClassIdentifier: 
+  ClockColor: {r: 0.1512549, g: 0.9378394, b: 0.9716981, a: 1}
+  SpecialClockColor: {r: 1, g: 0, b: 0.38407898, a: 1}
+  HandColors:
+  - {r: 0.8650283, g: 0.5647059, b: 0.8862745, a: 1}
+  - {r: 0.6935485, g: 0.5647059, b: 0.8862745, a: 1}
+  - {r: 0.5658558, g: 0.5647059, b: 0.8862745, a: 1}
+  DeactivatedHandColor: {r: 0.3128837, g: 0.05339978, b: 0.4528302, a: 1}
+  BackgroundColor: {r: 0.4246444, g: 0.124154516, b: 0.5849056, a: 1}
+  ClockNumberOfSegments: 120
+  ClockWidth: 0.02
+  StartHandWidth: 0.04
+  EndHandWidth: 0.04
+  HandLengthClockRadiusRatio: 0.95
+  HandBackOffsetClockRadiusRatio: 0.05
