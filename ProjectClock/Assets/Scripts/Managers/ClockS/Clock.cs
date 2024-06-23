@@ -88,8 +88,8 @@ namespace RoadToAAA.ProjectClock.Managers
             ClockRenderer.startWidth = _paletteAsset.ClockWidth;
             ClockRenderer.endWidth = _paletteAsset.ClockWidth;
             ClockRenderer.loop = true;
-            ClockRenderer.startColor = _paletteAsset.ClockColor;
-            ClockRenderer.endColor = _paletteAsset.ClockColor;
+            ClockRenderer.startColor = ClockParameters.ClockColor;
+            ClockRenderer.endColor = ClockParameters.ClockColor;
 
             for (int i = 0; i < _paletteAsset.ClockNumberOfSegments; i++)
             {
@@ -197,6 +197,7 @@ namespace RoadToAAA.ProjectClock.Managers
         public Vector3 SuccessDirection;
         public Vector3 SpawnDirection;
         public Vector3 Position;
+        public Color ClockColor;
         public Color HandColor;
     }
 }

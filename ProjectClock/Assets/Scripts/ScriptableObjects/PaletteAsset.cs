@@ -8,6 +8,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
     {
         [Header("ClockColor")]
         public Color ClockColor = new Color(0.04f, 0.5f, 0.9f);
+        public Color SpecialClockColor = new Color(0.7f, 0.5f, 0.9f);
         public List<Color> HandColors = new List<Color>();
         public Color DeactivatedHandColor = new Color(0.25f, 0.25f, 0.25f);
 

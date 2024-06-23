@@ -95,8 +95,9 @@ namespace RoadToAAA.ProjectClock.Managers
             newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfClocksSpawned) * (_currentNumberOfClocksSpawned % 2 == 0 ? 1 : -1);
             newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
             newClockParameters.SpawnDirection = Vector3.zero;
-            newClockParameters.Position = Vector3.zero;
+            newClockParameters.ClockColor = _paletteAsset.ClockColor;
             newClockParameters.HandColor = _paletteAsset.GetRandomHandColor();
+            newClockParameters.Position = Vector3.zero;
 
             return newClockParameters;
         }
@@ -115,7 +116,8 @@ namespace RoadToAAA.ProjectClock.Managers
             newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfClocksSpawned) * (_currentNumberOfClocksSpawned % 2 == 0 ? 1 : -1);
             newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
             newClockParameters.SpawnDirection = spawnDirection;
-            newClockParameters.HandColor = newClockParameters.IsSpecial ? Color.red : _paletteAsset.GetRandomHandColor(previousClockParameters.HandColor);
+            newClockParameters.ClockColor = newClockParameters.IsSpecial ? _paletteAsset.SpecialClockColor : _paletteAsset.ClockColor;
+            newClockParameters.HandColor = _paletteAsset.GetRandomHandColor(previousClockParameters.HandColor);
             newClockParameters.Position = previousClockPosition + spawnDirection * (previousClockParameters.Radius + newClockParameters.Radius + _paletteAsset.ClockWidth);
 
             return newClockParameters;
