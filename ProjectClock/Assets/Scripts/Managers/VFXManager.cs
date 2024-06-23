@@ -38,13 +38,14 @@ namespace RoadToAAA.ProjectClock.Managers
 
             if (!_handExplosionsPool.HasItems()) return;
 
-            GameObject HandExplosionGameObject = _handExplosionsPool.Get(true, handTransform.position);
+            GameObject HandExplosionGameObject = _handExplosionsPool.Get(true);
+            HandExplosionGameObject.transform.position = handTransform.position;
             ParticleSystem particleSystem = HandExplosionGameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
 
             HandExplosionGameObject.transform.rotation = Quaternion.Euler(0.0f, HandExplosionGameObject.transform.rotation.eulerAngles.y, handTransform.rotation.eulerAngles.z);
 
             ParticleSystem.MainModule particleMain = particleSystem.main;
-            particleMain.startColor = oldClock.HandColor;
+            particleMain.startColor = oldClock.ClockParameters.HandColor;
 
             
             _particles.Add(particleSystem);

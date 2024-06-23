@@ -22,8 +22,8 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             Debug.Assert(clock != null, "Clock is null!");
 
-            float dotProduct = Vector3.Dot(clock.HandTransform.right, clock.SuccessDirection);
-            float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength) / (clock.Radius);
+            float dotProduct = Vector3.Dot(clock.HandTransform.right, clock.ClockParameters.SuccessDirection);
+            float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength) / (clock.ClockParameters.Radius);
             float maxAllowedDotProduct = Mathf.Cos((successRelativeAngleRange / 2));
             float maxAllowedPerfectDotProduct = Mathf.Cos((successRelativeAngleRange * _difficultyAsset.PerfectSuccessRatio / 2));
 

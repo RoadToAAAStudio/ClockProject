@@ -42,6 +42,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
                 }
                 else break;
             }
+            Debug.Assert(color != currentColor, "Aiuto!");
             return color;
         }
 

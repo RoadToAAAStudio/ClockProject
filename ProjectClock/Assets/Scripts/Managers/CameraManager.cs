@@ -7,6 +7,7 @@ namespace RoadToAAA.ProjectClock.Managers
     public class CameraManager : MonoBehaviour
     {
         public float CameraLerpVelocity = 10.0f;
+        public float CameraUpOffset = 0.4f;
         private Camera _camera;
         private Vector3 _cameraStartPosition;
         private Vector3 _targetPosition;
@@ -15,8 +16,8 @@ namespace RoadToAAA.ProjectClock.Managers
         private void Awake()
         {
             _camera = Camera.main;
-            _cameraStartPosition = _camera.transform.position;
-            _targetPosition = _camera.transform.position;
+            _cameraStartPosition = _camera.transform.position +  Vector3.up * CameraUpOffset;
+            _targetPosition = _cameraStartPosition;
         }
 
         private void OnEnable()
@@ -41,7 +42,7 @@ namespace RoadToAAA.ProjectClock.Managers
         private void Initialize()
         {
             _camera.transform.position = _cameraStartPosition;
-            _targetPosition = _camera.transform.position;
+            _targetPosition = _cameraStartPosition;
         }
 
         private void GameStateChanged(EGameState oldState, EGameState newState)
@@ -56,7 +57,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void NewClockSelected(Clock newClock, Clock oldClock)
         {
-            _targetPosition = newClock.transform.position;
+            _targetPosition = newClock.transform.position + newClock.ClockParameters.SuccessDirection * CameraUpOffset;
         }
     }
 }

@@ -19,10 +19,11 @@ namespace RoadToAAA.ProjectClock.Managers
         public LineRenderer HandRenderer { get; private set; }
 
         // Input Parameters
-        public float Radius { get; private set; }
-        public Vector3 SuccessDirection { get; private set; }
-        public Vector3 SpawnDirection { get; private set; }
-        public Color HandColor { get; private set; }
+        public ClockParameters ClockParameters { get; private set; }
+        //public float Radius { get; private set; }
+        //public Vector3 SuccessDirection { get; private set; }
+        //public Vector3 SpawnDirection { get; private set; }
+        //public Color HandColor { get; private set; }
 
         // Derived Parameters
         public float Circumference { get; private set; }
@@ -58,23 +59,23 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             if (_difficultyAsset == null) return;
 
-            float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength) / (Radius);
-            float successAngle = Mathf.Atan2(SuccessDirection.y, SuccessDirection.x);
+            float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength) / (ClockParameters.Radius);
+            float successAngle = Mathf.Atan2(ClockParameters.SuccessDirection.y, ClockParameters.SuccessDirection.x);
             float perfectSuccessRatio = _difficultyAsset.PerfectSuccessRatio;
             
             Gizmos.color = Color.green;
             Vector3 successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange / 2)), Mathf.Sin((successAngle - successRelativeAngleRange / 2)), 0.0f);
             Vector3 successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange / 2)), Mathf.Sin((successAngle + successRelativeAngleRange / 2)), 0.0f);
 
-            Gizmos.DrawLine(transform.position, transform.position + successArcStart * Radius);
-            Gizmos.DrawLine(transform.position, transform.position + successArcEnd * Radius);
+            Gizmos.DrawLine(transform.position, transform.position + successArcStart * ClockParameters.Radius);
+            Gizmos.DrawLine(transform.position, transform.position + successArcEnd * ClockParameters.Radius);
 
             Gizmos.color = Color.yellow;
             successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2)), Mathf.Sin((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2)), 0.0f);
             successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2)), Mathf.Sin((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2)), 0.0f);
             
-            Gizmos.DrawLine(transform.position, transform.position + successArcStart * Radius);
-            Gizmos.DrawLine(transform.position, transform.position + successArcEnd * Radius);
+            Gizmos.DrawLine(transform.position, transform.position + successArcStart * ClockParameters.Radius);
+            Gizmos.DrawLine(transform.position, transform.position + successArcEnd * ClockParameters.Radius);
         }
 #endif
         #endregion
@@ -97,8 +98,8 @@ namespace RoadToAAA.ProjectClock.Managers
 
                 float xScaled = Mathf.Cos(currentRadian);
                 float yScaled = Mathf.Sin(currentRadian);
-                float x = xScaled * Radius;
-                float y = yScaled * Radius;
+                float x = xScaled * ClockParameters.Radius;
+                float y = yScaled * ClockParameters.Radius;
 
                 Vector3 currentPosition = new Vector3(x, y, 0) + ClockTransform.position;
                 ClockRenderer.SetPosition(i, currentPosition);
@@ -114,42 +115,38 @@ namespace RoadToAAA.ProjectClock.Managers
             HandRenderer.endWidth = _paletteAsset.EndHandWidth;
             HandRenderer.loop = false;
           
-            HandRenderer.startColor = ClockState == EClockState.Activated ? HandColor : _paletteAsset.DeactivatedHandColor;
-            HandRenderer.endColor = ClockState == EClockState.Activated ? HandColor : _paletteAsset.DeactivatedHandColor;
+            HandRenderer.startColor = ClockState == EClockState.Activated ? ClockParameters.HandColor : _paletteAsset.DeactivatedHandColor;
+            HandRenderer.endColor = ClockState == EClockState.Activated ? ClockParameters.HandColor : _paletteAsset.DeactivatedHandColor;
             
             float angleRad = angle * Mathf.Deg2Rad;
 
-            Vector3 handBackOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * Radius * _paletteAsset.HandBackOffsetClockRadiusRatio;
+            Vector3 handBackOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * ClockParameters.Radius * _paletteAsset.HandBackOffsetClockRadiusRatio;
             HandRenderer.SetPosition(0, HandTransform.position - handBackOffset);
-            Vector3 handLength = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * Radius * _paletteAsset.HandLengthClockRadiusRatio;
+            Vector3 handLength = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * ClockParameters.Radius * _paletteAsset.HandLengthClockRadiusRatio;
             HandRenderer.SetPosition(1, HandTransform.position + handLength);
 
             HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
         }
 
-        // Update derived data according to new one
-        public void UpdateParameters(float radius, float handSpeedOnCircumference, Vector3 spawnDirection, Color handColor, Clock previousClock)
+        // Update input and derived data according to new one
+        public void UpdateData(ClockParameters newParameters)
         {
-            Radius = radius;
-            Circumference = 2 * Mathf.PI * Radius;
-            AngularSpeed = handSpeedOnCircumference / Circumference * 360.0f;
-            SpawnDirection = spawnDirection;
+            // Input parameters
+            ClockParameters = newParameters;
+
+            // Derived parameters
+            Circumference = 2 * Mathf.PI * ClockParameters.Radius;
+            AngularSpeed = ClockParameters.HandSpeedOnCircumference / Circumference * 360.0f;
+            ClockTransform.position = ClockParameters.Position;
             
-            if (spawnDirection != Vector3.zero) 
+            if (ClockParameters.SpawnDirection != Vector3.zero) 
             { 
-                HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Atan2(-spawnDirection.y, -spawnDirection.x) * Mathf.Rad2Deg);
+                HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, Mathf.Atan2(-ClockParameters.SpawnDirection.y, -ClockParameters.SpawnDirection.x) * Mathf.Rad2Deg);
             }
             else
             {
                 // Set default for the first clock
                 HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 270.0f); 
-            }
-
-            HandColor = handColor;
-
-            if (previousClock != null) 
-            { 
-                previousClock.SuccessDirection = SpawnDirection;
             }
 
             ClockState = EClockState.Activated;
@@ -172,7 +169,7 @@ namespace RoadToAAA.ProjectClock.Managers
             if (ClockGameObject == null) return false;
             if (ClockTransform == null) return false;
             if (HandTransform == null) return false;
-            if (Radius <= 0) return false;
+            if (ClockParameters.Radius <= 0) return false;
             if (ClockRenderer == null) return false;
             if (HandRenderer == null) return false;
             if (_paletteAsset == null) return false;
@@ -190,5 +187,16 @@ namespace RoadToAAA.ProjectClock.Managers
     {
         Activated,
         Deactivated
+    }
+
+    public struct ClockParameters
+    {
+        public bool IsSpecial;
+        public float Radius;
+        public float HandSpeedOnCircumference;
+        public Vector3 SuccessDirection;
+        public Vector3 SpawnDirection;
+        public Vector3 Position;
+        public Color HandColor;
     }
 }

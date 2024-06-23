@@ -33,7 +33,7 @@ namespace RoadToAAA.ProjectClock.Utilities
             return nextFreeItemIndex < Capacity;
         }
 
-        public GameObject Get(bool setActive, Vector3 position)
+        public GameObject Get(bool setActive)
         {
             Debug.Assert(nextFreeItemIndex < Capacity, "Can't get an item if the pool is empty!");
 
@@ -41,7 +41,6 @@ namespace RoadToAAA.ProjectClock.Utilities
             nextFreeItemIndex++;
 
             item.SetActive(setActive);
-            item.transform.position = position;
             return item;
         }
 

@@ -19,3 +19,9 @@ MonoBehaviour:
   MaxSpawnAngle: 135
   ClockPoolSize: 9
   RenderingDistance: 4
+  Points:
+  - NumberOfSpawnedClocks: 0
+    CurveValue:
+      SpecialClockSpawnChance: 0.1
+      MinSpaceBetweenSpecialClocks: 3
+      MaxSpaceBetweenSpecialClocks: 7
