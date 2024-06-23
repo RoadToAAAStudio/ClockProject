@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnerAsset: {fileID: 11400000, guid: 4b498f536c3d4464ab6a9a303cd475f7, type: 2}
   PaletteAssets:
-  - {fileID: 11400000, guid: 65ef92f0e6af24745839d03f1bbb2ebc, type: 2}
+  - {fileID: 11400000, guid: c141ab9ad0a1a04418edec5f8e6406e3, type: 2}
   DifficultyAsset: {fileID: 11400000, guid: 8c71625b0afbeac45a44b05092cfa564, type: 2}
   ComboAsset: {fileID: 11400000, guid: a614c0a31427e7c46b6a0f0d4505f1dc, type: 2}
   ClockPrefab: {fileID: 8109456233941987389, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}

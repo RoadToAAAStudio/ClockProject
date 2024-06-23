@@ -1442,6 +1442,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: Mute
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_Volume
       value: 1
       objectReference: {fileID: 0}
