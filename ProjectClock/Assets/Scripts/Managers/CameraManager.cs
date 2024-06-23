@@ -1,4 +1,6 @@
-﻿using RoadToAAA.ProjectClock.Utilities;
+﻿using RoadToAAA.ProjectClock.Core;
+using RoadToAAA.ProjectClock.Scriptables;
+using RoadToAAA.ProjectClock.Utilities;
 using System;
 using UnityEngine;
 
@@ -6,11 +8,15 @@ namespace RoadToAAA.ProjectClock.Managers
 {
     public class CameraManager : MonoBehaviour
     {
+
         public float CameraLerpVelocity = 10.0f;
         public float CameraUpOffset = 0.4f;
         private Camera _camera;
         private Vector3 _cameraStartPosition;
         private Vector3 _targetPosition;
+
+        // Configs
+        private PaletteAsset _paletteAsset;
 
         #region UnityMessages
         private void Awake()
@@ -18,6 +24,9 @@ namespace RoadToAAA.ProjectClock.Managers
             _camera = Camera.main;
             _cameraStartPosition = _camera.transform.position +  Vector3.up * CameraUpOffset;
             _targetPosition = _cameraStartPosition;
+
+            _paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
+            _camera.backgroundColor = _paletteAsset.BackgroundColor;
         }
 
         private void OnEnable()

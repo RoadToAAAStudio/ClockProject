@@ -12,6 +12,9 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public List<Color> HandColors = new List<Color>();
         public Color DeactivatedHandColor = new Color(0.25f, 0.25f, 0.25f);
 
+        [Header("Other")]
+        public Color BackgroundColor = Color.black;
+
         [Header("ClockRendering")]
         public int ClockNumberOfSegments = 120;
         public float ClockWidth = 0.02f;
