@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RoadToAAA.ProjectClock.Utilities
+namespace RoadToAAA.ProjectClock.Core
 {
     public class DataManager
     {

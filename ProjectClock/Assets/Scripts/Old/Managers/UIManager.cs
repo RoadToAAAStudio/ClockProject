@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using RoadToAAA.ProjectClock.Utilities;
+using RoadToAAA.ProjectClock.Core;
 
 namespace RoadToAAA.ProjectClock.Managers
 {

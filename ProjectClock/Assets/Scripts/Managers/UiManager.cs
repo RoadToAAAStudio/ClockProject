@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RoadToAAA.ProjectClock.Utilities;
+using RoadToAAA.ProjectClock.Core;
 using static RoadToAAA.ProjectClock.Managers.GameManager;
 
 namespace RoadToAAA.ProjectClock.Managers

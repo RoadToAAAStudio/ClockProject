@@ -1,4 +1,4 @@
-using RoadToAAA.ProjectClock.Utilities;
+using RoadToAAA.ProjectClock.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

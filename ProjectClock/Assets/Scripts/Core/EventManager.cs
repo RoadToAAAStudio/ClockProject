@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoadToAAA.ProjectClock.Utilities
+namespace RoadToAAA.ProjectClock.Core
 {
     /*
      * This class implements the Pub/Sub design pattern

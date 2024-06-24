@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RoadToAAA.ProjectClock.Utilities
+namespace RoadToAAA.ProjectClock.Core
 {
     /*
      * This class decouples the demandeur of a piece of data from the provider

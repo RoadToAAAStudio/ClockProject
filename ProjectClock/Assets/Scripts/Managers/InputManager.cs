@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using RoadToAAA.ProjectClock.Utilities;
+using RoadToAAA.ProjectClock.Core;
 using static RoadToAAA.ProjectClock.Managers.GameManager;
 using UnityEngine.UI;
 
