@@ -225,6 +225,12 @@ namespace RoadToAAA.ProjectClock.Core
         OnGameStateChanged,
         #endregion
 
+        #region DataEvents
+        OnScoreChanged,
+        OnCurrencyChanged,
+        OnBestScoreChanged,
+        #endregion
+
         #region InputEvents
         OnPlayTap,
         #endregion
