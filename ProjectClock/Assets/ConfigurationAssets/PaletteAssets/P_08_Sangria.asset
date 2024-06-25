@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
-  m_Name: P_04_Sunset
+  m_Name: P_08_Sangria
   m_EditorClassIdentifier: 
-  ClockColor: {r: 0.9019608, g: 0.28278428, b: 0.039215676, a: 1}
-  SpecialClockColor: {r: 1, g: 0, b: 0.42988586, a: 1}
+  ClockColor: {r: 0.9150943, g: 0.17697577, b: 0.53485143, a: 1}
+  SpecialClockColor: {r: 0.9699073, g: 0.1745283, b: 1, a: 1}
   HandColors:
-  - {r: 1, g: 0.69389224, b: 0, a: 1}
-  DeactivatedHandColor: {r: 0.5754717, g: 0.097664766, b: 0.019001435, a: 1}
-  BackgroundColor: {r: 0.38679248, g: 0.054975584, b: 0, a: 1}
-  Profile: {fileID: 11400000, guid: 044005bf17f39704987ec5bd7c0d422b, type: 2}
+  - {r: 0.9528302, g: 0.4809096, b: 0.7097196, a: 1}
+  DeactivatedHandColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+  BackgroundColor: {r: 0.12941177, g: 0.023529414, b: 0.07450981, a: 1}
+  Profile: {fileID: 11400000, guid: d7c4b76505f871e4580d47a17dd579c7, type: 2}
   ClockNumberOfSegments: 120
-  ClockWidth: 0.02
-  StartHandWidth: 0.04
-  EndHandWidth: 0.01
+  ClockWidth: 0.06
+  StartHandWidth: 0.06
+  EndHandWidth: 0.06
   HandLengthClockRadiusRatio: 0.95
   HandBackOffsetClockRadiusRatio: 0.05

@@ -22,6 +22,6 @@ MonoBehaviour:
   ClockNumberOfSegments: 120
   ClockWidth: 0.02
   StartHandWidth: 0.04
-  EndHandWidth: 0.04
+  EndHandWidth: 0.01
   HandLengthClockRadiusRatio: 0.95
   HandBackOffsetClockRadiusRatio: 0.05
