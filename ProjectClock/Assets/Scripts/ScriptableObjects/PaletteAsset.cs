@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RoadToAAA.ProjectClock.Core;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -24,6 +25,9 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public float EndHandWidth = 0.04f;
         public float HandLengthClockRadiusRatio = 0.95f;
         public float HandBackOffsetClockRadiusRatio = 0.05f;
+
+        [Header("Combo")]
+        public Color[] ComboColors;
 
         public Color GetRandomHandColor()
         {
@@ -83,7 +87,12 @@ namespace RoadToAAA.ProjectClock.Scriptables
             if (HandBackOffsetClockRadiusRatio < 0.0f || HandBackOffsetClockRadiusRatio > 1.0f)
             {
                 result.IsValid = false;
-                result.Message += "HandBackOffsetClockRadiusRatio!\n";
+                result.Message += "HandBackOffsetClockRadiusRatio must be a percentage!\n";
+            }
+            if (ComboColors == null || ComboColors.Length <= 0)
+            {
+                result.IsValid = false;
+                result.Message += "At least one Combo color must be defined!\n";
             }
 
             if (result.IsValid)

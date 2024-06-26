@@ -38,9 +38,11 @@ namespace RoadToAAA.ProjectClock.UI
                     default:
                         {
                             ComboAsset comboAsset = ConfigurationManager.Instance.ComboAsset;
+                            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
+
                             ComboState comboState = comboAsset.ComboStates[comboResult.StateIndex];
 
-                            ShowComboText(comboState.Message, comboState.MessageColor);
+                            ShowComboText(comboState.Message, paletteAsset.ComboColors[comboResult.StateIndex]);
                             return;
                         }
                 }

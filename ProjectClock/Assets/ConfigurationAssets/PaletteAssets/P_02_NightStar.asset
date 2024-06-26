@@ -27,3 +27,8 @@ MonoBehaviour:
   EndHandWidth: 0.04
   HandLengthClockRadiusRatio: 0.95
   HandBackOffsetClockRadiusRatio: 0.05
+  ComboColors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 1, g: 0.827451, b: 0, a: 1}
+  - {r: 0, g: 0.8980392, b: 0.14509805, a: 1}
+  - {r: 1, g: 0, b: 0.6313726, a: 1}

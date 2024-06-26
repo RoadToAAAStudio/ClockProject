@@ -109,12 +109,6 @@ namespace RoadToAAA.ProjectClock.Scriptables
                     result.IsValid = false;
                     result.Message += "Each combo state must have at least 1 as number of success conditions to change state!\n";
                 }
-
-                if (currentState.MessageColor.a != 1.0f)
-                {
-                    result.IsValid = false;
-                    result.Message += "Each combo state message must have alpha value equal to 1!\n";
-                }
             }
 
             for (int i = 1; i < ComboStates.Length; i++)
@@ -143,7 +137,6 @@ namespace RoadToAAA.ProjectClock.Scriptables
     {
         public int Score = 1;
         public string Message;
-        public Color MessageColor;
         public int NumberOfSuccessConditionsToChangeAsset = 1;
     }
 

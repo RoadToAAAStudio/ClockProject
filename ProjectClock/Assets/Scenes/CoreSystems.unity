@@ -154,6 +154,17 @@ MonoBehaviour:
   SpawnerAsset: {fileID: 11400000, guid: 4b498f536c3d4464ab6a9a303cd475f7, type: 2}
   PaletteAssets:
   - {fileID: 11400000, guid: c141ab9ad0a1a04418edec5f8e6406e3, type: 2}
+  - {fileID: 11400000, guid: 77e8e99651309a447bc43aecf3818f5c, type: 2}
+  - {fileID: 11400000, guid: 8b657fcfb7d7f814eaed4326f2b98599, type: 2}
+  - {fileID: 11400000, guid: 8de72874b9187f1409b24af95a09eee2, type: 2}
+  - {fileID: 11400000, guid: 0a55e0213135ac845b581f5421167d2a, type: 2}
+  - {fileID: 11400000, guid: 2310ac4ce0cc4db43abf2835295b2cbc, type: 2}
+  - {fileID: 11400000, guid: 8a9ef5bfd43fb0d4e822b9c7ba39fc62, type: 2}
+  - {fileID: 11400000, guid: e24c6fd427dc0a341b428eceb2c073a0, type: 2}
+  - {fileID: 11400000, guid: a0c9eb1497bf98d4b8fce2e6095ca570, type: 2}
+  - {fileID: 11400000, guid: 0a7bb32908f10c147ad00e2001ef515a, type: 2}
+  - {fileID: 11400000, guid: cb395651f1fa28344b2b789381dc5847, type: 2}
+  - {fileID: 11400000, guid: bdbc2e5a35ba6d540879b4bcb1c5d59d, type: 2}
   DifficultyAsset: {fileID: 11400000, guid: 8c71625b0afbeac45a44b05092cfa564, type: 2}
   ComboAsset: {fileID: 11400000, guid: a614c0a31427e7c46b6a0f0d4505f1dc, type: 2}
   ClockPrefab: {fileID: 8109456233941987389, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
