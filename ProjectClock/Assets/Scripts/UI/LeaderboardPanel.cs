@@ -1,18 +1,15 @@
+using RoadToAAA.ProjectClock.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderboardPanel : MonoBehaviour
+namespace RoadToAAA.ProjectClock.UI
 {
-    // Start is called before the first frame update
-    void Start()
+    public class LeaderboardPanel : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void ReturnButtonClicked()
+        {
+            EventManager.Instance.Publish(EEventType.OnReturnButtonPressed);
+        }
     }
 }

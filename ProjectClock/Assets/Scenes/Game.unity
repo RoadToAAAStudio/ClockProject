@@ -3735,8 +3735,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0d38a2677f442840a65fa286a476abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1374976412}
-  highScoreText: {fileID: 719381758}
+  ScoreText: {fileID: 0}
+  HighScoreText: {fileID: 0}
 --- !u!114 &1562073125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4722,9 +4722,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 525159191}
-        m_TargetAssemblyTypeName: ShopPanel, Assembly-CSharp
-        m_MethodName: ReturnButton
+      - m_Target: {fileID: 2066962759}
+        m_TargetAssemblyTypeName: RoadToAAA.ProjectClock.UI.LeaderboardPanel, Assembly-CSharp
+        m_MethodName: ReturnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5110,6 +5110,7 @@ GameObject:
   - component: {fileID: 2066962756}
   - component: {fileID: 2066962758}
   - component: {fileID: 2066962757}
+  - component: {fileID: 2066962759}
   m_Layer: 5
   m_Name: LeaderboardPanel
   m_TagString: Untagged
@@ -5176,6 +5177,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2066962755}
   m_CullTransparentMesh: 1
+--- !u!114 &2066962759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066962755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ae826bc3223224da4cee41f13b8720, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2132807297
 GameObject:
   m_ObjectHideFlags: 0

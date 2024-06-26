@@ -25,17 +25,11 @@ namespace RoadToAAA.ProjectClock.Managers
         private void OnEnable()
         {
             EventManager.Instance.Subscribe(EEventType.OnGameStateChanged, MainMenu);
-
-            //EventManagerOneParam<CheckState>.Instance.StartListening("onNewClock", AddScore);
-            //EventManager.Instance.StartListening("onGameover", Gameover);
         }
 
         private void OnDisable()
         {
             EventManager.Instance.Unsubscribe(EEventType.OnGameStateChanged, MainMenu);
-
-            //EventManagerOneParam<CheckState>.Instance.StopListening("onNewClock", AddScore);
-            //EventManager.Instance.StopListening("onGameover", Gameover);
         }
 
         private void AddScore(CheckState state)
@@ -54,8 +48,6 @@ namespace RoadToAAA.ProjectClock.Managers
 
                 case CheckState.COMBO:
 
-                    //score += ComboManager.Instance.CurrentCombo.score;
-                    //SpawnText(Camera.main.transform.position, ComboManager.Instance.CurrentCombo.message, ComboManager.Instance.CurrentCombo.messageColor);
                     break;
             }
 
@@ -72,7 +64,7 @@ namespace RoadToAAA.ProjectClock.Managers
             text.Initialize(message, color);
         }
 
-        private void Gameover()
+        private void GameOver()
         {
             int bestScore = DataManager.Instance.GetInt("bestScore");
             if (score > bestScore)

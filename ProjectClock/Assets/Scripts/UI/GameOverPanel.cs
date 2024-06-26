@@ -8,8 +8,8 @@ namespace RoadToAAA.ProjectClock.UI
 {
     public class GameOverPanel : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI scoreText;
-        [SerializeField] private TextMeshProUGUI highScoreText;
+        [SerializeField] private TextMeshProUGUI ScoreText;
+        [SerializeField] private TextMeshProUGUI HighScoreText;
 
 
         private void OnEnable()
@@ -20,8 +20,8 @@ namespace RoadToAAA.ProjectClock.UI
 
         public void Initialize(int score, int bestScore)
         {
-            scoreText.text = "Score: " + score.ToString();
-            highScoreText.text = "Best score: " + bestScore.ToString();
+            ScoreText.text = "Score: " + score.ToString();
+            HighScoreText.text = "Best score: " + bestScore.ToString();
         }
 
         public void RetryButton()

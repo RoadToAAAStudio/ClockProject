@@ -11,7 +11,6 @@ namespace RoadToAAA.ProjectClock.UI
 
         public void PlayButton()
         {
-            Debug.Log("Play Pressed");
             EventManager.Instance.Publish(EEventType.OnPlayButtonPressed);
         }
 
