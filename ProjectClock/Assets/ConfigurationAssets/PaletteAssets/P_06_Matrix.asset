@@ -18,7 +18,7 @@ MonoBehaviour:
   SpecialClockColor: {r: 0.3726415, g: 1, b: 0.46614975, a: 1}
   HandColors:
   - {r: 0.107600555, g: 0.735849, b: 0.2035829, a: 0.95686275}
-  DeactivatedClockColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+  DeactivatedClockColor: {r: 0, g: 0.33, b: 0.05, a: 1}
   BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   Profile: {fileID: 11400000, guid: e8ff706dad787e2429f44af747cf9db5, type: 2}
   ClockNumberOfSegments: 120

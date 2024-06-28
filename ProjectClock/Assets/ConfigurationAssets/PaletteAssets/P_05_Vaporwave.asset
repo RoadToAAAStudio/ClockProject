@@ -20,7 +20,7 @@ MonoBehaviour:
   - {r: 0.8650283, g: 0.5647059, b: 0.8862745, a: 1}
   - {r: 0.6935485, g: 0.5647059, b: 0.8862745, a: 1}
   - {r: 0.5658558, g: 0.5647059, b: 0.8862745, a: 1}
-  DeactivatedClockColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
+  DeactivatedClockColor: {r: 0.31, g: 0.05, b: 0.45, a: 1}
   BackgroundColor: {r: 0.4246444, g: 0.124154516, b: 0.5849056, a: 1}
   Profile: {fileID: 11400000, guid: e8ff706dad787e2429f44af747cf9db5, type: 2}
   ClockNumberOfSegments: 120
