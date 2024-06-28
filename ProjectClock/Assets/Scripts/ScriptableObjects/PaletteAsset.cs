@@ -8,6 +8,10 @@ namespace RoadToAAA.ProjectClock.Scriptables
     [CreateAssetMenu(fileName = "PaletteAsset", menuName = "ConfigurationAssets/PaletteAsset")]
     public class PaletteAsset : ValidableScriptableObject
     {
+        [Header("Palette")]
+        public int Cost = 0;
+        public Sprite ShopIcon = null;
+
         [Header("ClockColor")]
         public Color ClockColor = new Color(0.04f, 0.5f, 0.9f);
         public Color SpecialClockColor = new Color(0.7f, 0.5f, 0.9f);
@@ -59,6 +63,16 @@ namespace RoadToAAA.ProjectClock.Scriptables
             ScriptableObjectValidateResult result = new ScriptableObjectValidateResult();
             result.IsValid = true;
 
+            if (Cost < 0)
+            {
+                result.IsValid = false;
+                result.Message += "Palette cost can't be negative!\n";
+            }
+            if (ShopIcon == null)
+            {
+                result.IsValid = false;
+                result.Message += "ShopIcon must be defined!\n";
+            }
             if (ClockNumberOfSegments <= 2)
             {
                 result.IsValid = false;
