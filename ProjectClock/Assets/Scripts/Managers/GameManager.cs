@@ -9,10 +9,11 @@ namespace RoadToAAA.ProjectClock.Managers
 
     public class GameManager : MonoBehaviour
     {
-        private EGameState oldState = EGameState.InitialState;
-        private EGameState newState;
+        [SerializeField] private EGameState InitialState = EGameState.MainMenu;
 
+        private EGameState _currentState;
 
+        #region UnityMessages
         private void OnEnable()
         {
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, CheckGameOver);
@@ -31,14 +32,14 @@ namespace RoadToAAA.ProjectClock.Managers
         // Start is called before the first frame update
         void Start()
         {
-            ChangeState(EGameState.MainMenu);
+            ChangeState(InitialState);
         }
+        #endregion
 
         private void ChangeState(EGameState state)
         {           
-            newState = state;
-            EventManager<EGameState, EGameState>.Instance.Publish(EEventType.OnGameStateChanged, oldState, newState);
-            oldState = newState;
+            EventManager<EGameState, EGameState>.Instance.Publish(EEventType.OnGameStateChanged, _currentState, state);
+            _currentState = state;
         }
 
         public void StartPlay()
@@ -65,7 +66,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void CheckReturnFromShop()
         {
-            if (oldState == EGameState.MainMenu)
+            if (_currentState == EGameState.MainMenu)
             {
                 return;
             }
@@ -78,8 +79,6 @@ namespace RoadToAAA.ProjectClock.Managers
 
     public enum EGameState
     {
-        //Initial state
-        InitialState,
         //State when the game is in main menu
         MainMenu,
         //State when you go for any reason in the effective play (new game, revive, resume from pause)

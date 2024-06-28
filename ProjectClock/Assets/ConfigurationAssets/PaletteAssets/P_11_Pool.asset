@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
   m_Name: P_11_Pool
   m_EditorClassIdentifier: 
+  Cost: 0
+  ShopIcon: {fileID: 21300000, guid: 2657e0b8bce2c4b4ca247bdfbc3b3ef0, type: 3}
   ClockColor: {r: 0.7735849, g: 0.36611485, b: 0.062032763, a: 1}
   SpecialClockColor: {r: 1, g: 0.81695867, b: 0, a: 1}
   HandColors:
   - {r: 1, g: 0.42541435, b: 0, a: 1}
-  DeactivatedHandColor: {r: 0.04338732, g: 0.3679245, b: 0.16401178, a: 1}
+  DeactivatedClockColor: {r: 0.25, g: 0.25, b: 0.25, a: 1}
   BackgroundColor: {r: 0.0513973, g: 0.3301887, b: 0.15594408, a: 1}
   Profile: {fileID: 11400000, guid: d7c4b76505f871e4580d47a17dd579c7, type: 2}
   ClockNumberOfSegments: 120

@@ -20,17 +20,13 @@ namespace RoadToAAA.ProjectClock.Managers
 
         // Input Parameters
         public ClockParameters ClockParameters { get; private set; }
-        //public float Radius { get; private set; }
-        //public Vector3 SuccessDirection { get; private set; }
-        //public Vector3 SpawnDirection { get; private set; }
-        //public Color HandColor { get; private set; }
 
         // Derived Parameters
         public float Circumference { get; private set; }
         public float AngularSpeed { get; private set; }
 
         // Runtime data
-        public EClockState ClockState { get; private set; }
+        public EClockState State { get; private set; }
         public float GetHandAngle() => HandTransform.rotation.eulerAngles.z;
 
         // Configs
@@ -88,8 +84,9 @@ namespace RoadToAAA.ProjectClock.Managers
             ClockRenderer.startWidth = _paletteAsset.ClockWidth;
             ClockRenderer.endWidth = _paletteAsset.ClockWidth;
             ClockRenderer.loop = true;
-            ClockRenderer.startColor = ClockParameters.ClockColor;
-            ClockRenderer.endColor = ClockParameters.ClockColor;
+            
+            ClockRenderer.startColor = State == EClockState.ShutDown ? _paletteAsset.DeactivatedClockColor : ClockParameters.HandColor;
+            ClockRenderer.endColor = State == EClockState.ShutDown ? _paletteAsset.DeactivatedClockColor : ClockParameters.HandColor;
 
             for (int i = 0; i < _paletteAsset.ClockNumberOfSegments; i++)
             {
@@ -115,8 +112,8 @@ namespace RoadToAAA.ProjectClock.Managers
             HandRenderer.endWidth = _paletteAsset.EndHandWidth;
             HandRenderer.loop = false;
           
-            HandRenderer.startColor = ClockState == EClockState.Activated ? ClockParameters.HandColor : _paletteAsset.DeactivatedHandColor;
-            HandRenderer.endColor = ClockState == EClockState.Activated ? ClockParameters.HandColor : _paletteAsset.DeactivatedHandColor;
+            HandRenderer.startColor = State == EClockState.Activated ? ClockParameters.HandColor : _paletteAsset.DeactivatedClockColor;
+            HandRenderer.endColor = State == EClockState.Activated ? ClockParameters.HandColor : _paletteAsset.DeactivatedClockColor;
             
             float angleRad = angle * Mathf.Deg2Rad;
 
@@ -149,19 +146,24 @@ namespace RoadToAAA.ProjectClock.Managers
                 HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, 270.0f); 
             }
 
-            ClockState = EClockState.Activated;
+            State = EClockState.Activated;
 
             Debug.Assert(IsValid(), "Clock is not valid!");
         }
 
         public void ActivateHand()
         {
-            ClockState = EClockState.Activated;
+            State = EClockState.Activated;
         }
 
         public void DeactivateHand()
         {
-            ClockState = EClockState.Deactivated;
+            State = EClockState.Deactivated;
+        }
+
+        public void DeactivateClock()
+        {
+            State = EClockState.ShutDown;
         }
 
         public bool IsValid()
@@ -186,7 +188,8 @@ namespace RoadToAAA.ProjectClock.Managers
     public enum EClockState
     {
         Activated,
-        Deactivated
+        Deactivated,
+        ShutDown
     }
 
     public struct ClockParameters

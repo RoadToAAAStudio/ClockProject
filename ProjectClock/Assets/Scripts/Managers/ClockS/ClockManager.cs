@@ -3,6 +3,7 @@ using RoadToAAA.ProjectClock.Utilities;
 using RoadToAAA.ProjectClock.Core;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -55,41 +56,14 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void Update()
         {
-            Debug.Assert(_currentClock != null, "Current clock object is null!");
-
-            Clock currentClock = _currentClock.GetComponent<Clock>();
+            Clock currentClock = _currentClock;
+            if (currentClock == null) return;
+            if (currentClock.State != EClockState.Activated) return;
             float handAngle = currentClock.HandTransform.rotation.eulerAngles.z + currentClock.AngularSpeed * Time.deltaTime;
             currentClock.DrawHand(handAngle);
 
         }
         #endregion
-
-        private void Initialize()
-        {
-            // Initialize components
-            _clockSpawner.Initialize();
-            _clockChecker.Initialize();
-            _clockComboHandler.Initialize();
-
-            // Initialize Manager
-            // Despawn all clocks
-            while(_clocks.Count > 0 ) 
-            {
-                DespawnClockInFirstPosition();
-            }
-
-            _currentClockIndex = 0;
-
-            // Spawn a certain amount of Clock
-            for (int i = 0; i < SpawnerAsset.ClockPoolSize; i++)
-            {
-                SpawnClockInLastPosition();
-            }
-
-            // Rendering
-            _currentClock.ActivateHand();
-            _currentClock.DrawHand(_currentClock.GetHandAngle());
-        }
 
         private void GameStateChanged(EGameState oldState, EGameState newState)
         {
@@ -97,6 +71,9 @@ namespace RoadToAAA.ProjectClock.Managers
             {
                 case EGameState.MainMenu:
                     Initialize();
+                    break;
+                case EGameState.GameOver:
+                    DeactivateClocks();
                     break;
             }
         }
@@ -122,6 +99,44 @@ namespace RoadToAAA.ProjectClock.Managers
             // Take Combo Result
             ComboResult comboResult = _clockComboHandler.HandleCheckResult(checkResult);
             EventManager<ECheckResult, ComboResult>.Instance.Publish(EEventType.OnCheckerResult, checkResult, comboResult);
+        }
+
+        private void Initialize()
+        {
+            // Initialize components
+            _clockSpawner.Initialize();
+            _clockChecker.Initialize();
+            _clockComboHandler.Initialize();
+
+            // Initialize Manager
+            // Despawn all clocks
+            while (_clocks.Count > 0)
+            {
+                DespawnClockInFirstPosition();
+            }
+
+            _currentClockIndex = 0;
+
+            // Spawn a certain amount of Clock
+            for (int i = 0; i < SpawnerAsset.ClockPoolSize; i++)
+            {
+                SpawnClockInLastPosition();
+            }
+
+            // Rendering
+            _currentClock.ActivateHand();
+            _currentClock.DrawHand(_currentClock.GetHandAngle());
+        }
+
+        private void DeactivateClocks()
+        {
+            for (int i = 0; i < _clocks.Count; i++) 
+            { 
+                Clock clock = _clocks[i];
+                clock.DeactivateClock();
+                clock.DrawClock();
+                clock.DrawHand(clock.GetHandAngle());
+            }
         }
 
         private void SelectNewClock()
