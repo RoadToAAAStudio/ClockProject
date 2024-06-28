@@ -229,6 +229,7 @@ namespace RoadToAAA.ProjectClock.Core
         OnScoreChanged,
         OnCurrencyChanged,
         OnBestScoreChanged,
+        OnSelectedPaletteChanged,
         #endregion
 
         #region InputEvents
@@ -247,7 +248,8 @@ namespace RoadToAAA.ProjectClock.Core
         OnAudioButtonPressed,
         OnReturnButtonPressed,
         OnLeaderboardReturnButtonPressed,
-        OnRetryButtonPressed
+        OnRetryButtonPressed,
+        OnPalettePreviewChanged,
         #endregion
     }
 }

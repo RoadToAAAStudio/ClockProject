@@ -46,6 +46,17 @@ namespace RoadToAAA.ProjectClock.Core
             }
         }
 
+        private int _selectedPaletteIndex;
+        public int SelectedPaletteIndex
+        {
+            get { return _selectedPaletteIndex; }
+            set
+            {
+                _selectedPaletteIndex = value;
+                EventManager<int>.Instance.Publish(EEventType.OnSelectedPaletteChanged, _selectedPaletteIndex);
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();

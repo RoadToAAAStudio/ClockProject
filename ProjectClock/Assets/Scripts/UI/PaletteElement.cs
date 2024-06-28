@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -11,8 +9,8 @@ public class PaletteElement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _paletteText;
 
     private ShopPanel _shopPanel;
+    private int _paletteCost;
     private int _paletteIndex;
-    public int PaletteIndex {  get { return _paletteIndex; } }
 
     private void OnEnable()
     {
@@ -24,10 +22,11 @@ public class PaletteElement : MonoBehaviour
         _button?.onClick.RemoveAllListeners();
     }
 
-    public void Initialize(Sprite paletteImage, string paletteCost, int paletteIndex, ShopPanel shopPanel)
+    public void Initialize(Sprite paletteImage, int paletteCost, int paletteIndex, ShopPanel shopPanel)
     {
         _paletteImage.sprite = paletteImage;
-        _paletteText.text = paletteCost;
+        _paletteCost = paletteCost;
+        _paletteText.text = paletteCost.ToString();
         _paletteIndex = paletteIndex;
         _shopPanel = shopPanel;
     }
@@ -35,5 +34,6 @@ public class PaletteElement : MonoBehaviour
     private void PaletteButtonClicked()
     {
         // Set this as the currently selected palette
+        _shopPanel.PreviewPalette(_paletteIndex);
     }
 }
