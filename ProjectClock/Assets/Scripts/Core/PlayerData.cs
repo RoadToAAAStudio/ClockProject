@@ -1,5 +1,6 @@
 using RoadToAAA.ProjectClock.Managers;
 using RoadToAAA.ProjectClock.Scriptables;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,9 +74,11 @@ namespace RoadToAAA.ProjectClock.Core
             get { return _previewPaletteIndex; }
             set
             {
+                float oldPreviewIndex = _previewPaletteIndex;
+
                 _previewPaletteIndex = value;
-                
-                if (_previewPaletteIndex != _selectedPaletteIndex)
+             
+                if (_previewPaletteIndex != oldPreviewIndex)
                 {
                     CurrentPaletteIndex = _previewPaletteIndex;
                 }
@@ -87,6 +90,9 @@ namespace RoadToAAA.ProjectClock.Core
         {
             base.Awake();
             Score = 0;
+            SelectedPaletteIndex = 0;
+            _previewPaletteIndex = 0;
+
         }
 
         private void OnEnable()
@@ -94,6 +100,7 @@ namespace RoadToAAA.ProjectClock.Core
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
+            EventManager.Instance.Subscribe(EEventType.OnShopButtonPressed, UpdatePreviewPalette);
         }
 
         private void OnDisable()
@@ -101,6 +108,7 @@ namespace RoadToAAA.ProjectClock.Core
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
+            EventManager.Instance.Unsubscribe(EEventType.OnShopButtonPressed, UpdatePreviewPalette);
         }
 
         private void Start()
@@ -138,7 +146,10 @@ namespace RoadToAAA.ProjectClock.Core
 
         public void SetSelectedPalette()
         {
-            SelectedPaletteIndex = _previewPaletteIndex;
+            if (_previewPaletteIndex != SelectedPaletteIndex)
+            {
+                SelectedPaletteIndex = _previewPaletteIndex;
+            }
         }
 
         private void UpdateCurrentPalette()
@@ -147,6 +158,11 @@ namespace RoadToAAA.ProjectClock.Core
             {
                 CurrentPaletteIndex = _selectedPaletteIndex;
             }
+        }
+
+        private void UpdatePreviewPalette()
+        {
+            _previewPaletteIndex = SelectedPaletteIndex;
         }
     }
 }

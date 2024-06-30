@@ -11,7 +11,6 @@ namespace RoadToAAA.ProjectClock.Managers
     public class ClockSpawner
     {
         private SpawnerAsset _spawnerAsset;
-        private PaletteAsset _paletteAsset;
         private DifficultyAsset _difficultyAsset;
         private GameObject _clockPrefab;
 
@@ -22,7 +21,6 @@ namespace RoadToAAA.ProjectClock.Managers
         public ClockSpawner()
         {
             _spawnerAsset = ConfigurationManager.Instance.SpawnerAsset;
-            _paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
             _difficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
             _clockPrefab = ConfigurationManager.Instance.ClockPrefab;
 
@@ -35,7 +33,7 @@ namespace RoadToAAA.ProjectClock.Managers
         }
 
         // Return a new ClockGameObject if it was possible to generate one
-        public Clock SpawnClock(Clock previousClock)
+        public Clock SpawnClock(PaletteAsset paletteAsset, Clock previousClock)
         {
             Debug.Assert(_spawnerAsset != null, "Spawner Asset is null!");
             Debug.Assert(_spawnerAsset.CheckValidation().IsValid, "Spawner Asset is not valid!");
@@ -49,20 +47,20 @@ namespace RoadToAAA.ProjectClock.Managers
             if (previousClock == null)
             {
                 // Default
-                parameters = GenerateFirstClock(); 
+                parameters = GenerateFirstClock(paletteAsset); 
             }
             else
             {
                 // Spawn based on previous
-                parameters = GenerateClock(previousClock.ClockParameters);
+                parameters = GenerateClock(paletteAsset, previousClock.ClockParameters);
             }
 
             newClock.UpdateData(parameters);            
 
             // Rendering
             newClock.DeactivateHand();
-            newClock.DrawClock();
-            newClock.DrawHand(newClock.GetHandAngle());
+            newClock.DrawClock(paletteAsset);
+            newClock.DrawHand(paletteAsset, newClock.GetHandAngle());
 
             // Handle spawner state
             _currentNumberOfClocksSpawned++;
@@ -83,7 +81,7 @@ namespace RoadToAAA.ProjectClock.Managers
             _clocksPool.Release(clock.gameObject);
         }
 
-        private ClockParameters GenerateFirstClock()
+        private ClockParameters GenerateFirstClock(PaletteAsset paletteAsset)
         {
             ClockParameters newClockParameters = new ClockParameters();
 
@@ -95,14 +93,15 @@ namespace RoadToAAA.ProjectClock.Managers
             newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfClocksSpawned) * (_currentNumberOfClocksSpawned % 2 == 0 ? 1 : -1);
             newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
             newClockParameters.SpawnDirection = Vector3.zero;
-            newClockParameters.ClockColor = _paletteAsset.ClockColor;
-            newClockParameters.HandColor = _paletteAsset.GetRandomHandColor();
+            newClockParameters.StartAngle = 270.0f;
+            newClockParameters.ClockColor = paletteAsset.ClockColor;
+            newClockParameters.HandColor = paletteAsset.GetRandomHandColor();
             newClockParameters.Position = Vector3.zero;
 
             return newClockParameters;
         }
 
-        private ClockParameters GenerateClock(ClockParameters previousClockParameters)
+        private ClockParameters GenerateClock(PaletteAsset paletteAsset, ClockParameters previousClockParameters)
         {
             ClockParameters newClockParameters = new ClockParameters();
 
@@ -116,9 +115,10 @@ namespace RoadToAAA.ProjectClock.Managers
             newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfClocksSpawned) * (_currentNumberOfClocksSpawned % 2 == 0 ? 1 : -1);
             newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
             newClockParameters.SpawnDirection = spawnDirection;
-            newClockParameters.ClockColor = newClockParameters.IsSpecial ? _paletteAsset.SpecialClockColor : _paletteAsset.ClockColor;
-            newClockParameters.HandColor = _paletteAsset.GetRandomHandColor(previousClockParameters.HandColor);
-            newClockParameters.Position = previousClockPosition + spawnDirection * (previousClockParameters.Radius + newClockParameters.Radius + _paletteAsset.ClockWidth);
+            newClockParameters.StartAngle = Mathf.Atan2(-spawnDirection.y, -spawnDirection.x) * Mathf.Rad2Deg;
+            newClockParameters.ClockColor = newClockParameters.IsSpecial ? paletteAsset.SpecialClockColor : paletteAsset.ClockColor;
+            newClockParameters.HandColor = paletteAsset.GetRandomHandColor(previousClockParameters.HandColor);
+            newClockParameters.Position = previousClockPosition + spawnDirection * (previousClockParameters.Radius + newClockParameters.Radius + paletteAsset.ClockWidth);
 
             return newClockParameters;
         }

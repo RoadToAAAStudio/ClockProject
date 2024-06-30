@@ -16,9 +16,6 @@ namespace RoadToAAA.ProjectClock.Managers
         private Vector3 _targetPosition;
         private PostProcessVolume _postProcessVolume;
 
-        // Configs
-        private PaletteAsset _paletteAsset;
-
         #region UnityMessages
         private void Awake()
         {
@@ -27,21 +24,22 @@ namespace RoadToAAA.ProjectClock.Managers
             _targetPosition = _cameraStartPosition;
             _postProcessVolume = GameObject.FindFirstObjectByType<PostProcessVolume>();
 
-            _paletteAsset = ConfigurationManager.Instance.PaletteAssets[0];
-            _camera.backgroundColor = _paletteAsset.BackgroundColor;
-            _postProcessVolume.profile = _paletteAsset.Profile;
+            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[PlayerData.Instance.SelectedPaletteIndex];
+            _camera.backgroundColor = paletteAsset.BackgroundColor;
+            _postProcessVolume.profile = paletteAsset.Profile;
         }
 
         private void OnEnable()
         {
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, GameStateChanged);
-            EventManager<Clock, Clock>.Instance.Subscribe(EEventType.OnNewClockSelected, NewClockSelected); 
+            EventManager<Clock, Clock>.Instance.Subscribe(EEventType.OnNewClockSelected, NewClockSelected);
+            EventManager<int>.Instance.Subscribe(EEventType.OnCurrentPaletteChanged, CurrentPaletteChanged);
         }
-
         private void OnDisable()
         {
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, GameStateChanged);
             EventManager<Clock, Clock>.Instance.Unsubscribe(EEventType.OnNewClockSelected, NewClockSelected);
+            EventManager<int>.Instance.Unsubscribe(EEventType.OnCurrentPaletteChanged, CurrentPaletteChanged);
         }
 
         private void Update()
@@ -70,6 +68,13 @@ namespace RoadToAAA.ProjectClock.Managers
         private void NewClockSelected(Clock newClock, Clock oldClock)
         {
             _targetPosition = newClock.transform.position + newClock.ClockParameters.SuccessDirection * CameraUpOffset;
+        }
+
+        private void CurrentPaletteChanged(int paletteIndex)
+        {
+            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[paletteIndex];
+            _camera.backgroundColor = paletteAsset.BackgroundColor;
+            _postProcessVolume.profile = paletteAsset.Profile;
         }
     }
 }
