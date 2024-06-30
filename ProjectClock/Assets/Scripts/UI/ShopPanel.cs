@@ -16,14 +16,17 @@ public class ShopPanel : MonoBehaviour
     {
         _returnButton.onClick.AddListener(ReturnButtonClicked);
         _selectButton.onClick.AddListener(SelectNewPalette);
-
-        PopulateShop();
     }
 
     private void OnDisable()
     {
         _returnButton.onClick.RemoveAllListeners();
         _selectButton.onClick.RemoveAllListeners();
+    }
+
+    private void Start()
+    {
+        PopulateShop();
     }
 
     public void ReturnButtonClicked()
@@ -43,7 +46,6 @@ public class ShopPanel : MonoBehaviour
     public void SelectNewPalette()
     {
         // TODO: check the price and the currency the player currently holds
-        //PlayerData.Instance.CurrentPaletteIndex = index;
         PlayerData.Instance.SetSelectedPalette();
     }
 
