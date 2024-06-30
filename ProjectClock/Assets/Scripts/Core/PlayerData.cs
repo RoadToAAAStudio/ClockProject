@@ -46,6 +46,17 @@ namespace RoadToAAA.ProjectClock.Core
             }
         }
 
+        private int _currentPaletteIndex;
+        public int CurrentPaletteIndex
+        {
+            get { return _currentPaletteIndex; }
+            set
+            {
+                _currentPaletteIndex = value;
+                EventManager<int>.Instance.Publish(EEventType.OnCurrentPaletteChanged, _currentPaletteIndex);
+            }
+        }
+
         private int _selectedPaletteIndex;
         public int SelectedPaletteIndex
         {
@@ -53,10 +64,25 @@ namespace RoadToAAA.ProjectClock.Core
             set
             {
                 _selectedPaletteIndex = value;
-                EventManager<int>.Instance.Publish(EEventType.OnSelectedPaletteChanged, _selectedPaletteIndex);
             }
         }
 
+        private int _previewPaletteIndex;
+        public int PreviewPaletteIndex
+        {
+            get { return _previewPaletteIndex; }
+            set
+            {
+                _previewPaletteIndex = value;
+                
+                if (_previewPaletteIndex != _selectedPaletteIndex)
+                {
+                    CurrentPaletteIndex = _previewPaletteIndex;
+                }
+            }
+        }
+
+        #region Initialization
         protected override void Awake()
         {
             base.Awake();
@@ -67,12 +93,14 @@ namespace RoadToAAA.ProjectClock.Core
         {
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, UpdateScore);
+            EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
         }
 
         private void OnDisable()
         {
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, UpdateScore);
+            EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
         }
 
         private void Start()
@@ -82,7 +110,9 @@ namespace RoadToAAA.ProjectClock.Core
             BestScore = DataManager.Instance.LoadInt("bestScore", 0);
             Currency = DataManager.Instance.LoadInt("currency", 0);
         }
+        #endregion
 
+        #region Score
         // Called after each tap result to update the current score with the appropriate value (according to the combo state)
         private void UpdateScore(ECheckResult checkResult, ComboResult comboResult)
         {
@@ -103,6 +133,20 @@ namespace RoadToAAA.ProjectClock.Core
                 BestScore = _score;
 
             Score = 0;
+        }
+        #endregion
+
+        public void SetSelectedPalette()
+        {
+            SelectedPaletteIndex = _previewPaletteIndex;
+        }
+
+        private void UpdateCurrentPalette()
+        {
+            if (_previewPaletteIndex != _selectedPaletteIndex)
+            {
+                CurrentPaletteIndex = _selectedPaletteIndex;
+            }
         }
     }
 }

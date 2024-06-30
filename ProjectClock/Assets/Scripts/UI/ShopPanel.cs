@@ -12,8 +12,6 @@ public class ShopPanel : MonoBehaviour
     [SerializeField] private GameObject _palettePanel;
     [SerializeField] private PaletteElement _paletteElementPrefab;
 
-    private int _previewPaletteIndex = 0;
-
     private void OnEnable()
     {
         _returnButton.onClick.AddListener(ReturnButtonClicked);
@@ -45,14 +43,13 @@ public class ShopPanel : MonoBehaviour
     public void SelectNewPalette()
     {
         // TODO: check the price and the currency the player currently holds
-        PlayerData.Instance.SelectedPaletteIndex = _previewPaletteIndex;
-        Debug.Log("Selecting palette n. " + _previewPaletteIndex);
+        //PlayerData.Instance.CurrentPaletteIndex = index;
+        PlayerData.Instance.SetSelectedPalette();
     }
 
     public void PreviewPalette(int index)
     {
-        _previewPaletteIndex = index;
-        EventManager<int>.Instance.Publish(EEventType.OnPalettePreviewChanged, _previewPaletteIndex);
-        Debug.Log("Preview palette n. " + _previewPaletteIndex);
+        //EventManager<int>.Instance.Publish(EEventType.OnPalettePreviewChanged, _previewPaletteIndex);
+        PlayerData.Instance.PreviewPaletteIndex = index;
     }
 }
