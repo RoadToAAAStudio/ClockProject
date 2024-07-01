@@ -1842,10 +1842,26 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 959271549231132335, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 6342eb925b989f04fbe086cfc011164f, type: 2}
+    - target: {fileID: 2262704183230781715, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: _mixer
+      value: 
+      objectReference: {fileID: 24100000, guid: 6342eb925b989f04fbe086cfc011164f, type: 2}
+    - target: {fileID: 2262704183230781715, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: _master
+      value: 
+      objectReference: {fileID: 24100000, guid: 6342eb925b989f04fbe086cfc011164f, type: 2}
     - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 6342eb925b989f04fbe086cfc011164f, type: 2}
     - target: {fileID: 7794274177929065312, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3511,6 +3527,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1e86db56813f0b459e50d382758d5fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _volumeOnIcon: {fileID: 21300000, guid: e402ab90608a4604f9802fb2d97c5885, type: 3}
+  _volumeOffIcon: {fileID: 21300000, guid: 1b3056535447fc547a425f97bb9066ce, type: 3}
+  _audioButtonImage: {fileID: 2034233094}
 --- !u!114 &1459144556
 MonoBehaviour:
   m_ObjectHideFlags: 0

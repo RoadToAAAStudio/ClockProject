@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RoadToAAA.ProjectClock.Core;
 using RoadToAAA.ProjectClock.Scriptables;
+using UnityEngine.Audio;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
@@ -13,9 +14,12 @@ namespace RoadToAAA.ProjectClock.Managers
         public List<AudioClip> SfxClips;
         private AudioSource _musicSource;
         private AudioSource _sfxSource;
+        [SerializeField]private AudioMixer _mixer;
 
         private Dictionary<AudioSource, List<IEnumerator>> _audioSourceEnvelops;
         private List<IEnumerator> _musicEnvelops;
+
+        private const string MIXER_MASTER = "MasterVolume";
 
         private const float UNISON_PITCH = 1.0f;
         private const float SEMITONE_PITCH = 1.059f;
@@ -63,12 +67,14 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, GameStateChanged);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, CheckPeformed);
+            EventManager<int>.Instance.Subscribe(EEventType.OnAudioButtonPressed, ToggleAudio);
         }
 
         private void OnDisable()
         {
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, GameStateChanged);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, CheckPeformed);
+            EventManager<int>.Instance.Unsubscribe(EEventType.OnAudioButtonPressed, ToggleAudio);
         }
         #endregion
 
@@ -201,6 +207,18 @@ namespace RoadToAAA.ProjectClock.Managers
             }
 
             envelops.Clear();
+        }
+
+        private void ToggleAudio(int toggleState)
+        {
+            if (toggleState == 1)
+            {
+                _mixer.SetFloat(MIXER_MASTER, Mathf.Log10(toggleState) * 20);
+            }
+            else
+            {
+                _mixer.SetFloat(MIXER_MASTER, Mathf.Log10(0.0001f) * 20);
+            }
         }
     }
 }
