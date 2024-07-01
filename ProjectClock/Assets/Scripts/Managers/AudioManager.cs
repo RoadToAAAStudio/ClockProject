@@ -166,6 +166,7 @@ namespace RoadToAAA.ProjectClock.Managers
             switch (newState) 
             { 
                 case EGameState.Playing:
+                    ClearEnvelops(_musicSource);
                     Play(_musicSource, MusicClips[0], 1.0f, 1.0f); 
                     break;
             }

@@ -70,12 +70,12 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             switch (newState)
             {
-                case EGameState.MainMenu:
-                    Initialize(ConfigurationManager.Instance.PaletteAssets[PlayerData.Instance.CurrentPaletteIndex]);
-                    break;
-                case EGameState.GameOver:
-                    DeactivateClocks();
-                    break;
+            case EGameState.MainMenu:
+                Initialize(ConfigurationManager.Instance.PaletteAssets[PlayerData.Instance.CurrentPaletteIndex]);
+                break;
+            case EGameState.GameOver:
+                DeactivateClocks();
+                break;
             }
         }
 
@@ -87,14 +87,20 @@ namespace RoadToAAA.ProjectClock.Managers
             ECheckResult checkResult = _clockChecker.Check(_currentClock);         
             switch (checkResult) 
             { 
-                case ECheckResult.Success:
-                case ECheckResult.Perfect:
-                    SelectNewClock();
-                    EventManager<Clock, Clock>.Instance.Publish(EEventType.OnNewClockSelected, _currentClock, _clocks[_currentClockIndex - 1]);
-                    break;
+            case ECheckResult.Success:
+            case ECheckResult.Perfect:
+                SelectNewClock();
+                Clock oldClock = _clocks[_currentClockIndex - 1];
+                Clock newClock = _currentClock;
+                EventManager<Clock, Clock>.Instance.Publish(EEventType.OnNewClockSelected, newClock, oldClock);
+                if (oldClock.ClockParameters.IsSpecial && checkResult == ECheckResult.Perfect)
+                {
+                    EventManager.Instance.Publish(EEventType.OnSpecialClockCleared);
+                }
+                break;
 
-                case ECheckResult.Unsuccess:
-                    break;
+            case ECheckResult.Unsuccess:
+                break;
             }
 
             // Take Combo Result

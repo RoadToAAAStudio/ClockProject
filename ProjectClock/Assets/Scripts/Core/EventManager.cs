@@ -239,6 +239,7 @@ namespace RoadToAAA.ProjectClock.Core
         #region GameplayEvents
         OnCheckerResult,
         OnNewClockSelected,
+        OnSpecialClockCleared,
         #endregion
 
         #region UIEvents
@@ -249,7 +250,7 @@ namespace RoadToAAA.ProjectClock.Core
         OnReturnButtonPressed,
         OnLeaderboardReturnButtonPressed,
         OnRetryButtonPressed,
-        OnPalettePreviewChanged,
+        OnPalettePreviewChanged
         #endregion
     }
 }
