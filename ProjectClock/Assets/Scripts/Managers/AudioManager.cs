@@ -10,11 +10,12 @@ namespace RoadToAAA.ProjectClock.Managers
 
     public class AudioManager : MonoBehaviour
     {
-        public List<AudioClip> MusicClips;
-        public List<AudioClip> SfxClips;
+        [SerializeField] private List<AudioClip> _musicClips;
+        [SerializeField] private List<AudioClip> _sfxClips;
+        [SerializeField] private AudioMixer _mixer;
+
         private AudioSource _musicSource;
         private AudioSource _sfxSource;
-        [SerializeField]private AudioMixer _mixer;
 
         private Dictionary<AudioSource, List<IEnumerator>> _audioSourceEnvelops;
         private List<IEnumerator> _musicEnvelops;
@@ -173,7 +174,7 @@ namespace RoadToAAA.ProjectClock.Managers
             { 
                 case EGameState.Playing:
                     ClearEnvelops(_musicSource);
-                    Play(_musicSource, MusicClips[0], 1.0f, 1.0f); 
+                    Play(_musicSource, _musicClips[0], 1.0f, 1.0f); 
                     break;
             }
         }
@@ -185,7 +186,7 @@ namespace RoadToAAA.ProjectClock.Managers
                 float[] pitches = { UNISON_PITCH, WHOLE_TONE_PITCH, MINOR_THIRD_PITCH, PERFECT_FIFTH_PITCH };
                 int pitchIndex = comboResult.StateIndex % ConfigurationManager.Instance.ComboAsset.ComboStates.Length;
 
-                Play(_sfxSource, SfxClips[0], 1.0f, pitches[pitchIndex] + Random.Range(-0.02f, 0.02f));
+                Play(_sfxSource, _sfxClips[0], 1.0f, pitches[pitchIndex] + Random.Range(-0.02f, 0.02f));
             }
         }
         #endregion

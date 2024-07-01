@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using RoadToAAA.ProjectClock.Core;
 using UnityEngine.UI;
@@ -9,19 +6,18 @@ namespace RoadToAAA.ProjectClock.UI
 {
     public class MainMenuPanel : MonoBehaviour
     {
+        [SerializeField] private Sprite _volumeOnIcon;
+        [SerializeField] private Sprite _volumeOffIcon;
+        [SerializeField] private Image _audioButtonImage;
 
-        [SerializeField] Sprite _volumeOnIcon;
-        [SerializeField] Sprite _volumeOffIcon;
-        [SerializeField] Image _audioButtonImage;
-
-        private int AudioButtonState;
+        private int _audioButtonState;
 
         private const string AUDIOBUTTONSTATE = "AudioButtonState";
 
         private void Start()
         {
-            AudioButtonState = DataManager.Instance.GetInt(AUDIOBUTTONSTATE, 1);
-            if (AudioButtonState == 1)
+            _audioButtonState = DataManager.Instance.GetInt(AUDIOBUTTONSTATE, 1);
+            if (_audioButtonState == 1)
             {
                 _audioButtonImage.sprite = _volumeOnIcon;
             }
@@ -29,8 +25,9 @@ namespace RoadToAAA.ProjectClock.UI
             {
                 _audioButtonImage.sprite = _volumeOffIcon;
             }
-            EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, AudioButtonState);
+            EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, _audioButtonState);
         }
+
         public void PlayButton()
         {
             EventManager.Instance.Publish(EEventType.OnPlayButtonPressed);
@@ -48,19 +45,19 @@ namespace RoadToAAA.ProjectClock.UI
 
         public void SoundButton()
         {
-            if (AudioButtonState == 1)
+            if (_audioButtonState == 1)
             {
-                AudioButtonState = 0;
+                _audioButtonState = 0;
                 _audioButtonImage.sprite = _volumeOffIcon;
-                DataManager.Instance.SaveInt(AUDIOBUTTONSTATE, AudioButtonState);
-                EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, AudioButtonState);
+                DataManager.Instance.SaveInt(AUDIOBUTTONSTATE, _audioButtonState);
+                EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, _audioButtonState);
             }
             else
             {
-                AudioButtonState = 1;
+                _audioButtonState = 1;
                 _audioButtonImage.sprite = _volumeOnIcon;
-                DataManager.Instance.SaveInt(AUDIOBUTTONSTATE, AudioButtonState);
-                EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, AudioButtonState);
+                DataManager.Instance.SaveInt(AUDIOBUTTONSTATE, _audioButtonState);
+                EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, _audioButtonState);
             }
         }
     }

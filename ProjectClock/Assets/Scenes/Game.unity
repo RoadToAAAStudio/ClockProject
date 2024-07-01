@@ -1854,6 +1854,22 @@ PrefabInstance:
       propertyPath: _master
       value: 
       objectReference: {fileID: 24100000, guid: 6342eb925b989f04fbe086cfc011164f, type: 2}
+    - target: {fileID: 2262704183230781715, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: _sfxClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262704183230781715, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: _musicClips.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2262704183230781715, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: _sfxClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 78d03cc2c677c704c9780762c220a3b3, type: 3}
+    - target: {fileID: 2262704183230781715, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
+      propertyPath: _musicClips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a198b725052cd6440b596f24451c566d, type: 3}
     - target: {fileID: 4622671063493934733, guid: e5d3bb1d2abc9dd43bda3f26d9535cb4, type: 3}
       propertyPath: m_PlayOnAwake
       value: 0
