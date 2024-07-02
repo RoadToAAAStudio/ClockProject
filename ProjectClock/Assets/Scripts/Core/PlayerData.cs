@@ -99,6 +99,7 @@ namespace RoadToAAA.ProjectClock.Core
         {
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, UpdateScore);
+            EventManager<int>.Instance.Subscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
             EventManager.Instance.Subscribe(EEventType.OnShopButtonPressed, UpdatePreviewPalette);
         }
@@ -107,6 +108,7 @@ namespace RoadToAAA.ProjectClock.Core
         {
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, UpdateScore);
+            EventManager<int>.Instance.Unsubscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
             EventManager.Instance.Unsubscribe(EEventType.OnShopButtonPressed, UpdatePreviewPalette);
         }
@@ -150,6 +152,11 @@ namespace RoadToAAA.ProjectClock.Core
             {
                 SelectedPaletteIndex = _previewPaletteIndex;
             }
+        }
+
+        private void UpdateCurrency(int currencyObtained)
+        {
+            Currency += currencyObtained;
         }
 
         private void UpdateCurrentPalette()

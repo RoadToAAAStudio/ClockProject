@@ -203,5 +203,6 @@ namespace RoadToAAA.ProjectClock.Managers
         public Vector3 Position;
         public Color ClockColor;
         public Color HandColor;
+        public int Currency;
     }
 }

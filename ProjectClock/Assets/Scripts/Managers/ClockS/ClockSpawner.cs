@@ -97,6 +97,7 @@ namespace RoadToAAA.ProjectClock.Managers
             newClockParameters.ClockColor = paletteAsset.ClockColor;
             newClockParameters.HandColor = paletteAsset.GetRandomHandColor();
             newClockParameters.Position = Vector3.zero;
+            newClockParameters.Currency = 0;
 
             return newClockParameters;
         }
@@ -119,6 +120,7 @@ namespace RoadToAAA.ProjectClock.Managers
             newClockParameters.ClockColor = newClockParameters.IsSpecial ? paletteAsset.SpecialClockColor : paletteAsset.ClockColor;
             newClockParameters.HandColor = paletteAsset.GetRandomHandColor(previousClockParameters.HandColor);
             newClockParameters.Position = previousClockPosition + spawnDirection * (previousClockParameters.Radius + newClockParameters.Radius + paletteAsset.ClockWidth);
+            newClockParameters.Currency = newClockParameters.IsSpecial ? _difficultyAsset.GetLerpedCurrencyObtained(_currentNumberOfClocksSpawned) : 0;
 
             return newClockParameters;
         }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SuccessArcLength: 0.3
   PerfectSuccessRatio: 0.2
-  Points:
+  DifficultyCurvePoints:
   - NumberOfClearedClocks: 0
     HandAbsoluteSpeed: 1.2
   - NumberOfClearedClocks: 2
@@ -25,3 +25,14 @@ MonoBehaviour:
     HandAbsoluteSpeed: 2.25
   - NumberOfClearedClocks: 100
     HandAbsoluteSpeed: 2.5
+  CurrencyCurvePoints:
+  - NumberOfClearedClocks: 0
+    CurrencyObtained: 1
+  - NumberOfClearedClocks: 39
+    CurrencyObtained: 1
+  - NumberOfClearedClocks: 40
+    CurrencyObtained: 2
+  - NumberOfClearedClocks: 99
+    CurrencyObtained: 2
+  - NumberOfClearedClocks: 100
+    CurrencyObtained: 3

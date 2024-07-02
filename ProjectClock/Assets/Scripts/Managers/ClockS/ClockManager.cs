@@ -14,6 +14,7 @@ namespace RoadToAAA.ProjectClock.Managers
     {
         // Configs
         private SpawnerAsset SpawnerAsset;
+        private DifficultyAsset DifficultyAsset;
 
         // Combonents
         private ClockSpawner _clockSpawner;
@@ -33,6 +34,7 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             // Configs
             SpawnerAsset = ConfigurationManager.Instance.SpawnerAsset;
+            DifficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
 
             // Components
             _clockSpawner = new ClockSpawner();
@@ -92,10 +94,13 @@ namespace RoadToAAA.ProjectClock.Managers
                 SelectNewClock();
                 Clock oldClock = _clocks[_currentClockIndex - 1];
                 Clock newClock = _currentClock;
+
+                ClockParameters oldClockParameters = oldClock.ClockParameters;
+
                 EventManager<Clock, Clock>.Instance.Publish(EEventType.OnNewClockSelected, newClock, oldClock);
-                if (oldClock.ClockParameters.IsSpecial && checkResult == ECheckResult.Perfect)
+                if (oldClockParameters.IsSpecial && checkResult == ECheckResult.Perfect)
                 {
-                    EventManager.Instance.Publish(EEventType.OnSpecialClockCleared);
+                    EventManager<int>.Instance.Publish(EEventType.OnSpecialClockCleared, oldClockParameters.Currency);
                 }
                 break;
 
