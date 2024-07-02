@@ -15,7 +15,7 @@ namespace RoadToAAA.ProjectClock.Managers
         private GameObject _clockPrefab;
 
         private StaticPool _clocksPool;
-        private int _currentNumberOfClocksSpawned = 0;
+        private int _currentNumberOfSpawnedClocks = 0;
         private int _distanceFromLastSpecialClockSpawned = 0;
 
         public ClockSpawner()
@@ -29,7 +29,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
         public void Initialize()
         {
-            _currentNumberOfClocksSpawned = 0;
+            _currentNumberOfSpawnedClocks = 0;
         }
 
         // Return a new ClockGameObject if it was possible to generate one
@@ -63,7 +63,7 @@ namespace RoadToAAA.ProjectClock.Managers
             newClock.DrawHand(paletteAsset, newClock.GetHandAngle());
 
             // Handle spawner state
-            _currentNumberOfClocksSpawned++;
+            _currentNumberOfSpawnedClocks++;
             if (parameters.IsSpecial)
             {
                 _distanceFromLastSpecialClockSpawned = 0;
@@ -90,7 +90,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
             newClockParameters.IsSpecial = false;
             newClockParameters.Radius = _spawnerAsset.MaxClockRadius;
-            newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfClocksSpawned) * (_currentNumberOfClocksSpawned % 2 == 0 ? 1 : -1);
+            newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfSpawnedClocks) * (_currentNumberOfSpawnedClocks % 2 == 0 ? 1 : -1);
             newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
             newClockParameters.SpawnDirection = Vector3.zero;
             newClockParameters.StartAngle = 270.0f;
@@ -113,30 +113,30 @@ namespace RoadToAAA.ProjectClock.Managers
 
             newClockParameters.IsSpecial = ShouldGenerateASpecialClock();
             newClockParameters.Radius = Random.Range(_spawnerAsset.MinClockRadius, _spawnerAsset.MaxClockRadius);
-            newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfClocksSpawned) * (_currentNumberOfClocksSpawned % 2 == 0 ? 1 : -1);
+            newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfSpawnedClocks) * (_currentNumberOfSpawnedClocks % 2 == 0 ? 1 : -1);
             newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
             newClockParameters.SpawnDirection = spawnDirection;
             newClockParameters.StartAngle = Mathf.Atan2(-spawnDirection.y, -spawnDirection.x) * Mathf.Rad2Deg;
             newClockParameters.ClockColor = newClockParameters.IsSpecial ? paletteAsset.SpecialClockColor : paletteAsset.ClockColor;
             newClockParameters.HandColor = paletteAsset.GetRandomHandColor(previousClockParameters.HandColor);
             newClockParameters.Position = previousClockPosition + spawnDirection * (previousClockParameters.Radius + newClockParameters.Radius + paletteAsset.ClockWidth);
-            newClockParameters.Currency = newClockParameters.IsSpecial ? _difficultyAsset.GetLerpedCurrencyObtained(_currentNumberOfClocksSpawned) : 0;
+            newClockParameters.Currency = newClockParameters.IsSpecial ? _difficultyAsset.GetLerpedCurrencyObtained(_currentNumberOfSpawnedClocks) : 0;
 
             return newClockParameters;
         }
 
         private bool ShouldGenerateASpecialClock()
         {
-            if (_distanceFromLastSpecialClockSpawned < _spawnerAsset.GetLerpedSpecialClockCurveValue(_currentNumberOfClocksSpawned).MinSpaceBetweenSpecialClocks)
+            if (_distanceFromLastSpecialClockSpawned < _spawnerAsset.GetLerpedSpecialClockCurveValue(_currentNumberOfSpawnedClocks).MinSpaceBetweenSpecialClocks)
             {
                 return false;
             }
-            else if (_distanceFromLastSpecialClockSpawned > _spawnerAsset.GetLerpedSpecialClockCurveValue(_currentNumberOfClocksSpawned).MaxSpaceBetweenSpecialClocks)
+            else if (_distanceFromLastSpecialClockSpawned > _spawnerAsset.GetLerpedSpecialClockCurveValue(_currentNumberOfSpawnedClocks).MaxSpaceBetweenSpecialClocks)
             {
                 return true;
             }
 
-           int spawnChance = (int)(_spawnerAsset.GetLerpedSpecialClockCurveValue(_currentNumberOfClocksSpawned).SpecialClockSpawnChance * 100);
+           int spawnChance = (int)(_spawnerAsset.GetLerpedSpecialClockCurveValue(_currentNumberOfSpawnedClocks).SpecialClockSpawnChance * 100);
 
             return Random.Range(0, 100) < spawnChance;
         }

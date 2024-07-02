@@ -31,7 +31,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
                 result.IsValid = false;
                 result.Message += "Define at least one point of the difficulty curve!\n";
             }
-            if (DifficultyCurvePoints.Length == 1 && DifficultyCurvePoints[0].NumberOfClearedClocks != 0)
+            if (DifficultyCurvePoints.Length == 1 && DifficultyCurvePoints[0].NumberOfSpawnedClocks != 0)
             {
                 result.IsValid = false;
                 result.Message += "First point of the difficulty curve must refer to cleared clocks equal to 0!\n";
@@ -42,7 +42,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
                 DifficultyCurvePoint prePoint = DifficultyCurvePoints[i - 1];
                 DifficultyCurvePoint currentPoint = DifficultyCurvePoints[i];
 
-                if (prePoint.NumberOfClearedClocks >= currentPoint.NumberOfClearedClocks)
+                if (prePoint.NumberOfSpawnedClocks >= currentPoint.NumberOfSpawnedClocks)
                 {
                     result.IsValid = false;
                     result.Message += "Number of cleared clocks of one difficulty curve point must be higher than the previous one's!\n";
@@ -54,7 +54,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
                 result.IsValid = false;
                 result.Message += "Define at least one point of the currency curve!\n";
             }
-            if (CurrencyCurvePoints.Length == 1 && CurrencyCurvePoints[0].NumberOfClearedClocks != 0)
+            if (CurrencyCurvePoints.Length == 1 && CurrencyCurvePoints[0].NumberOfSpawnedClocks != 0)
             {
                 result.IsValid = false;
                 result.Message += "First point of the currency curve must refer to cleared clocks equal to 0!\n";
@@ -65,7 +65,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
                 CurrencyCurvePoint prePoint = CurrencyCurvePoints[i - 1];
                 CurrencyCurvePoint currentPoint = CurrencyCurvePoints[i];
 
-                if (prePoint.NumberOfClearedClocks >= currentPoint.NumberOfClearedClocks)
+                if (prePoint.NumberOfSpawnedClocks >= currentPoint.NumberOfSpawnedClocks)
                 {
                     result.IsValid = false;
                     result.Message += "Number of cleared clocks of one currency curve point must be higher than the previous one's!\n";
@@ -96,7 +96,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
             }
 
             // Saturate to the last speed
-            if (currentNumberOfSpawnedClock > DifficultyCurvePoints[DifficultyCurvePoints.Length - 1].NumberOfClearedClocks)
+            if (currentNumberOfSpawnedClock > DifficultyCurvePoints[DifficultyCurvePoints.Length - 1].NumberOfSpawnedClocks)
             {
                 return DifficultyCurvePoints[DifficultyCurvePoints.Length - 1].HandAbsoluteSpeed;
             }
@@ -104,14 +104,14 @@ namespace RoadToAAA.ProjectClock.Scriptables
             for (int i = 1; i < DifficultyCurvePoints.Length; i++)
             {
                 DifficultyCurvePoint point = DifficultyCurvePoints[i];
-                if (point.NumberOfClearedClocks == currentNumberOfSpawnedClock)
+                if (point.NumberOfSpawnedClocks == currentNumberOfSpawnedClock)
                 {
                     return point.HandAbsoluteSpeed;
                 }
-                else if (point.NumberOfClearedClocks > currentNumberOfSpawnedClock)
+                else if (point.NumberOfSpawnedClocks > currentNumberOfSpawnedClock)
                 {
                     DifficultyCurvePoint pre = DifficultyCurvePoints[i - 1];
-                    float percentage = (currentNumberOfSpawnedClock - pre.NumberOfClearedClocks) / (float)(point.NumberOfClearedClocks - pre.NumberOfClearedClocks);
+                    float percentage = (currentNumberOfSpawnedClock - pre.NumberOfSpawnedClocks) / (float)(point.NumberOfSpawnedClocks - pre.NumberOfSpawnedClocks);
 
                     return Mathf.Lerp(pre.HandAbsoluteSpeed, point.HandAbsoluteSpeed, percentage);
                 }
@@ -121,18 +121,18 @@ namespace RoadToAAA.ProjectClock.Scriptables
             return DifficultyCurvePoints[DifficultyCurvePoints.Length - 1].HandAbsoluteSpeed;
         }
 
-        public int GetLerpedCurrencyObtained(int currentNumberOfClearedClock)
+        public int GetLerpedCurrencyObtained(int currentNumberOfSpawnedClock)
         {
-            Debug.Assert(currentNumberOfClearedClock >= 0, "Curve Point must have positive Number of Cleared Clocks!");
+            Debug.Assert(currentNumberOfSpawnedClock >= 0, "Curve Point must have positive Number of Cleared Clocks!");
             Debug.Assert(CheckValidation().IsValid, "Difficulty asset is not valid!");
 
-            if (currentNumberOfClearedClock == 0)
+            if (currentNumberOfSpawnedClock == 0)
             {
                 return CurrencyCurvePoints[0].CurrencyObtained;
             }
 
             // Saturate to the last speed
-            if (currentNumberOfClearedClock > CurrencyCurvePoints[CurrencyCurvePoints.Length - 1].NumberOfClearedClocks)
+            if (currentNumberOfSpawnedClock > CurrencyCurvePoints[CurrencyCurvePoints.Length - 1].NumberOfSpawnedClocks)
             {
                 return CurrencyCurvePoints[CurrencyCurvePoints.Length - 1].CurrencyObtained;
             }
@@ -140,14 +140,14 @@ namespace RoadToAAA.ProjectClock.Scriptables
             for (int i = 1; i < CurrencyCurvePoints.Length; i++)
             {
                 CurrencyCurvePoint point = CurrencyCurvePoints[i];
-                if (point.NumberOfClearedClocks == currentNumberOfClearedClock)
+                if (point.NumberOfSpawnedClocks == currentNumberOfSpawnedClock)
                 {
                     return point.CurrencyObtained;
                 }
-                else if (point.NumberOfClearedClocks > currentNumberOfClearedClock)
+                else if (point.NumberOfSpawnedClocks > currentNumberOfSpawnedClock)
                 {
                     CurrencyCurvePoint pre = CurrencyCurvePoints[i - 1];
-                    float percentage = (currentNumberOfClearedClock - pre.NumberOfClearedClocks) / (float)(point.NumberOfClearedClocks - pre.NumberOfClearedClocks);
+                    float percentage = (currentNumberOfSpawnedClock - pre.NumberOfSpawnedClocks) / (float)(point.NumberOfSpawnedClocks - pre.NumberOfSpawnedClocks);
 
                     return (int)Mathf.Lerp(pre.CurrencyObtained, point.CurrencyObtained, percentage);
                 }
@@ -161,7 +161,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
     [Serializable]
     public class DifficultyCurvePoint
     {
-        public int NumberOfClearedClocks = 0;
+        public int NumberOfSpawnedClocks = 0;
 
         [Range(0.0f, 10.0f)]
         public float HandAbsoluteSpeed = 0.0f;
@@ -170,7 +170,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
     [Serializable]
     public class CurrencyCurvePoint
     {
-        public int NumberOfClearedClocks = 0;
+        public int NumberOfSpawnedClocks = 0;
 
         public int CurrencyObtained = 0;
     }
