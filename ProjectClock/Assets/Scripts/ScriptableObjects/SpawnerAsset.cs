@@ -15,7 +15,6 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public int RenderingDistance = 5;
         public SpecialClockCurvePoint[] Points;
 
-
         public override ScriptableObjectValidateResult CheckValidation()
         {
             ScriptableObjectValidateResult result = new ScriptableObjectValidateResult();

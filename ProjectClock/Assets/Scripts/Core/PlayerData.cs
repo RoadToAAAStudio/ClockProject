@@ -98,6 +98,7 @@ namespace RoadToAAA.ProjectClock.Core
         private void OnEnable()
         {
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateBestScore);
+            EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateCurrency);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager<int>.Instance.Subscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
@@ -107,6 +108,7 @@ namespace RoadToAAA.ProjectClock.Core
         private void OnDisable()
         {
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateBestScore);
+            EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateCurrency);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager<int>.Instance.Unsubscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
@@ -137,12 +139,20 @@ namespace RoadToAAA.ProjectClock.Core
         //  then resets the score to 0 to ready it for the next run
         private void UpdateBestScore(EGameState oldState, EGameState newState)
         {
-            if (oldState != EGameState.Playing && newState != EGameState.GameOver) return;
+            if (oldState != EGameState.Playing || newState != EGameState.GameOver) return;
 
             if (_score > _bestScore)
                 BestScore = _score;
 
             Score = 0;
+        }
+
+        // Called on gameover, save currency
+        private void UpdateCurrency(EGameState oldState, EGameState newState)
+        {
+            if (oldState != EGameState.Playing || newState != EGameState.GameOver) return;
+
+            DataManager.Instance.SaveInt("currency", _currency);
         }
         #endregion
 

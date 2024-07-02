@@ -15,24 +15,24 @@ MonoBehaviour:
   SuccessArcLength: 0.3
   PerfectSuccessRatio: 0.2
   DifficultyCurvePoints:
-  - NumberOfClearedClocks: 0
+  - NumberOfSpawnedClocks: 0
     HandAbsoluteSpeed: 1.2
-  - NumberOfClearedClocks: 2
+  - NumberOfSpawnedClocks: 2
     HandAbsoluteSpeed: 1.3
-  - NumberOfClearedClocks: 5
+  - NumberOfSpawnedClocks: 5
     HandAbsoluteSpeed: 1.5
-  - NumberOfClearedClocks: 60
+  - NumberOfSpawnedClocks: 60
     HandAbsoluteSpeed: 2.25
-  - NumberOfClearedClocks: 100
+  - NumberOfSpawnedClocks: 100
     HandAbsoluteSpeed: 2.5
   CurrencyCurvePoints:
-  - NumberOfClearedClocks: 0
+  - NumberOfSpawnedClocks: 0
     CurrencyObtained: 1
-  - NumberOfClearedClocks: 39
+  - NumberOfSpawnedClocks: 9
     CurrencyObtained: 1
-  - NumberOfClearedClocks: 40
+  - NumberOfSpawnedClocks: 10
     CurrencyObtained: 2
-  - NumberOfClearedClocks: 99
+  - NumberOfSpawnedClocks: 19
     CurrencyObtained: 2
-  - NumberOfClearedClocks: 100
+  - NumberOfSpawnedClocks: 20
     CurrencyObtained: 3
