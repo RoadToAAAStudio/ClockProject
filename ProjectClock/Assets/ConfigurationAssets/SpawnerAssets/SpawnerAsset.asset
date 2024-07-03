@@ -24,4 +24,24 @@ MonoBehaviour:
     CurveValue:
       SpecialClockSpawnChance: 0.1
       MinSpaceBetweenSpecialClocks: 3
-      MaxSpaceBetweenSpecialClocks: 7
+      MaxSpaceBetweenSpecialClocks: 15
+  - NumberOfSpawnedClocks: 29
+    CurveValue:
+      SpecialClockSpawnChance: 0.1
+      MinSpaceBetweenSpecialClocks: 3
+      MaxSpaceBetweenSpecialClocks: 15
+  - NumberOfSpawnedClocks: 30
+    CurveValue:
+      SpecialClockSpawnChance: 0.2
+      MinSpaceBetweenSpecialClocks: 3
+      MaxSpaceBetweenSpecialClocks: 12
+  - NumberOfSpawnedClocks: 59
+    CurveValue:
+      SpecialClockSpawnChance: 0.2
+      MinSpaceBetweenSpecialClocks: 3
+      MaxSpaceBetweenSpecialClocks: 12
+  - NumberOfSpawnedClocks: 60
+    CurveValue:
+      SpecialClockSpawnChance: 0.3
+      MinSpaceBetweenSpecialClocks: 5
+      MaxSpaceBetweenSpecialClocks: 10

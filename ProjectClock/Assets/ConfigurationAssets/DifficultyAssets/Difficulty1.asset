@@ -28,11 +28,11 @@ MonoBehaviour:
   CurrencyCurvePoints:
   - NumberOfSpawnedClocks: 0
     CurrencyObtained: 1
-  - NumberOfSpawnedClocks: 9
-    CurrencyObtained: 1
-  - NumberOfSpawnedClocks: 10
-    CurrencyObtained: 2
   - NumberOfSpawnedClocks: 19
-    CurrencyObtained: 2
+    CurrencyObtained: 1
   - NumberOfSpawnedClocks: 20
+    CurrencyObtained: 2
+  - NumberOfSpawnedClocks: 59
+    CurrencyObtained: 2
+  - NumberOfSpawnedClocks: 60
     CurrencyObtained: 3
