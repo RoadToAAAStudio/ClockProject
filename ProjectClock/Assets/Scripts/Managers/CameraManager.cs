@@ -24,7 +24,7 @@ namespace RoadToAAA.ProjectClock.Managers
             _targetPosition = _cameraStartPosition;
             _postProcessVolume = GameObject.FindFirstObjectByType<PostProcessVolume>();
 
-            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[PlayerData.Instance.SelectedPaletteIndex];
+            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.SelectedPaletteIndex];
             _camera.backgroundColor = paletteAsset.BackgroundColor;
             _postProcessVolume.profile = paletteAsset.Profile;
         }

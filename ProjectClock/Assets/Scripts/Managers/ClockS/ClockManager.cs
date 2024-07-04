@@ -64,7 +64,7 @@ namespace RoadToAAA.ProjectClock.Managers
             if (currentClock == null) return;
             if (currentClock.State != EClockState.Activated) return;
             float handAngle = currentClock.HandTransform.rotation.eulerAngles.z + currentClock.AngularSpeed * Time.deltaTime;
-            currentClock.DrawHand(ConfigurationManager.Instance.PaletteAssets[PlayerData.Instance.CurrentPaletteIndex], handAngle);
+            currentClock.DrawHand(ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.CurrentPaletteIndex], handAngle);
         }
         #endregion
 
@@ -73,7 +73,7 @@ namespace RoadToAAA.ProjectClock.Managers
             switch (newState)
             {
             case EGameState.MainMenu:
-                Initialize(ConfigurationManager.Instance.PaletteAssets[PlayerData.Instance.CurrentPaletteIndex]);
+                Initialize(ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.CurrentPaletteIndex]);
                 break;
             case EGameState.GameOver:
                 DeactivateClocks();
@@ -140,7 +140,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void DeactivateClocks()
         {
-            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[PlayerData.Instance.SelectedPaletteIndex];
+            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.SelectedPaletteIndex];
             for (int i = 0; i < _clocks.Count; i++) 
             { 
                 Clock clock = _clocks[i];
@@ -152,7 +152,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void SelectNewClock()
         {
-            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[PlayerData.Instance.SelectedPaletteIndex];
+            PaletteAsset paletteAsset = ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.SelectedPaletteIndex];
 
             // Rendering
             _currentClock.DeactivateHand();

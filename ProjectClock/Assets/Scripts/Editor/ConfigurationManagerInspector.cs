@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using RoadToAAA.ProjectClock.Core;
+using RoadToAAA.ProjectClock.Scriptables;
 
-namespace RoadToAAA.ProjectClock.Scriptables
+namespace RoadToAAA.ProjectClock.Editors
 {
     [CustomEditor(typeof(ConfigurationManager))]
     public class ConfigurationManagerInspector : Editor
@@ -23,14 +22,14 @@ namespace RoadToAAA.ProjectClock.Scriptables
         {
             DrawDefaultInspector();
 
-            ConfigurationManager myScript = (ConfigurationManager)target;
+            ConfigurationManager configurationManager = (ConfigurationManager)target;
             GUILayout.Space(10.0f);
             GUILayout.BeginVertical("HelpBox");
             GUILayout.BeginVertical("Label");
             GUILayout.Space(4.0f);
             if (GUILayout.Button("Validate configurations", GUILayout.MaxWidth(200.0f), GUILayout.MinWidth(0.0f), GUILayout.ExpandWidth(false)))
             {
-                _validationResult = myScript.ValidateConfigurations();
+                _validationResult = configurationManager.ValidateConfigurations();
             }
             GUILayout.Space(10.0f);
             GUILayout.BeginVertical("HelpBox");

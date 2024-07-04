@@ -46,12 +46,12 @@ public class ShopPanel : MonoBehaviour
     public void SelectNewPalette()
     {
         // TODO: check the price and the currency the player currently holds
-        PlayerData.Instance.SetSelectedPalette();
+        PlayerDataManager.Instance.SetSelectedPalette();
     }
 
     public void PreviewPalette(int index)
     {
         //EventManager<int>.Instance.Publish(EEventType.OnPalettePreviewChanged, _previewPaletteIndex);
-        PlayerData.Instance.PreviewPaletteIndex = index;
+        PlayerDataManager.Instance.PreviewPaletteIndex = index;
     }
 }

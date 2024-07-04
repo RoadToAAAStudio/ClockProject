@@ -10,7 +10,7 @@ namespace RoadToAAA.ProjectClock.UI
 
         private void Awake()
         {
-            ScoreText.text = PlayerData.Instance.Score.ToString();
+            ScoreText.text = PlayerDataManager.Instance.Score.ToString();
         }
 
         private void OnEnable()

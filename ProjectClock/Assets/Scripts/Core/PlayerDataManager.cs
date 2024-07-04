@@ -11,7 +11,7 @@ namespace RoadToAAA.ProjectClock.Core
      * Holds and handles all the data relative to the player
      */
 
-    public class PlayerData : Singleton<PlayerData>
+    public class PlayerDataManager : Singleton<PlayerDataManager>
     {
         private int _score;
         public int Score
@@ -123,6 +123,12 @@ namespace RoadToAAA.ProjectClock.Core
             Currency = DataManager.Instance.LoadInt("currency", 0);
         }
         #endregion
+
+        public void ClearSavedData()
+        {
+            DataManager.Instance.SaveInt("bestScore", 0);
+            DataManager.Instance.SaveInt("currency", 0);
+        }
 
         #region Score
         // Called after each tap result to update the current score with the appropriate value (according to the combo state)
