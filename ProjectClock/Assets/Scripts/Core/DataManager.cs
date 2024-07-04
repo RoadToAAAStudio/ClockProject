@@ -51,5 +51,10 @@ namespace RoadToAAA.ProjectClock.Core
         {
             return PlayerPrefs.GetString(name, defaultString);
         }
+
+        public void ClearData(string name)
+        {
+            PlayerPrefs.DeleteKey(name);
+        }
     }
 }

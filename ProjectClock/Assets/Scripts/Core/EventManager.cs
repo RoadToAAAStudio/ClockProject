@@ -250,7 +250,8 @@ namespace RoadToAAA.ProjectClock.Core
         OnReturnButtonPressed,
         OnLeaderboardReturnButtonPressed,
         OnRetryButtonPressed,
-        OnPalettePreviewChanged
+        OnPalettePreviewChanged,
+        OnNewPaletteBought,
         #endregion
     }
 }

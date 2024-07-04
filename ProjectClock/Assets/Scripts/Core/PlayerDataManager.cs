@@ -85,6 +85,9 @@ namespace RoadToAAA.ProjectClock.Core
             }
         }
 
+        private List<int> _unlockedPalettes;
+        private int _unlockedPalettesNumber = 0;
+
         #region Initialization
         protected override void Awake()
         {
@@ -121,6 +124,7 @@ namespace RoadToAAA.ProjectClock.Core
 
             BestScore = DataManager.Instance.LoadInt("bestScore", 0);
             Currency = DataManager.Instance.LoadInt("currency", 0);
+            InitializeUnlockedPalettesList();
         }
         #endregion
 
@@ -128,6 +132,11 @@ namespace RoadToAAA.ProjectClock.Core
         {
             DataManager.Instance.SaveInt("bestScore", 0);
             DataManager.Instance.SaveInt("currency", 0);
+            for (int i = 0; i <= _unlockedPalettesNumber; i++)
+            {
+                DataManager.Instance.ClearData("palette" + i);
+            }
+            DataManager.Instance.ClearData("unlockedPalettesNumber");
         }
 
         #region Score
@@ -152,7 +161,9 @@ namespace RoadToAAA.ProjectClock.Core
 
             Score = 0;
         }
+        #endregion
 
+        #region Currency
         // Called on gameover, save currency
         private void UpdateCurrency(EGameState oldState, EGameState newState)
         {
@@ -160,19 +171,51 @@ namespace RoadToAAA.ProjectClock.Core
 
             DataManager.Instance.SaveInt("currency", _currency);
         }
-        #endregion
-
-        public void SetSelectedPalette()
-        {
-            if (_previewPaletteIndex != SelectedPaletteIndex)
-            {
-                SelectedPaletteIndex = _previewPaletteIndex;
-            }
-        }
 
         private void UpdateCurrency(int currencyObtained)
         {
             Currency += currencyObtained;
+        }
+        #endregion
+
+        #region Palette
+        public void SetSelectedPalette()
+        {
+            if (IsPaletteUnlocked(_previewPaletteIndex))
+            {
+                if (_previewPaletteIndex != SelectedPaletteIndex)
+                {
+                    SelectedPaletteIndex = _previewPaletteIndex;
+                }
+            }
+            else
+            {
+                if (Currency >= ConfigurationManager.Instance.PaletteAssets[_previewPaletteIndex].Cost)
+                {
+                    BuyPalette();
+                }
+                else
+                {
+                    // NOT ENOUGH CURRENCY
+                }
+            }
+        }
+
+        private void BuyPalette()
+        {
+            // Update the currency
+            Currency -= ConfigurationManager.Instance.PaletteAssets[_previewPaletteIndex].Cost;
+            DataManager.Instance.SaveInt("currency", _currency);
+
+            // Add the index of the newly boucht palette into the list of unlocked palettes and save it in its correct position
+            _unlockedPalettes.Add(_previewPaletteIndex);
+            _unlockedPalettesNumber++;
+            DataManager.Instance.SaveInt("unlockedPalettesNumber", _unlockedPalettesNumber);
+            DataManager.Instance.SaveInt("palette" + _unlockedPalettesNumber, _previewPaletteIndex);
+
+            // Select the new palette
+            SelectedPaletteIndex = _previewPaletteIndex;
+            EventManager<int>.Instance.Publish(EEventType.OnNewPaletteBought, _previewPaletteIndex);
         }
 
         private void UpdateCurrentPalette()
@@ -187,6 +230,29 @@ namespace RoadToAAA.ProjectClock.Core
         {
             _previewPaletteIndex = SelectedPaletteIndex;
         }
+
+        public bool IsPaletteUnlocked(int index)
+        {
+            for (int i = 0; i < _unlockedPalettes.Count; i++)
+            {
+                if (_unlockedPalettes[i] == index)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private void InitializeUnlockedPalettesList()
+        {
+            _unlockedPalettes = new();
+            _unlockedPalettesNumber = DataManager.Instance.LoadInt("unlockedPalettesNumber", 0);
+            for (int i = 0; i <= _unlockedPalettesNumber; i++)
+            {
+                _unlockedPalettes.Add(DataManager.Instance.LoadInt("palette" + i, 0));
+            }
+        }
+        #endregion
     }
 }
 
