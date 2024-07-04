@@ -255,4 +255,3 @@ namespace RoadToAAA.ProjectClock.Core
         #endregion
     }
 }
-
