@@ -189,4 +189,3 @@ namespace RoadToAAA.ProjectClock.Core
         }
     }
 }
-
