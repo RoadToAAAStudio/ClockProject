@@ -100,6 +100,7 @@ namespace RoadToAAA.ProjectClock.Core
         {
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateCurrency);
+            EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, ResetData);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager<int>.Instance.Subscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
@@ -110,6 +111,7 @@ namespace RoadToAAA.ProjectClock.Core
         {
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateCurrency);
+            EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, ResetData);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager<int>.Instance.Unsubscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
@@ -140,6 +142,13 @@ namespace RoadToAAA.ProjectClock.Core
             DataManager.Instance.ClearData("unlockedPalettesNumber");
         }
 
+        private void ResetData(EGameState oldState, EGameState newState)
+        {
+            if (oldState != EGameState.MainMenu || newState != EGameState.Playing) return;
+
+            Score = 0;
+        }
+
         #region Score
         // Called after each tap result to update the current score with the appropriate value (according to the combo state)
         private void UpdateScore(ECheckResult checkResult, ComboResult comboResult)
@@ -159,8 +168,6 @@ namespace RoadToAAA.ProjectClock.Core
 
             if (_score > _bestScore)
                 BestScore = _score;
-
-            Score = 0;
         }
         #endregion
 

@@ -3,35 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using RoadToAAA.ProjectClock.Core;
 using TMPro;
+using UnityEngine.UI;
 
 namespace RoadToAAA.ProjectClock.UI
 {
     public class GameOverPanel : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI ScoreText;
-        [SerializeField] private TextMeshProUGUI HighScoreText;
-
+        [SerializeField] private Button _mainMenuButton;
+        [SerializeField] private TextMeshProUGUI _scoreText;
+        [SerializeField] private TextMeshProUGUI _highScoreText;
 
         private void OnEnable()
         {
-            
+            _mainMenuButton.onClick.AddListener(MainMenuButtonClicked);
+
+            Initialize();
         }
 
-
-        public void Initialize(int score, int bestScore)
+        private void OnDisable()
         {
-            ScoreText.text = "Score: " + score.ToString();
-            HighScoreText.text = "Best score: " + bestScore.ToString();
+            _mainMenuButton.onClick.RemoveAllListeners();
         }
 
-        public void RetryButton()
+        public void Initialize()
         {
-            EventManager.Instance.Publish(EEventType.OnRetryButtonPressed);
+            _scoreText.text = PlayerDataManager.Instance.Score.ToString();
+            _highScoreText.text = PlayerDataManager.Instance.BestScore.ToString();
         }
 
-        public void ShopButton()
+        public void MainMenuButtonClicked()
         {
-            EventManager.Instance.Publish(EEventType.OnShopButtonPressed);
+            EventManager.Instance.Publish(EEventType.OnMainMenuButtonClicked);
         }
     }
 }

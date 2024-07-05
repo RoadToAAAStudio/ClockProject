@@ -22,7 +22,7 @@ namespace RoadToAAA.ProjectClock.Managers
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, OpenMainMenu);
             EventManager.Instance.Subscribe(EEventType.OnLeaderboardButtonPressed, OpenLeaderboard);
             EventManager.Instance.Subscribe(EEventType.OnLeaderboardReturnButtonPressed, OpenMainMenu);
-            EventManager.Instance.Subscribe(EEventType.OnRetryButtonPressed, OpenMainMenu);
+            EventManager.Instance.Subscribe(EEventType.OnMainMenuButtonClicked, OpenMainMenu);
             EventManager.Instance.Subscribe(EEventType.OnPlayButtonPressed, StartPlaying);
         }
 
@@ -33,7 +33,7 @@ namespace RoadToAAA.ProjectClock.Managers
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, OpenMainMenu);
             EventManager.Instance.Unsubscribe(EEventType.OnLeaderboardButtonPressed, OpenLeaderboard);
             EventManager.Instance.Unsubscribe(EEventType.OnLeaderboardReturnButtonPressed, OpenMainMenu);
-            EventManager.Instance.Unsubscribe(EEventType.OnRetryButtonPressed, OpenMainMenu);
+            EventManager.Instance.Unsubscribe(EEventType.OnMainMenuButtonClicked, OpenMainMenu);
             EventManager.Instance.Unsubscribe(EEventType.OnPlayButtonPressed, StartPlaying);
         }
 

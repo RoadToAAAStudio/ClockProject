@@ -18,14 +18,14 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, CheckGameOver);
             EventManager.Instance.Subscribe(EEventType.OnPlayButtonPressed, StartPlay);
-            EventManager.Instance.Subscribe(EEventType.OnRetryButtonPressed, QuitPlay);
+            EventManager.Instance.Subscribe(EEventType.OnMainMenuButtonClicked, QuitPlay);
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, CheckReturnFromShop);
         }
         private void OnDisable()
         {
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, CheckGameOver);
             EventManager.Instance.Unsubscribe(EEventType.OnPlayButtonPressed, StartPlay);
-            EventManager.Instance.Unsubscribe(EEventType.OnRetryButtonPressed, QuitPlay);
+            EventManager.Instance.Unsubscribe(EEventType.OnMainMenuButtonClicked, QuitPlay);
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, CheckReturnFromShop);
         }
 

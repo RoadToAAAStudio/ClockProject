@@ -249,7 +249,7 @@ namespace RoadToAAA.ProjectClock.Core
         OnAudioButtonPressed,
         OnReturnButtonPressed,
         OnLeaderboardReturnButtonPressed,
-        OnRetryButtonPressed,
+        OnMainMenuButtonClicked,
         OnPalettePreviewChanged,
         OnNewPaletteBought,
         #endregion
