@@ -14,7 +14,9 @@ public class ShopPanel : MonoBehaviour
     [SerializeField] private GameObject _palettePanel;
     [SerializeField] private PaletteElement _paletteElementPrefab;
 
-    private List<PaletteElement> _paletteElements;
+    [SerializeField] private ScrollRect _scrollRect;
+
+    private List<PaletteElement> _paletteElements = new();
 
     private void OnEnable()
     {
@@ -22,6 +24,10 @@ public class ShopPanel : MonoBehaviour
         _selectButton.onClick.AddListener(SelectNewPalette);
 
         EventManager<int>.Instance.Subscribe(EEventType.OnNewPaletteBought, UpdateShopVisual);
+
+        // Set the current palette element at the center of the scroll view
+        if (_paletteElements.Count > 0)
+            SnapScrollView(_paletteElements[PlayerDataManager.Instance.CurrentPaletteIndex]);
     }
 
     private void OnDisable()
@@ -30,6 +36,10 @@ public class ShopPanel : MonoBehaviour
         _selectButton.onClick.RemoveAllListeners();
 
         EventManager<int>.Instance.Unsubscribe(EEventType.OnNewPaletteBought, UpdateShopVisual);
+
+        // Resets the position of all the elements in the scroll view
+        if (_paletteElements.Count > 0)
+            _scrollRect.content.anchoredPosition = Vector2.zero;
     }
 
     private void Start()
@@ -45,13 +55,14 @@ public class ShopPanel : MonoBehaviour
     private void PopulateShop()
     {
         PaletteAsset[] palettes = ConfigurationManager.Instance.PaletteAssets;
-        _paletteElements = new();
         for (int i = 0; i < palettes.Length; i++)
         {
             PaletteElement paletteElement = Instantiate(_paletteElementPrefab, _palettePanel.transform);
             _paletteElements.Add(paletteElement);
             paletteElement.Initialize(palettes[i].ShopIcon, palettes[i].Cost, i, this, PlayerDataManager.Instance.IsPaletteUnlocked(i));
         }
+
+        SnapScrollView(_paletteElements[PlayerDataManager.Instance.CurrentPaletteIndex]);
     }
 
     public void SelectNewPalette()
@@ -73,5 +84,16 @@ public class ShopPanel : MonoBehaviour
     {
         _selectButtonText.text = "Select";
         _paletteElements[index].UnlockPanel();
+    }
+
+    private void SnapScrollView(PaletteElement selectedElement)
+    {
+        Canvas.ForceUpdateCanvases();
+
+        Vector2 contentPos = _scrollRect.transform.InverseTransformPoint(_scrollRect.transform.position);
+        Vector2 elementPos = _scrollRect.transform.InverseTransformPoint(selectedElement.transform.position);
+        Vector2 endPos = contentPos - elementPos;
+        endPos.y = contentPos.y;
+        _scrollRect.content.anchoredPosition = endPos;
     }
 }
