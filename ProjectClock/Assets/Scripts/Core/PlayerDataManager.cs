@@ -54,6 +54,7 @@ namespace RoadToAAA.ProjectClock.Core
             set
             {
                 _currentPaletteIndex = value;
+                DataManager.Instance.SaveInt("currentPalette", _currentPaletteIndex);
                 EventManager<int>.Instance.Publish(EEventType.OnCurrentPaletteChanged, _currentPaletteIndex);
             }
         }
@@ -93,9 +94,6 @@ namespace RoadToAAA.ProjectClock.Core
         {
             base.Awake();
             Score = 0;
-            SelectedPaletteIndex = 0;
-            _previewPaletteIndex = 0;
-
         }
 
         private void OnEnable()
@@ -124,6 +122,9 @@ namespace RoadToAAA.ProjectClock.Core
 
             BestScore = DataManager.Instance.LoadInt("bestScore", 0);
             Currency = DataManager.Instance.LoadInt("currency", 0);
+            CurrentPaletteIndex = DataManager.Instance.LoadInt("currentPalette", 0);
+            SelectedPaletteIndex = CurrentPaletteIndex;
+            _previewPaletteIndex = CurrentPaletteIndex;
             InitializeUnlockedPalettesList();
         }
         #endregion
