@@ -10,12 +10,12 @@ namespace RoadToAAA.ProjectClock.UI
 
         private void Awake()
         {
-            ScoreText.text = PlayerDataManager.Instance.Score.ToString();
         }
 
         private void OnEnable()
         {
             EventManager<int>.Instance.Subscribe(EEventType.OnScoreChanged, UpdateScoreText);
+            ScoreText.text = PlayerDataManager.Instance.Score.ToString();
         }
 
         private void OnDisable()
