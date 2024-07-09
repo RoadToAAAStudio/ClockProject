@@ -167,6 +167,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bdbc2e5a35ba6d540879b4bcb1c5d59d, type: 2}
   DifficultyAsset: {fileID: 11400000, guid: 8c71625b0afbeac45a44b05092cfa564, type: 2}
   ComboAsset: {fileID: 11400000, guid: a614c0a31427e7c46b6a0f0d4505f1dc, type: 2}
+  AdRewardAsset: {fileID: 11400000, guid: 005136ba4e85cc142842416bef78958f, type: 2}
   ClockPrefab: {fileID: 8109456233941987389, guid: 6abd0bd4e00a3a04eb11685050c18ee9, type: 3}
 --- !u!4 &906604345
 Transform:
@@ -194,7 +195,7 @@ GameObject:
   - component: {fileID: 1912657561}
   - component: {fileID: 1912657560}
   m_Layer: 0
-  m_Name: PlayerData
+  m_Name: PlayerDataManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

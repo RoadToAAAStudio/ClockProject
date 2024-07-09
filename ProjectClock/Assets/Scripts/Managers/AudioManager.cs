@@ -7,7 +7,6 @@ using UnityEngine.Audio;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
-
     public class AudioManager : MonoBehaviour
     {
         [SerializeField] private List<AudioClip> _musicClips;

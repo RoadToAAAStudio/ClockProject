@@ -13,6 +13,7 @@ namespace RoadToAAA.ProjectClock.Core
         public PaletteAsset[] PaletteAssets;
         public DifficultyAsset DifficultyAsset;
         public ComboAsset ComboAsset;
+        public AdRewardAsset AdRewardAsset;
 
         [Header("Prefabs")]
         public GameObject ClockPrefab;
@@ -33,6 +34,7 @@ namespace RoadToAAA.ProjectClock.Core
             Debug.Assert(PaletteAssets != null && PaletteAssets.Length > 0, "Palette asset list is null or has 0 palettes!");
             Debug.Assert(DifficultyAsset != null, "Difficulty asset is null!");
             Debug.Assert(ComboAsset != null, "Combo asset is null!");
+            Debug.Assert(AdRewardAsset != null, "AdReward asset is null!");
             Debug.Assert(ClockPrefab != null, "Clock prefab is null!");
 
             ScriptableObjectValidateResult result = new ScriptableObjectValidateResult();
@@ -66,6 +68,12 @@ namespace RoadToAAA.ProjectClock.Core
             ScriptableObjectValidateResult spawnerResult = SpawnerAsset.CheckValidation();
             result.IsValid &= spawnerResult.IsValid;
             result.Message += "\t" + spawnerResult.Message + "\n";
+
+            // AdReward asset
+            result.Message += "AdReward asset:\n";
+            ScriptableObjectValidateResult adRewardResult = AdRewardAsset.CheckValidation();
+            result.IsValid &= adRewardResult.IsValid;
+            result.Message += "\t" + adRewardResult.Message + "\n";
 
             // Coherence between assets
             result.Message += "ASSETS COHERENCE\n";

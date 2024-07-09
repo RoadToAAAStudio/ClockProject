@@ -103,6 +103,7 @@ namespace RoadToAAA.ProjectClock.Core
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, ResetData);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager<int>.Instance.Subscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
+            EventManager.Instance.Subscribe(EEventType.OnAdCompleted, ApplyAdReward);
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
             EventManager.Instance.Subscribe(EEventType.OnShopButtonPressed, UpdatePreviewPalette);
         }
@@ -114,6 +115,7 @@ namespace RoadToAAA.ProjectClock.Core
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, ResetData);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager<int>.Instance.Unsubscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
+            EventManager.Instance.Unsubscribe(EEventType.OnAdCompleted, ApplyAdReward);
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
             EventManager.Instance.Unsubscribe(EEventType.OnShopButtonPressed, UpdatePreviewPalette);
         }
@@ -183,6 +185,21 @@ namespace RoadToAAA.ProjectClock.Core
         private void UpdateCurrency(int currencyObtained)
         {
             Currency += currencyObtained;
+        }
+
+        private void ApplyAdReward()
+        {
+            AdRewardAsset adRewardAsset = ConfigurationManager.Instance.AdRewardAsset;
+
+            switch(adRewardAsset.RewardType)
+            {
+                case ERewardType.SUM:
+                    Currency += (int)adRewardAsset.Amount;
+                    break;
+                case ERewardType.MULTIPLY:
+                    Currency = (int)(Currency * adRewardAsset.Amount);
+                    break;
+            }
         }
         #endregion
 

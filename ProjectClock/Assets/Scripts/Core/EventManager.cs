@@ -250,8 +250,14 @@ namespace RoadToAAA.ProjectClock.Core
         OnReturnButtonPressed,
         OnLeaderboardReturnButtonPressed,
         OnMainMenuButtonClicked,
+        OnAdsButtonClicked,
         OnPalettePreviewChanged,
         OnNewPaletteBought,
+        #endregion
+
+        #region AdsEvents
+        OnAdLoaded,
+        OnAdCompleted
         #endregion
     }
 }
