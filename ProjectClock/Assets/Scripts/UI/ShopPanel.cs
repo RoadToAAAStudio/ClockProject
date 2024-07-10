@@ -28,6 +28,9 @@ public class ShopPanel : MonoBehaviour
         // Set the current palette element at the center of the scroll view
         if (_paletteElements.Count > 0)
             SnapScrollView(_paletteElements[PlayerDataManager.Instance.CurrentPaletteIndex]);
+
+
+        UpdateShopVisual(false);
     }
 
     private void OnDisable()
@@ -68,22 +71,51 @@ public class ShopPanel : MonoBehaviour
     public void SelectNewPalette()
     {
         PlayerDataManager.Instance.SetSelectedPalette();
+        UpdateShopVisual(false);
     }
 
     public void PreviewPalette(int index)
     {
-        PlayerDataManager.Instance.PreviewPaletteIndex = index;
-
         if (PlayerDataManager.Instance.IsPaletteUnlocked(index))
+        {
             _selectButtonText.text = "Select";
+            UpdateShopVisual(PlayerDataManager.Instance.SelectedPaletteIndex != index);
+        }
         else
+        {
             _selectButtonText.text = "Buy";
+            
+            UpdateShopVisual(PlayerDataManager.Instance.Currency >= ConfigurationManager.Instance.PaletteAssets[index].Cost);
+        }
+
+        PlayerDataManager.Instance.PreviewPaletteIndex = index;
     }
 
     private void UpdateShopVisual(int index)
     {
         _selectButtonText.text = "Select";
+        Color buttonColor = _selectButton.GetComponent<Image>().color;
+        buttonColor.a = 0.3f;
+        _selectButton.GetComponent<Image>().color = buttonColor;
         _paletteElements[index].UnlockPanel();
+    }
+
+    private void UpdateShopVisual(bool isInteractable)
+    {
+        if (isInteractable)
+        {
+            _selectButton.enabled = true;
+            Color buttonColor = _selectButton.GetComponent<Image>().color;
+            buttonColor.a = 1f;
+            _selectButton.GetComponent<Image>().color = buttonColor;
+        }
+        else
+        {
+            _selectButton.enabled = false;
+            Color buttonColor = _selectButton.GetComponent<Image>().color;
+            buttonColor.a = 0.3f;
+            _selectButton.GetComponent<Image>().color = buttonColor;
+        }
     }
 
     private void SnapScrollView(PaletteElement selectedElement)

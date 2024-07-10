@@ -215,14 +215,7 @@ namespace RoadToAAA.ProjectClock.Core
             }
             else
             {
-                if (Currency >= ConfigurationManager.Instance.PaletteAssets[_previewPaletteIndex].Cost)
-                {
-                    BuyPalette();
-                }
-                else
-                {
-                    // NOT ENOUGH CURRENCY
-                }
+                BuyPalette();
             }
         }
 
