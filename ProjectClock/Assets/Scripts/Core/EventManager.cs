@@ -230,6 +230,7 @@ namespace RoadToAAA.ProjectClock.Core
         OnCurrencyChanged,
         OnBestScoreChanged,
         OnCurrentPaletteChanged,
+        OnRunCurrencyChanged,
         #endregion
 
         #region InputEvents

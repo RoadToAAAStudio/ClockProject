@@ -47,6 +47,17 @@ namespace RoadToAAA.ProjectClock.Core
             }
         }
 
+        private int _runCurrency;
+        public int RunCurrency
+        {
+            get { return _runCurrency; }
+            set
+            {
+                _runCurrency = value;
+                EventManager<int>.Instance.Publish(EEventType.OnRunCurrencyChanged, _runCurrency);
+            }
+        }
+
         private int _currentPaletteIndex;
         public int CurrentPaletteIndex
         {
@@ -94,6 +105,7 @@ namespace RoadToAAA.ProjectClock.Core
         {
             base.Awake();
             Score = 0;
+            RunCurrency = 0;
         }
 
         private void OnEnable()
@@ -149,6 +161,7 @@ namespace RoadToAAA.ProjectClock.Core
             if (oldState != EGameState.MainMenu || newState != EGameState.Playing) return;
 
             Score = 0;
+            RunCurrency = 0;
         }
 
         #region Score
@@ -185,6 +198,7 @@ namespace RoadToAAA.ProjectClock.Core
         private void UpdateCurrency(int currencyObtained)
         {
             Currency += currencyObtained;
+            RunCurrency += currencyObtained;
         }
 
         private void ApplyAdReward()

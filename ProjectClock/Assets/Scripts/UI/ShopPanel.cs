@@ -11,9 +11,9 @@ public class ShopPanel : MonoBehaviour
     [SerializeField] private Button _returnButton;
     [SerializeField] private Button _selectButton;
     [SerializeField] private TextMeshProUGUI _selectButtonText;
+    [SerializeField] private TextMeshProUGUI _currencyText;
     [SerializeField] private GameObject _palettePanel;
     [SerializeField] private PaletteElement _paletteElementPrefab;
-
     [SerializeField] private ScrollRect _scrollRect;
 
     private List<PaletteElement> _paletteElements = new();
@@ -24,6 +24,7 @@ public class ShopPanel : MonoBehaviour
         _selectButton.onClick.AddListener(SelectNewPalette);
 
         EventManager<int>.Instance.Subscribe(EEventType.OnNewPaletteBought, UpdateShopVisual);
+        EventManager<int>.Instance.Subscribe(EEventType.OnCurrencyChanged, UpdateCurrency);
 
         // Set the current palette element at the center of the scroll view
         if (_paletteElements.Count > 0)
@@ -31,6 +32,7 @@ public class ShopPanel : MonoBehaviour
 
 
         UpdateShopVisual(false);
+        UpdateCurrency(PlayerDataManager.Instance.Currency);
     }
 
     private void OnDisable()
@@ -39,6 +41,7 @@ public class ShopPanel : MonoBehaviour
         _selectButton.onClick.RemoveAllListeners();
 
         EventManager<int>.Instance.Unsubscribe(EEventType.OnNewPaletteBought, UpdateShopVisual);
+        EventManager<int>.Instance.Unsubscribe(EEventType.OnCurrencyChanged, UpdateCurrency);
 
         // Resets the position of all the elements in the scroll view
         if (_paletteElements.Count > 0)
@@ -127,5 +130,10 @@ public class ShopPanel : MonoBehaviour
         Vector2 endPos = contentPos - elementPos;
         endPos.y = contentPos.y;
         _scrollRect.content.anchoredPosition = endPos;
+    }
+
+    private void UpdateCurrency(int currency)
+    {
+        _currencyText.text = currency.ToString();
     }
 }

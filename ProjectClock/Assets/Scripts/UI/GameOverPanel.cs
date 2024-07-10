@@ -14,6 +14,7 @@ namespace RoadToAAA.ProjectClock.UI
         [SerializeField] private Button _adsButton;
         [SerializeField] private TextMeshProUGUI _scoreText;
         [SerializeField] private TextMeshProUGUI _highScoreText;
+        [SerializeField] private TextMeshProUGUI _currencyText;
 
         private void OnEnable()
         {
@@ -23,6 +24,7 @@ namespace RoadToAAA.ProjectClock.UI
             _adsButton.onClick.AddListener(AdsButtonClicked);
 
             EventManager.Instance.Subscribe(EEventType.OnAdLoaded, AdLoaded);
+            EventManager<int>.Instance.Subscribe(EEventType.OnRunCurrencyChanged, UpdateCurrency);
         }
 
         private void OnDisable()
@@ -31,6 +33,7 @@ namespace RoadToAAA.ProjectClock.UI
             _adsButton.onClick.RemoveAllListeners();
 
             EventManager.Instance.Unsubscribe(EEventType.OnAdLoaded, AdLoaded);
+            EventManager<int>.Instance.Unsubscribe(EEventType.OnRunCurrencyChanged, UpdateCurrency);
         }
 
         private void Initialize()
@@ -38,6 +41,7 @@ namespace RoadToAAA.ProjectClock.UI
             _scoreText.text = PlayerDataManager.Instance.Score.ToString();
             _highScoreText.text = PlayerDataManager.Instance.BestScore.ToString();
             _adsButton.interactable = false;
+            UpdateCurrency(PlayerDataManager.Instance.RunCurrency);
         }
 
         private void MainMenuButtonClicked()
@@ -54,6 +58,11 @@ namespace RoadToAAA.ProjectClock.UI
         private void AdLoaded()
         {
             _adsButton.interactable = true;
+        }
+
+        private void UpdateCurrency(int currency)
+        {
+            _currencyText.text = currency.ToString();
         }
     }
 }
