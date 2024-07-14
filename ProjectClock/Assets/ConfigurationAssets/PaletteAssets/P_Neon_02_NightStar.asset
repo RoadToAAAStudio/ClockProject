@@ -10,21 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
-  m_Name: P_12_1BIt
+  m_Name: P_Neon_02_NightStar
   m_EditorClassIdentifier: 
   Cost: 0
   ShopIcon: {fileID: 21300000, guid: 2657e0b8bce2c4b4ca247bdfbc3b3ef0, type: 3}
-  ClockColor: {r: 0.98039216, g: 0.98039216, b: 0.98039216, a: 1}
-  SpecialClockColor: {r: 0.9716981, g: 0.9689021, b: 0.7104397, a: 1}
+  ClockColor: {r: 0.6698113, g: 0.6573663, b: 0.26223743, a: 1}
+  SpecialClockColor: {r: 0.9716981, g: 0.8197122, b: 0.2520915, a: 1}
   HandColors:
-  - {r: 0.98039216, g: 0.98039216, b: 0.98039216, a: 1}
-  DeactivatedClockColor: {r: 0.98, g: 0.98, b: 0.98, a: 1}
-  BackgroundColor: {r: 0.019607844, g: 0.019607844, b: 0.019607844, a: 1}
-  Profile: {fileID: 11400000, guid: d7c4b76505f871e4580d47a17dd579c7, type: 2}
+  - {r: 0.43467426, g: 0.7320339, b: 0.8301887, a: 0.99215686}
+  - {r: 0.7922184, g: 0.43529412, b: 0.83137256, a: 1}
+  - {r: 0.43529412, g: 0.83137256, b: 0.5938782, a: 1}
+  DeactivatedClockColor: {r: 0.1, g: 0.1, b: 0.33, a: 1}
+  BackgroundColor: {r: 0.030745126, g: 0.026432898, b: 0.20754719, a: 1}
+  Profile: {fileID: 11400000, guid: e8ff706dad787e2429f44af747cf9db5, type: 2}
   ClockNumberOfSegments: 120
-  ClockWidth: 0.06
-  StartHandWidth: 0.06
-  EndHandWidth: 0.06
+  ClockWidth: 0.02
+  StartHandWidth: 0.04
+  EndHandWidth: 0.04
   HandLengthClockRadiusRatio: 0.95
   HandBackOffsetClockRadiusRatio: 0.05
   ComboColors:
