@@ -161,20 +161,16 @@ namespace RoadToAAA.ProjectClock.Managers
         #region EventListeners
         private void GameStateChanged(EGameState oldState, EGameState newState)
         {
-            switch (oldState)
-            {
-                case EGameState.Playing:
-                    StartEnvelop(_musicSource, FadeOut(_musicSource, _musicSource.volume, 2.0f));
-                    StartEnvelop(_musicSource, PitchLinearEnvelop(_musicSource, _musicSource.pitch, _musicSource.pitch / 3, 2.0f));
-                    break;
-            }
-
             switch (newState) 
             { 
-                case EGameState.Playing:
-                    ClearEnvelops(_musicSource);
-                    Play(_musicSource, _musicClips[0], 1.0f, 1.0f); 
-                    break;
+            case EGameState.Playing:
+                ClearEnvelops(_musicSource);
+                Play(_musicSource, _musicClips[0], 1.0f, 1.0f); 
+                break;
+            case EGameState.GameOver:
+                StartEnvelop(_musicSource, FadeOut(_musicSource, _musicSource.volume, 2.0f));
+                StartEnvelop(_musicSource, PitchLinearEnvelop(_musicSource, _musicSource.pitch, _musicSource.pitch / 3, 2.0f));
+                break;
             }
         }
 

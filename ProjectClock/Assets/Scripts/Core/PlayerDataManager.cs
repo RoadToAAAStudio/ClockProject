@@ -100,6 +100,13 @@ namespace RoadToAAA.ProjectClock.Core
         private List<int> _unlockedPalettes;
         private int _unlockedPalettesNumber = 0;
 
+        private bool _isFirstTimeApplicationIsStarted = true;
+        public bool IsFirstTimeApplicationIsStarted
+        {
+            get { return _isFirstTimeApplicationIsStarted; }
+            set { _isFirstTimeApplicationIsStarted = value; }
+        }
+
         #region Initialization
         protected override void Awake()
         {
@@ -141,7 +148,10 @@ namespace RoadToAAA.ProjectClock.Core
             CurrentPaletteIndex = DataManager.Instance.LoadInt("currentPalette", 0);
             SelectedPaletteIndex = CurrentPaletteIndex;
             _previewPaletteIndex = CurrentPaletteIndex;
+
             InitializeUnlockedPalettesList();
+
+            IsFirstTimeApplicationIsStarted = DataManager.Instance.LoadInt("isFirstTimeApplicationIsStarted", 1) != 0;
         }
         #endregion
 
@@ -154,6 +164,7 @@ namespace RoadToAAA.ProjectClock.Core
                 DataManager.Instance.ClearData("palette" + i);
             }
             DataManager.Instance.ClearData("unlockedPalettesNumber");
+            DataManager.Instance.ClearData("isFirstTimeApplicationIsStarted");
         }
 
         private void ResetData(EGameState oldState, EGameState newState)

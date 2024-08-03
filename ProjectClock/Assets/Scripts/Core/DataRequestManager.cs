@@ -70,7 +70,11 @@ namespace RoadToAAA.ProjectClock.Core
 
     public enum ERequestType
     {
-        #region UI Requests
+        #region GameManager Requests
+        GameStateRequest,
+        #endregion
+
+        #region PlayerData Requests
         ScoreRequest,
         BestScoreRequest
         #endregion

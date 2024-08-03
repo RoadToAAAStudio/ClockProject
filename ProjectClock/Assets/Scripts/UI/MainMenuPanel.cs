@@ -9,10 +9,21 @@ namespace RoadToAAA.ProjectClock.UI
         [SerializeField] private Sprite _volumeOnIcon;
         [SerializeField] private Sprite _volumeOffIcon;
         [SerializeField] private Image _audioButtonImage;
+        [SerializeField] private Button _tutorialButton;
 
         private int _audioButtonState;
 
         private const string AUDIOBUTTONSTATE = "AudioButtonState";
+
+        private void OnEnable()
+        {
+            _tutorialButton.onClick.AddListener(TutorialButtonPressed);
+        }
+
+        private void OnDisable()
+        {
+            _tutorialButton.onClick.RemoveListener(TutorialButtonPressed);
+        }
 
         private void Start()
         {
@@ -59,6 +70,11 @@ namespace RoadToAAA.ProjectClock.UI
                 DataManager.Instance.SaveInt(AUDIOBUTTONSTATE, _audioButtonState);
                 EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, _audioButtonState);
             }
+        }
+
+        private void TutorialButtonPressed()
+        {
+            EventManager.Instance.Publish(EEventType.OnTutorialButtonPressed);
         }
     }
 }

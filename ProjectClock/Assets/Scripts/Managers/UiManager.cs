@@ -12,8 +12,13 @@ namespace RoadToAAA.ProjectClock.Managers
         [SerializeField] private GameObject GameOverPanel;
         [SerializeField] private GameObject ShopPanel;
         [SerializeField] private GameObject LeaderboardPanel;
-
         [SerializeField] private GameObject GameplayPanel;
+        [SerializeField] private GameObject TutorialPanel;
+
+        private void Awake()
+        {
+            DisableAllPanels();
+        }
 
         private void OnEnable()
         {
@@ -41,17 +46,21 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             switch (newState)
             {
+                case EGameState.Tutorial:
+                    OpenTutorial();
+                    break;
+
                 case EGameState.MainMenu:
-                OpenMainMenu();
-                return;
+                    OpenMainMenu();
+                    break;
 
                 case EGameState.Playing:
-                StartPlaying();
-                return;
+                    StartPlaying();
+                    break;
 
                 case EGameState.GameOver:
-                OpenGameOver();
-                return;
+                    OpenGameOver();
+                    break;
             }
         }
 
@@ -79,6 +88,12 @@ namespace RoadToAAA.ProjectClock.Managers
             LeaderboardPanel.SetActive(true);
         }
 
+        private void OpenTutorial()
+        {
+            DisableAllPanels();
+            TutorialPanel.SetActive(true);
+        }
+
         private void StartPlaying()
         {
             DisableAllPanels();
@@ -92,6 +107,7 @@ namespace RoadToAAA.ProjectClock.Managers
             ShopPanel.SetActive(false);
             LeaderboardPanel.SetActive(false);
             GameplayPanel.SetActive(false);
+            TutorialPanel.SetActive(false);
         }
     }
 }

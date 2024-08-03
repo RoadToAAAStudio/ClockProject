@@ -254,6 +254,8 @@ namespace RoadToAAA.ProjectClock.Core
         OnAdsButtonClicked,
         OnPalettePreviewChanged,
         OnNewPaletteBought,
+        OnTutorialGotItButtonPressed,
+        OnTutorialButtonPressed,
         #endregion
 
         #region AdsEvents

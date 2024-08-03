@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using RoadToAAA.ProjectClock.Core;
 using RoadToAAA.ProjectClock.Scriptables;
+using System;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
-
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private EGameState InitialState = EGameState.MainMenu;
@@ -17,22 +17,45 @@ namespace RoadToAAA.ProjectClock.Managers
         private void OnEnable()
         {
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, CheckGameOver);
-            EventManager.Instance.Subscribe(EEventType.OnPlayButtonPressed, StartPlay);
-            EventManager.Instance.Subscribe(EEventType.OnMainMenuButtonClicked, QuitPlay);
+            EventManager.Instance.Subscribe(EEventType.OnTutorialGotItButtonPressed, TutorialGotItButtonPressed);
+            EventManager.Instance.Subscribe(EEventType.OnPlayButtonPressed, PlayButtonPressed);
+            EventManager.Instance.Subscribe(EEventType.OnTutorialButtonPressed, TutorialButtonPressed);
+            EventManager.Instance.Subscribe(EEventType.OnMainMenuButtonClicked, ToMainMenuButtonPressed);
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, CheckReturnFromShop);
+
+            DataRequestManager<EGameState>.Instance.Subscribe(ERequestType.GameStateRequest, ProvideGameState);
         }
+
         private void OnDisable()
         {
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, CheckGameOver);
-            EventManager.Instance.Unsubscribe(EEventType.OnPlayButtonPressed, StartPlay);
-            EventManager.Instance.Unsubscribe(EEventType.OnMainMenuButtonClicked, QuitPlay);
+            EventManager.Instance.Unsubscribe(EEventType.OnTutorialGotItButtonPressed, TutorialGotItButtonPressed);
+            EventManager.Instance.Unsubscribe(EEventType.OnPlayButtonPressed, PlayButtonPressed);
+            EventManager.Instance.Unsubscribe(EEventType.OnTutorialButtonPressed, TutorialButtonPressed);
+            EventManager.Instance.Unsubscribe(EEventType.OnMainMenuButtonClicked, ToMainMenuButtonPressed);
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, CheckReturnFromShop);
+
+            DataRequestManager<EGameState>.Instance.Unsubscribe(ERequestType.GameStateRequest, ProvideGameState);
         }
 
         // Start is called before the first frame update
         void Start()
         {
-            ChangeState(InitialState);
+            if (InitialState == EGameState.Tutorial)
+            {
+                if (PlayerDataManager.Instance.IsFirstTimeApplicationIsStarted)
+                {
+                    ChangeState(EGameState.Tutorial);
+                }
+                else
+                {
+                    ChangeState(EGameState.MainMenu);
+                }
+            }
+            else
+            {
+                ChangeState(InitialState);
+            }
         }
         #endregion
 
@@ -42,25 +65,31 @@ namespace RoadToAAA.ProjectClock.Managers
             _currentState = state;
         }
 
-        public void StartPlay()
-        {
-            ChangeState(EGameState.Playing);
-        }
-        public void QuitPlay()
+        private void TutorialGotItButtonPressed()
         {
             ChangeState(EGameState.MainMenu);
         }
 
-        private void GameOver()
+        private void TutorialButtonPressed()
         {
-            ChangeState(EGameState.GameOver);
+            ChangeState(EGameState.Tutorial);
+        }
+
+        private void PlayButtonPressed()
+        {
+            ChangeState(EGameState.Playing);
+        }
+
+        private void ToMainMenuButtonPressed()
+        {
+            ChangeState(EGameState.MainMenu);
         }
 
         private void CheckGameOver(ECheckResult checkResult, ComboResult comboResult)
         {
             if (checkResult == ECheckResult.Unsuccess)
             {
-                GameOver();
+                ChangeState(EGameState.GameOver);
             }
         }
 
@@ -75,10 +104,19 @@ namespace RoadToAAA.ProjectClock.Managers
                 ChangeState(EGameState.MainMenu);
             }
         }
+
+        private EGameState ProvideGameState()
+        {
+            return _currentState;
+        }
     }
 
     public enum EGameState
     {
+        //Non valid
+        None,
+        //Only the first time the application is started
+        Tutorial,
         //State when the game is in main menu
         MainMenu,
         //State when you go for any reason in the effective play (new game, revive, resume from pause)

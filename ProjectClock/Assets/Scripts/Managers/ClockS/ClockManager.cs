@@ -72,6 +72,9 @@ namespace RoadToAAA.ProjectClock.Managers
         {
             switch (newState)
             {
+            case EGameState.Tutorial:
+                DespawnAllClocks();
+                break;
             case EGameState.MainMenu:
                 Initialize(ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.CurrentPaletteIndex]);
                 break;
@@ -115,7 +118,22 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void CurrentPaletteChanged(int paletteIndex)
         {
-            Initialize(ConfigurationManager.Instance.PaletteAssets[paletteIndex]);
+            EGameState currentGameState = DataRequestManager<EGameState>.Instance.Request(ERequestType.GameStateRequest, EGameState.None);
+            
+            switch (currentGameState)
+            {
+                case EGameState.None:
+                    break;
+                case EGameState.Tutorial:
+                    break;
+                case EGameState.MainMenu:
+                    Initialize(ConfigurationManager.Instance.PaletteAssets[paletteIndex]);
+                    break;
+                case EGameState.Playing:
+                    break;
+                case EGameState.GameOver:
+                    break;
+            }
         }
 
         private void Initialize(PaletteAsset paletteAsset)
