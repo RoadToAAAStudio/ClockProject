@@ -63,7 +63,7 @@ namespace RoadToAAA.ProjectClock.Managers
             Clock currentClock = _currentClock;
             if (currentClock == null) return;
             if (currentClock.State != EClockState.Activated) return;
-            float handAngle = currentClock.HandTransform.rotation.eulerAngles.z + currentClock.AngularSpeed * Time.deltaTime;
+            float handAngle = currentClock.GetHandAngle() + currentClock.AngularSpeed * Time.deltaTime;
             currentClock.DrawHand(ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.CurrentPaletteIndex], handAngle);
         }
         #endregion
@@ -77,6 +77,9 @@ namespace RoadToAAA.ProjectClock.Managers
                 break;
             case EGameState.MainMenu:
                 Initialize(ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.CurrentPaletteIndex]);
+                break;
+            case EGameState.Playing:
+                _currentClock.ActivateHand();
                 break;
             case EGameState.GameOver:
                 DeactivateClocks();
@@ -152,7 +155,6 @@ namespace RoadToAAA.ProjectClock.Managers
             SpawAllClocks(paletteAsset);
 
             // Rendering
-            _currentClock.ActivateHand();
             _currentClock.DrawHand(paletteAsset, _currentClock.GetHandAngle());
         }
 

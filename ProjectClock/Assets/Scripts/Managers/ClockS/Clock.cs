@@ -26,7 +26,8 @@ namespace RoadToAAA.ProjectClock.Managers
         public float AngularSpeed { get; private set; }
 
         // Runtime data
-        public EClockState State { get; private set; }
+        public bool IsInSuccessZone { get; private set; } = false;
+        public EClockState State { get; private set; } = EClockState.Deactivated;
         public float GetHandAngle() => HandTransform.rotation.eulerAngles.z;
 
         // Configs
@@ -56,19 +57,19 @@ namespace RoadToAAA.ProjectClock.Managers
             ClockParameters clockParameters = ClockParameters;
 
             float successRelativeAngleRange = (_difficultyAsset.SuccessArcLength) / (clockParameters.Radius);
-            float successAngle = Mathf.Atan2(clockParameters.SuccessDirection.y, clockParameters.SuccessDirection.x);
+            float successAngle = clockParameters.PerfectSuccessRadAngle;
             float perfectSuccessRatio = _difficultyAsset.PerfectSuccessRatio;
             
             Gizmos.color = Color.green;
-            Vector3 successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange / 2)), Mathf.Sin((successAngle - successRelativeAngleRange / 2)), 0.0f);
-            Vector3 successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange / 2)), Mathf.Sin((successAngle + successRelativeAngleRange / 2)), 0.0f);
+            Vector3 successArcStart = new Vector3(Mathf.Cos(clockParameters.SuccessRadAngleStart), Mathf.Sin(clockParameters.SuccessRadAngleStart), 0.0f);
+            Vector3 successArcEnd = new Vector3(Mathf.Cos(clockParameters.SuccessRadAngleEnd), Mathf.Sin(clockParameters.SuccessRadAngleEnd), 0.0f);
 
             Gizmos.DrawLine(clockParameters.Position, clockParameters.Position + successArcStart * clockParameters.Radius);
             Gizmos.DrawLine(clockParameters.Position, clockParameters.Position + successArcEnd * clockParameters.Radius);
 
             Gizmos.color = Color.yellow;
-            successArcStart = new Vector3(Mathf.Cos((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2)), Mathf.Sin((successAngle - successRelativeAngleRange * perfectSuccessRatio / 2)), 0.0f);
-            successArcEnd = new Vector3(Mathf.Cos((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2)), Mathf.Sin((successAngle + successRelativeAngleRange * perfectSuccessRatio / 2)), 0.0f);
+            successArcStart = new Vector3(Mathf.Cos(clockParameters.PerfectSuccessRadAngleStart), Mathf.Sin(clockParameters.PerfectSuccessRadAngleStart), 0.0f);
+            successArcEnd = new Vector3(Mathf.Cos(clockParameters.PerfectSuccessRadAngleEnd), Mathf.Sin(clockParameters.PerfectSuccessRadAngleEnd), 0.0f);
             
             Gizmos.DrawLine(clockParameters.Position, clockParameters.Position + successArcStart * clockParameters.Radius);
             Gizmos.DrawLine(clockParameters.Position, clockParameters.Position + successArcEnd * clockParameters.Radius);
@@ -108,7 +109,7 @@ namespace RoadToAAA.ProjectClock.Managers
             }
         }
 
-        public void DrawHand(PaletteAsset paletteAsset, float angle)
+        public void DrawHand(PaletteAsset paletteAsset, float newAngle)
         {
             Debug.Assert(IsValid(), "Clock is not valid!");
 
@@ -125,14 +126,46 @@ namespace RoadToAAA.ProjectClock.Managers
             handeRenderer.startColor = State == EClockState.Activated ? clockParameters.HandColor : paletteAsset.DeactivatedClockColor;
             handeRenderer.endColor = State == EClockState.Activated ? clockParameters.HandColor : paletteAsset.DeactivatedClockColor;
             
-            float angleRad = angle * Mathf.Deg2Rad;
+            float newAngleRad = newAngle * Mathf.Deg2Rad;
 
-            Vector3 handBackOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * clockParameters.Radius * paletteAsset.HandBackOffsetClockRadiusRatio;
+            Vector3 handBackOffset = new Vector3(Mathf.Cos(newAngleRad), Mathf.Sin(newAngleRad)) * clockParameters.Radius * paletteAsset.HandBackOffsetClockRadiusRatio;
             handeRenderer.SetPosition(0, handPosition - handBackOffset);
-            Vector3 handLength = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad)) * clockParameters.Radius * paletteAsset.HandLengthClockRadiusRatio;
+            Vector3 handLength = new Vector3(Mathf.Cos(newAngleRad), Mathf.Sin(newAngleRad)) * clockParameters.Radius * paletteAsset.HandLengthClockRadiusRatio;
             handeRenderer.SetPosition(1, handPosition + handLength);
 
-            handTransform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+            float currentAngleRad = GetHandAngle() * Mathf.Deg2Rad;
+
+            // Check if Success zone is surpassed
+            if (State == EClockState.Activated)
+            {
+                if (AngularSpeed > 0)
+                {
+                    if(IsInSuccessZone && currentAngleRad <= clockParameters.SuccessRadAngleEnd && newAngleRad > clockParameters.SuccessRadAngleEnd)
+                    {
+                        IsInSuccessZone = false;
+                        EventManager.Instance.Publish(EEventType.OnClockSuccessZonePassed);
+                    }
+                    else if (newAngleRad >= clockParameters.SuccessRadAngleStart)
+                    {
+                        IsInSuccessZone = true;
+                    }
+                }
+                else if (AngularSpeed < 0)
+                {
+                    if (IsInSuccessZone && currentAngleRad >= clockParameters.SuccessRadAngleStart && newAngleRad < clockParameters.SuccessRadAngleStart)
+                    {
+                        IsInSuccessZone = false;
+                        EventManager.Instance.Publish(EEventType.OnClockSuccessZonePassed);
+                    }
+                    else if (newAngleRad <= clockParameters.SuccessRadAngleEnd)
+                    {
+                        IsInSuccessZone = true;
+                    }
+                }
+            }
+
+            handTransform.rotation = Quaternion.Euler(0.0f, 0.0f, newAngle);
+
         }
 
         // Update input and derived data according to new one
@@ -147,7 +180,9 @@ namespace RoadToAAA.ProjectClock.Managers
             ClockTransform.position = newParameters.Position;
             HandTransform.rotation = Quaternion.Euler(0.0f, 0.0f, newParameters.StartAngle);
 
-            State = EClockState.Activated;
+            // RuntimeData
+            State = EClockState.Deactivated;
+            IsInSuccessZone = false;
 
             Debug.Assert(IsValid(), "Clock is not valid!");
         }
@@ -187,8 +222,8 @@ namespace RoadToAAA.ProjectClock.Managers
 
     public enum EClockState
     {
-        Activated,
         Deactivated,
+        Activated,
         ShutDown
     }
 
@@ -198,6 +233,11 @@ namespace RoadToAAA.ProjectClock.Managers
         public float Radius;
         public float HandSpeedOnCircumference;
         public Vector3 SuccessDirection;
+        public float PerfectSuccessRadAngle;
+        public float PerfectSuccessRadAngleStart;
+        public float PerfectSuccessRadAngleEnd;
+        public float SuccessRadAngleStart;
+        public float SuccessRadAngleEnd;
         public Vector3 SpawnDirection;
         public float StartAngle;
         public Vector3 Position;

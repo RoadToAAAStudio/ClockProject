@@ -16,6 +16,7 @@ namespace RoadToAAA.ProjectClock.Managers
         #region UnityMessages
         private void OnEnable()
         {
+            EventManager.Instance.Subscribe(EEventType.OnClockSuccessZonePassed, SuccessZonePassed);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, CheckGameOver);
             EventManager.Instance.Subscribe(EEventType.OnTutorialGotItButtonPressed, TutorialGotItButtonPressed);
             EventManager.Instance.Subscribe(EEventType.OnPlayButtonPressed, PlayButtonPressed);
@@ -28,6 +29,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void OnDisable()
         {
+            EventManager.Instance.Unsubscribe(EEventType.OnClockSuccessZonePassed, SuccessZonePassed);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, CheckGameOver);
             EventManager.Instance.Unsubscribe(EEventType.OnTutorialGotItButtonPressed, TutorialGotItButtonPressed);
             EventManager.Instance.Unsubscribe(EEventType.OnPlayButtonPressed, PlayButtonPressed);
@@ -63,6 +65,11 @@ namespace RoadToAAA.ProjectClock.Managers
         {           
             EventManager<EGameState, EGameState>.Instance.Publish(EEventType.OnGameStateChanged, _currentState, state);
             _currentState = state;
+        }
+
+        private void SuccessZonePassed()
+        {
+            ChangeState(EGameState.GameOver);
         }
 
         private void TutorialGotItButtonPressed()

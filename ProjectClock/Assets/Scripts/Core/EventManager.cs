@@ -238,6 +238,7 @@ namespace RoadToAAA.ProjectClock.Core
         #endregion
 
         #region GameplayEvents
+        OnClockSuccessZonePassed,
         OnCheckerResult,
         OnNewClockSelected,
         OnSpecialClockCleared,

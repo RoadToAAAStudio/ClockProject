@@ -89,12 +89,17 @@ namespace RoadToAAA.ProjectClock.Managers
             ClockParameters newClockParameters = new ClockParameters();
 
             float randomAngle = Random.Range(_spawnerAsset.MinSpawnAngle, _spawnerAsset.MaxSpawnAngle);
-            float randomRadAngle = randomAngle * Mathf.Deg2Rad;
+            float randomAngleRad = randomAngle * Mathf.Deg2Rad;
 
             newClockParameters.IsSpecial = false;
             newClockParameters.Radius = _spawnerAsset.MaxClockRadius;
             newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfSpawnedClocks) * (_currentNumberOfSpawnedClocks % 2 == 0 ? 1 : -1);
-            newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
+            newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomAngleRad), Mathf.Sin(randomAngleRad), 0.0f);
+            newClockParameters.PerfectSuccessRadAngle = randomAngleRad;
+            newClockParameters.PerfectSuccessRadAngleStart = randomAngleRad - ((_difficultyAsset.SuccessArcLength / newClockParameters.Radius) * _difficultyAsset.PerfectSuccessRatio) / 2;
+            newClockParameters.PerfectSuccessRadAngleEnd = randomAngleRad + ((_difficultyAsset.SuccessArcLength / newClockParameters.Radius) * _difficultyAsset.PerfectSuccessRatio) / 2;
+            newClockParameters.SuccessRadAngleStart = (randomAngleRad - (_difficultyAsset.SuccessArcLength) / (newClockParameters.Radius) / 2);
+            newClockParameters.SuccessRadAngleEnd = (randomAngleRad + (_difficultyAsset.SuccessArcLength) / (newClockParameters.Radius) / 2);
             newClockParameters.SpawnDirection = Vector3.zero;
             newClockParameters.StartAngle = 270.0f;
             newClockParameters.ClockColor = paletteAsset.ClockColor;
@@ -110,14 +115,19 @@ namespace RoadToAAA.ProjectClock.Managers
             ClockParameters newClockParameters = new ClockParameters();
 
             float randomAngle = Random.Range(_spawnerAsset.MinSpawnAngle, _spawnerAsset.MaxSpawnAngle);
-            float randomRadAngle = randomAngle * Mathf.Deg2Rad;
+            float randomAngleRad = randomAngle * Mathf.Deg2Rad;
             Vector3 previousClockPosition = previousClockParameters.Position;
             Vector3 spawnDirection = previousClockParameters.SuccessDirection;
 
             newClockParameters.IsSpecial = ShouldGenerateASpecialClock();
             newClockParameters.Radius = Random.Range(_spawnerAsset.MinClockRadius, _spawnerAsset.MaxClockRadius);
             newClockParameters.HandSpeedOnCircumference = _difficultyAsset.GetLerpedHandAbsoluteSpeed(_currentNumberOfSpawnedClocks) * (_currentNumberOfSpawnedClocks % 2 == 0 ? 1 : -1);
-            newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomRadAngle), Mathf.Sin(randomRadAngle), 0.0f);
+            newClockParameters.SuccessDirection = new Vector3(Mathf.Cos(randomAngleRad), Mathf.Sin(randomAngleRad), 0.0f);
+            newClockParameters.PerfectSuccessRadAngle = randomAngleRad;
+            newClockParameters.PerfectSuccessRadAngleStart = randomAngleRad - ((_difficultyAsset.SuccessArcLength / newClockParameters.Radius) * _difficultyAsset.PerfectSuccessRatio) / 2;
+            newClockParameters.PerfectSuccessRadAngleEnd = randomAngleRad + ((_difficultyAsset.SuccessArcLength / newClockParameters.Radius) * _difficultyAsset.PerfectSuccessRatio) / 2;
+            newClockParameters.SuccessRadAngleStart = (randomAngleRad - (_difficultyAsset.SuccessArcLength) / (newClockParameters.Radius) / 2);
+            newClockParameters.SuccessRadAngleEnd = (randomAngleRad + (_difficultyAsset.SuccessArcLength) / (newClockParameters.Radius) / 2);
             newClockParameters.SpawnDirection = spawnDirection;
             newClockParameters.StartAngle = Mathf.Atan2(-spawnDirection.y, -spawnDirection.x) * Mathf.Rad2Deg;
             newClockParameters.ClockColor = newClockParameters.IsSpecial ? paletteAsset.SpecialClockColor : paletteAsset.ClockColor;
