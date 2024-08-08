@@ -98,8 +98,8 @@ namespace RoadToAAA.ProjectClock.Managers
             newClockParameters.PerfectSuccessRadAngle = randomAngleRad;
             newClockParameters.PerfectSuccessRadAngleStart = randomAngleRad - ((_difficultyAsset.SuccessArcLength / newClockParameters.Radius) * _difficultyAsset.PerfectSuccessRatio) / 2;
             newClockParameters.PerfectSuccessRadAngleEnd = randomAngleRad + ((_difficultyAsset.SuccessArcLength / newClockParameters.Radius) * _difficultyAsset.PerfectSuccessRatio) / 2;
-            newClockParameters.SuccessRadAngleStart = (randomAngleRad - (_difficultyAsset.SuccessArcLength) / (newClockParameters.Radius) / 2);
-            newClockParameters.SuccessRadAngleEnd = (randomAngleRad + (_difficultyAsset.SuccessArcLength) / (newClockParameters.Radius) / 2);
+            newClockParameters.SuccessRadAngleStart = randomAngleRad - (_difficultyAsset.SuccessArcLength / newClockParameters.Radius) / 2;
+            newClockParameters.SuccessRadAngleEnd = randomAngleRad + (_difficultyAsset.SuccessArcLength / newClockParameters.Radius) / 2;
             newClockParameters.SpawnDirection = Vector3.zero;
             newClockParameters.StartAngle = 270.0f;
             newClockParameters.ClockColor = paletteAsset.ClockColor;
