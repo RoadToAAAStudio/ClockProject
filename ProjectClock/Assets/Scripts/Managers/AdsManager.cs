@@ -67,13 +67,19 @@ namespace RoadToAAA.ProjectClock.Managers
             switch (showCompletionState)
             {
                 case UnityAdsShowCompletionState.COMPLETED:
+#if UNITY_EDITOR
                     Debug.Log("AD Completed!");
+#endif
                     break;
                 case UnityAdsShowCompletionState.SKIPPED:
+#if UNITY_EDITOR
                     Debug.Log("AD Skipped!");
+#endif
                     break;
                 case UnityAdsShowCompletionState.UNKNOWN:
+#if UNITY_EDITOR
                     Debug.Log("AD ended with unknown state!");
+#endif
                     break;
 
             }
@@ -81,7 +87,9 @@ namespace RoadToAAA.ProjectClock.Managers
 
         public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
         {
+#if UNITY_EDITOR
             Debug.Log($"Error showing Ad Unit {"Rewarded_Android"}: {error.ToString()} - {message}");
+#endif
         }
 
         public void OnUnityAdsShowStart(string placementId) { }
@@ -93,13 +101,17 @@ namespace RoadToAAA.ProjectClock.Managers
             if (newState != EGameState.GameOver) return;
 
             Advertisement.Load("Rewarded_Android", this);
+#if UNITY_EDITOR
             Debug.Log("Load AD");
+#endif
         }
 
         private void AdsButtonClicked()
         {
             Advertisement.Show("Rewarded_Android", this);
+#if UNITY_EDITOR
             Debug.Log("Show AD");
+#endif
         }
     }
 }
