@@ -1,6 +1,8 @@
 using UnityEngine;
 using RoadToAAA.ProjectClock.Core;
 using UnityEngine.UI;
+using TMPro;
+using System.Collections;
 
 namespace RoadToAAA.ProjectClock.UI
 {
@@ -10,8 +12,11 @@ namespace RoadToAAA.ProjectClock.UI
         [SerializeField] private Sprite _volumeOffIcon;
         [SerializeField] private Image _audioButtonImage;
         [SerializeField] private Button _tutorialButton;
+        [SerializeField] private TMP_Text _tapToPlayText;
+        public float FadeSpeed = 1.0f;
 
         private int _audioButtonState;
+        private IEnumerator _fadeInfadeOutCoroutine;
 
         private const string AUDIOBUTTONSTATE = "AudioButtonState";
 
@@ -36,21 +41,26 @@ namespace RoadToAAA.ProjectClock.UI
             {
                 _audioButtonImage.sprite = _volumeOffIcon;
             }
+            _fadeInfadeOutCoroutine = FadeInFadeOut();
+            StartCoroutine(_fadeInfadeOutCoroutine);
             EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, _audioButtonState);
         }
 
         public void PlayButton()
         {
+            StopCoroutine(_fadeInfadeOutCoroutine);
             EventManager.Instance.Publish(EEventType.OnPlayButtonPressed);
         }
 
         public void ShopButton()
         {
+            StopCoroutine(_fadeInfadeOutCoroutine);
             EventManager.Instance.Publish(EEventType.OnShopButtonPressed); 
         }
 
         public void LeaderboardButton()
         {
+            StopCoroutine(_fadeInfadeOutCoroutine);
             EventManager.Instance.Publish(EEventType.OnLeaderboardButtonPressed);
         }
 
@@ -74,7 +84,34 @@ namespace RoadToAAA.ProjectClock.UI
 
         private void TutorialButtonPressed()
         {
+            StopCoroutine(_fadeInfadeOutCoroutine);
             EventManager.Instance.Publish(EEventType.OnTutorialButtonPressed);
+        }
+
+        private IEnumerator FadeInFadeOut()
+        {
+            Color initialColor = _tapToPlayText.color;
+
+            while(true)
+            {
+                float t = 0.0f;
+                while(t < 1.0f)
+                {
+                    t += FadeSpeed * Time.deltaTime;
+                    t = Mathf.Clamp01(t);
+                    _tapToPlayText.color = new Color(initialColor.r, initialColor.g, initialColor.b, Mathf.Lerp(initialColor.a, 0.0f, t));
+                    yield return null;
+                }
+
+                t = 0.0f;
+                while (t < 1.0f)
+                {
+                    t += FadeSpeed * Time.deltaTime;
+                    t = Mathf.Clamp01(t);
+                    _tapToPlayText.color = new Color(initialColor.r, initialColor.g, initialColor.b, Mathf.Lerp(0.0f, initialColor.a, t));
+                    yield return null;
+                }
+            }
         }
     }
 }
