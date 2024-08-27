@@ -21,8 +21,12 @@ namespace RoadToAAA.ProjectClock.Managers
             Debug.Log("Cloud save initialization complete.");
 #endif
 
-            var data = new Dictionary<string, object> { { "MySaveKey", "HelloWorld" } };
-            await CloudSaveService.Instance.Data.Player.SaveAsync(data);
+            //List<int> ints = new List<int>();
+            //ints.Add(1);
+            //ints.Add(2);
+            //ints.Add(3);
+            //var data = new Dictionary<string, object> { { "MySaveKey", ints } };
+            //await CloudSaveService.Instance.Data.Player.SaveAsync(data);
         }
 
         private void SignInSuccess()

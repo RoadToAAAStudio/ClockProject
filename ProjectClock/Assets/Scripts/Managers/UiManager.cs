@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RoadToAAA.ProjectClock.Core;
-using static RoadToAAA.ProjectClock.Managers.GameManager;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
-    public class UiManager : MonoBehaviour
+    public class UIManager : MonoBehaviour
     {
         [SerializeField] private GameObject MainMenuPanel;
         [SerializeField] private GameObject GameOverPanel;

@@ -250,7 +250,7 @@ namespace RoadToAAA.ProjectClock.Core
             Currency -= ConfigurationManager.Instance.PaletteAssets[_previewPaletteIndex].Cost;
             DataManager.Instance.SaveInt("currency", _currency);
 
-            // Add the index of the newly boucht palette into the list of unlocked palettes and save it in its correct position
+            // Add the index of the newly bought palette into the list of unlocked palettes and save it in its correct position
             _unlockedPalettes.Add(_previewPaletteIndex);
             _unlockedPalettesNumber++;
             DataManager.Instance.SaveInt("unlockedPalettesNumber", _unlockedPalettesNumber);
