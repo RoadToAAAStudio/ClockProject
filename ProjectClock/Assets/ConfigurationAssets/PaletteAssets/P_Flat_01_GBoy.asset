@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: P_Flat_01_GBoy
   m_EditorClassIdentifier: 
   Cost: 0
-  ShopIcon: {fileID: 21300000, guid: 2657e0b8bce2c4b4ca247bdfbc3b3ef0, type: 3}
+  ShopIcon: {fileID: 21300000, guid: 6c3b998dfd8a55f45bf7c65fee9c1558, type: 3}
   ClockColor: {r: 0.4392157, g: 0.5019608, b: 0.15686275, a: 1}
   SpecialClockColor: {r: 0.8156863, g: 0.8156863, b: 0.34509805, a: 1}
   HandColors:

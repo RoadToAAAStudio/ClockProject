@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: P_Neon_08_Acid
   m_EditorClassIdentifier: 
   Cost: 0
-  ShopIcon: {fileID: 21300000, guid: 2657e0b8bce2c4b4ca247bdfbc3b3ef0, type: 3}
+  ShopIcon: {fileID: 21300000, guid: 5afb0feff5d2e8a469998b1ae3720f63, type: 3}
   ClockColor: {r: 0.49357232, g: 0.8490566, b: 0.11614456, a: 1}
   SpecialClockColor: {r: 0.9588195, g: 0.990566, b: 0.7242346, a: 1}
   HandColors:

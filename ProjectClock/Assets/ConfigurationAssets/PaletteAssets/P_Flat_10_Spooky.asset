@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: P_Flat_10_Spooky
   m_EditorClassIdentifier: 
   Cost: 0
-  ShopIcon: {fileID: 21300000, guid: 2657e0b8bce2c4b4ca247bdfbc3b3ef0, type: 3}
+  ShopIcon: {fileID: 21300000, guid: e7ee09cdcfd67c94fbdf3048253ff5fd, type: 3}
   ClockColor: {r: 0.09019608, g: 0.08235294, b: 0.18039216, a: 1}
   SpecialClockColor: {r: 0.8941177, g: 0.19607845, b: 0.32941177, a: 1}
   HandColors:

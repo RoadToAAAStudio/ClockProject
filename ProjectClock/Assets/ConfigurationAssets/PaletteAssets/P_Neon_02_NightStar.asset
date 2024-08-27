@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: P_Neon_02_NightStar
   m_EditorClassIdentifier: 
   Cost: 0
-  ShopIcon: {fileID: 21300000, guid: 2657e0b8bce2c4b4ca247bdfbc3b3ef0, type: 3}
+  ShopIcon: {fileID: 21300000, guid: 03b0aca51e614084ba6de3b4c4bca651, type: 3}
   ClockColor: {r: 0.6698113, g: 0.6573663, b: 0.26223743, a: 1}
   SpecialClockColor: {r: 0.9716981, g: 0.8197122, b: 0.2520915, a: 1}
   HandColors:

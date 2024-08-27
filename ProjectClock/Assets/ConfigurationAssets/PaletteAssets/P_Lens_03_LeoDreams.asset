@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: P_Lens_03_LeoDreams
   m_EditorClassIdentifier: 
   Cost: 0
-  ShopIcon: {fileID: 21300000, guid: 2657e0b8bce2c4b4ca247bdfbc3b3ef0, type: 3}
+  ShopIcon: {fileID: 21300000, guid: baff7ba97ad33704e8a0c21c4780f738, type: 3}
   ClockColor: {r: 0.28235295, g: 0.53333336, b: 0.7176471, a: 1}
   SpecialClockColor: {r: 0.54901963, g: 0.9372549, b: 0.7137255, a: 1}
   HandColors:

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: P_Lens_07_Alone
   m_EditorClassIdentifier: 
   Cost: 0
-  ShopIcon: {fileID: 21300000, guid: 2657e0b8bce2c4b4ca247bdfbc3b3ef0, type: 3}
+  ShopIcon: {fileID: 21300000, guid: d98076ca947abbc4f8d6f2e367b3d609, type: 3}
   ClockColor: {r: 0.1459594, g: 0.5444188, b: 0.754717, a: 1}
   SpecialClockColor: {r: 0.5683072, g: 0.9339623, b: 0.87801373, a: 1}
   HandColors:
