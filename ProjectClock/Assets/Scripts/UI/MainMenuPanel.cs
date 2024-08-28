@@ -99,7 +99,7 @@ namespace RoadToAAA.ProjectClock.UI
                 {
                     t += FadeSpeed * Time.deltaTime;
                     t = Mathf.Clamp01(t);
-                    _tapToPlayText.color = new Color(initialColor.r, initialColor.g, initialColor.b, Mathf.Lerp(initialColor.a, 0.0f, t));
+                    _tapToPlayText.color = new Color(initialColor.r, initialColor.g, initialColor.b, Mathf.Lerp(1.0f, 0.0f, t));
                     yield return null;
                 }
 
@@ -108,7 +108,7 @@ namespace RoadToAAA.ProjectClock.UI
                 {
                     t += FadeSpeed * Time.deltaTime;
                     t = Mathf.Clamp01(t);
-                    _tapToPlayText.color = new Color(initialColor.r, initialColor.g, initialColor.b, Mathf.Lerp(0.0f, initialColor.a, t));
+                    _tapToPlayText.color = new Color(initialColor.r, initialColor.g, initialColor.b, Mathf.Lerp(0.0f, 1.0f, t));
                     yield return null;
                 }
             }
