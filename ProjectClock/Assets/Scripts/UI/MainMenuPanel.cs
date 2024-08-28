@@ -32,7 +32,7 @@ namespace RoadToAAA.ProjectClock.UI
 
         private void Start()
         {
-            _audioButtonState = DataManager.Instance.GetInt(AUDIOBUTTONSTATE, 1);
+            _audioButtonState = DataManager.Instance.LoadInt(AUDIOBUTTONSTATE, 1);
             if (_audioButtonState == 1)
             {
                 _audioButtonImage.sprite = _volumeOnIcon;

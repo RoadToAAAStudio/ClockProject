@@ -5,7 +5,7 @@ using RoadToAAA.ProjectClock.Core;
 
 namespace RoadToAAA.ProjectClock.Managers
 {
-    public class UIManager : MonoBehaviour
+    public class UserInterfaceManager : MonoBehaviour
     {
         [SerializeField] private GameObject MainMenuPanel;
         [SerializeField] private GameObject GameOverPanel;

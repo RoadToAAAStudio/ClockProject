@@ -16,9 +16,9 @@ namespace RoadToAAA.ProjectClock.Editors
             PlayerDataManager playerDataManager = (PlayerDataManager)target;
 
             _savedDataMessage = string.Empty;
-            _savedDataMessage += string.Format("\tBestScore: {0}", DataManager.Instance.GetInt("bestScore", 0));
-            _savedDataMessage += string.Format("\n\tCurrency: {0}", DataManager.Instance.GetInt("currency", 0));
-            _savedDataMessage += string.Format("\n\tIsApplicationStartedForTheFirstTime: {0}", DataManager.Instance.GetInt("isFirstTimeApplicationIsStarted", 1) != 0 ? "true" : "false");
+            _savedDataMessage += string.Format("\tBestScore: {0}", DataManager.Instance.LoadInt("bestScore", 0));
+            _savedDataMessage += string.Format("\n\tCurrency: {0}", DataManager.Instance.LoadInt("currency", 0));
+            _savedDataMessage += string.Format("\n\tIsApplicationStartedForTheFirstTime: {0}", DataManager.Instance.LoadInt("isFirstTimeApplicationIsStarted", 1) != 0 ? "true" : "false");
 
             _runtimeDataMessage = string.Empty;
             _runtimeDataMessage += string.Format("\tScore: {0}", playerDataManager.Score);
@@ -73,9 +73,9 @@ namespace RoadToAAA.ProjectClock.Editors
             PlayerDataManager playerDataManager = (PlayerDataManager)target;
 
             _savedDataMessage = string.Empty;
-            _savedDataMessage += string.Format("\tBestScore: {0}", DataManager.Instance.GetInt("bestScore", 0));
-            _savedDataMessage += string.Format("\n\tCurrency: {0}", DataManager.Instance.GetInt("currency", 0));
-            _savedDataMessage += string.Format("\n\tIsApplicationStartedForTheFirstTime: {0}", DataManager.Instance.GetInt("isFirstTimeApplicationIsStarted", 1) != 0 ? "true" : "false");
+            _savedDataMessage += string.Format("\tBestScore: {0}", DataManager.Instance.LoadInt("bestScore", 0));
+            _savedDataMessage += string.Format("\n\tCurrency: {0}", DataManager.Instance.LoadInt("currency", 0));
+            _savedDataMessage += string.Format("\n\tIsApplicationStartedForTheFirstTime: {0}", DataManager.Instance.LoadInt("isFirstTimeApplicationIsStarted", 1) != 0 ? "true" : "false");
 
             _runtimeDataMessage = string.Empty;
             _runtimeDataMessage += string.Format("\tScore: {0}", playerDataManager.Score);
