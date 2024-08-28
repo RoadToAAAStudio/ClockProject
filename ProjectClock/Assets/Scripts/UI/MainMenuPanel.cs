@@ -23,6 +23,8 @@ namespace RoadToAAA.ProjectClock.UI
         private void OnEnable()
         {
             _tutorialButton.onClick.AddListener(TutorialButtonPressed);
+            _fadeInfadeOutCoroutine = FadeInFadeOut();
+            StartCoroutine(_fadeInfadeOutCoroutine);
         }
 
         private void OnDisable()
@@ -41,8 +43,6 @@ namespace RoadToAAA.ProjectClock.UI
             {
                 _audioButtonImage.sprite = _volumeOffIcon;
             }
-            _fadeInfadeOutCoroutine = FadeInFadeOut();
-            StartCoroutine(_fadeInfadeOutCoroutine);
             EventManager<int>.Instance.Publish(EEventType.OnAudioButtonPressed, _audioButtonState);
         }
 
