@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6844ffca65639704bbabef4ed70c529b, type: 3}
   m_Name: AdRewardAsset
   m_EditorClassIdentifier: 
-  RewardType: 0
-  Amount: 1
+  RewardType: 1
+  Amount: 2

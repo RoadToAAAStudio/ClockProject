@@ -13,20 +13,7 @@ namespace RoadToAAA.ProjectClock.Editors
 
         private void OnEnable()
         {
-            PlayerDataManager playerDataManager = (PlayerDataManager)target;
-
-            _savedDataMessage = string.Empty;
-            _savedDataMessage += string.Format("\tBestScore: {0}", DataManager.Instance.LoadInt("bestScore", 0));
-            _savedDataMessage += string.Format("\n\tCurrency: {0}", DataManager.Instance.LoadInt("currency", 0));
-            _savedDataMessage += string.Format("\n\tIsApplicationStartedForTheFirstTime: {0}", DataManager.Instance.LoadInt("isFirstTimeApplicationIsStarted", 1) != 0 ? "true" : "false");
-
-            _runtimeDataMessage = string.Empty;
-            _runtimeDataMessage += string.Format("\tScore: {0}", playerDataManager.Score);
-            _runtimeDataMessage += string.Format("\n\tBestScore: {0}", playerDataManager.BestScore);
-            _runtimeDataMessage += string.Format("\n\tCurrency: {0}", playerDataManager.Currency);
-            _runtimeDataMessage += string.Format("\n\tCurrentPaletteIndex: {0}", playerDataManager.CurrentPaletteIndex);
-            _runtimeDataMessage += string.Format("\n\tSelectedPaletteIndex: {0}", playerDataManager.SelectedPaletteIndex);
-            _runtimeDataMessage += string.Format("\n\tPreviewPaletteIndex: {0}", playerDataManager.PreviewPaletteIndex);
+            UpdateDataView();
         }
 
         public override void OnInspectorGUI()
@@ -81,6 +68,7 @@ namespace RoadToAAA.ProjectClock.Editors
             _runtimeDataMessage += string.Format("\tScore: {0}", playerDataManager.Score);
             _runtimeDataMessage += string.Format("\n\tBestScore: {0}", playerDataManager.BestScore);
             _runtimeDataMessage += string.Format("\n\tCurrency: {0}", playerDataManager.Currency);
+            _runtimeDataMessage += string.Format("\n\tRunCurrency: {0}", playerDataManager.RunCurrency);
             _runtimeDataMessage += string.Format("\n\tCurrentPaletteIndex: {0}", playerDataManager.CurrentPaletteIndex);
             _runtimeDataMessage += string.Format("\n\tSelectedPaletteIndex: {0}", playerDataManager.SelectedPaletteIndex);
             _runtimeDataMessage += string.Format("\n\tPreviewPaletteIndex: {0}", playerDataManager.PreviewPaletteIndex);

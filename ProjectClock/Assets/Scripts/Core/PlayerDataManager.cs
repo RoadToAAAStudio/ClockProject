@@ -119,7 +119,7 @@ namespace RoadToAAA.ProjectClock.Core
         {
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateCurrency);
-            EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, ResetData);
+            EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, ResetRunData);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager<int>.Instance.Subscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Subscribe(EEventType.OnAdCompleted, ApplyAdReward);
@@ -131,7 +131,7 @@ namespace RoadToAAA.ProjectClock.Core
         {
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateBestScore);
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateCurrency);
-            EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, ResetData);
+            EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, ResetRunData);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, UpdateScore);
             EventManager<int>.Instance.Unsubscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Unsubscribe(EEventType.OnAdCompleted, ApplyAdReward);
@@ -167,7 +167,7 @@ namespace RoadToAAA.ProjectClock.Core
             DataManager.Instance.ClearData("isFirstTimeApplicationIsStarted");
         }
 
-        private void ResetData(EGameState oldState, EGameState newState)
+        private void ResetRunData(EGameState oldState, EGameState newState)
         {
             if (oldState != EGameState.MainMenu || newState != EGameState.Playing) return;
 
@@ -203,12 +203,14 @@ namespace RoadToAAA.ProjectClock.Core
         {
             if (oldState != EGameState.Playing || newState != EGameState.GameOver) return;
 
+            Currency += RunCurrency;
+
             DataManager.Instance.SaveInt("currency", _currency);
         }
 
         private void UpdateCurrency(int currencyObtained)
         {
-            Currency += currencyObtained;
+            //Currency += currencyObtained;
             RunCurrency += currencyObtained;
         }
 
@@ -222,7 +224,7 @@ namespace RoadToAAA.ProjectClock.Core
                     Currency += (int)adRewardAsset.Amount;
                     break;
                 case ERewardType.MULTIPLY:
-                    Currency = (int)(Currency * adRewardAsset.Amount);
+                    Currency += (int)(RunCurrency * (adRewardAsset.Amount - 1));
                     break;
             }
         }
