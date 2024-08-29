@@ -87,7 +87,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
 
             //return false;
 
-            return (conditionsBitMask | (int)checkResult) != 0;
+            return (conditionsBitMask & (int)checkResult) != 0;
         }
 
         public override ScriptableObjectValidateResult CheckValidation()

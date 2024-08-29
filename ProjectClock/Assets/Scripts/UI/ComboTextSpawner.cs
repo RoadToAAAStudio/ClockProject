@@ -5,6 +5,7 @@ using UnityEngine;
 using RoadToAAA.ProjectClock.Utilities;
 using static UnityEngine.ParticleSystem;
 using System.Collections.Generic;
+using TMPro;
 
 namespace RoadToAAA.ProjectClock.UI
 {
@@ -61,12 +62,11 @@ namespace RoadToAAA.ProjectClock.UI
             GameObject fadingTextGameObject = _comboTextPool.Get(true);
             fadingTextGameObject.transform.position = new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
             FadingText fadingText = fadingTextGameObject.GetComponent<FadingText>();
-            fadingText.Initialize(message, color);
-            Timer timer = new Timer();
-            timer.Start(fadingText.GetTimeToDespawn() + fadingText.GetTimeOnScreen(), () =>
-            {
-                _comboTextPool.Release(fadingTextGameObject);
-            });
+            TextMeshProUGUI textMeshProUGUI = fadingTextGameObject.GetComponent<TextMeshProUGUI>();
+            textMeshProUGUI.text = message;
+            textMeshProUGUI.color = color;
+            fadingText.SetPool(_comboTextPool);
+
             //FadingText text = Instantiate(ComboText, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y), Quaternion.identity, transform);
             //text.Initialize(message, color);
         }

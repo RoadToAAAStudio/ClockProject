@@ -39,6 +39,5 @@ namespace RoadToAAA.ProjectClock.Managers
 
             return result;
         }
-
     }
 }
