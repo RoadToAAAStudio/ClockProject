@@ -14,7 +14,7 @@ namespace RoadToAAA.ProjectClock.UI
         private StaticPool _comboTextPool;
         private void Awake()
         {
-            _comboTextPool = new StaticPool(ComboText.gameObject, 4);
+            _comboTextPool = new StaticPool(ComboText.gameObject, transform, 4);
         }
 
         private void OnEnable()

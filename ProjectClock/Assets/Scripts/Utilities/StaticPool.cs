@@ -14,14 +14,14 @@ namespace RoadToAAA.ProjectClock.Utilities
         private GameObject[] pool;
         private int nextFreeItemIndex;
 
-        public StaticPool(GameObject prefab, int capacity)
+        public StaticPool(GameObject prefab, Transform parent, int capacity)
         {
             Debug.Assert(capacity > 0, "Pool capacity must be greater than 0!");
 
             pool = new GameObject[capacity];
             for (int i = 0; i < capacity; i++)
             {
-                pool[i] = GameObject.Instantiate(prefab);
+                pool[i] = GameObject.Instantiate(prefab, parent);
                 pool[i].SetActive(false);
             }
 

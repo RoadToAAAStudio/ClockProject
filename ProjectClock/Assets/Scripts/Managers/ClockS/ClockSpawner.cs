@@ -24,7 +24,7 @@ namespace RoadToAAA.ProjectClock.Managers
             _difficultyAsset = ConfigurationManager.Instance.DifficultyAsset;
             _clockPrefab = ConfigurationManager.Instance.ClockPrefab;
 
-            _clocksPool = new StaticPool(_clockPrefab, _spawnerAsset.ClockPoolSize);
+            _clocksPool = new StaticPool(_clockPrefab, null, _spawnerAsset.ClockPoolSize);
         }
 
         public void Initialize()

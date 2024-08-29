@@ -16,7 +16,7 @@ namespace RoadToAAA.ProjectClock.Managers
         #region UnityMessages
         private void Awake()
         {
-            _handExplosionsPool = new StaticPool(HandExplosionPrefab, 4);
+            _handExplosionsPool = new StaticPool(HandExplosionPrefab, transform, 4);
             _particles = new List<ParticleSystem>();
         }
 
