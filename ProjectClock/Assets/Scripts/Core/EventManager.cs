@@ -57,7 +57,7 @@ namespace RoadToAAA.ProjectClock.Core
 
         public void Publish(EEventType eventName)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log(string.Format("<color=silver>EventManager: {0}</color>", eventName));
 #endif
             if (!_listeners.ContainsKey(eventName)) return;
@@ -126,7 +126,7 @@ namespace RoadToAAA.ProjectClock.Core
 
         public void Publish(EEventType eventName, T param)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log(string.Format("<color=silver>EventManager: {0} param({1})</color>", eventName, param));
 #endif
             if (!_listeners.ContainsKey(eventName)) return;
@@ -195,7 +195,7 @@ namespace RoadToAAA.ProjectClock.Core
 
         public void Publish(EEventType eventName, T1 param1, T2 param2)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log(string.Format("<color=silver>EventManager: {0} param1({1}) param2 ({2})</color>", eventName, param1, param2));
 #endif
             if (!_listeners.ContainsKey(eventName)) return;

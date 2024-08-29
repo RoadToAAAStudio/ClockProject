@@ -73,7 +73,7 @@ namespace RoadToAAA.ProjectClock.Managers
                 _distanceFromLastSpecialClockSpawned++;
             }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log(string.Format("<color=red>ClockSpawned = {0} </color>", _currentNumberOfSpawnedClocks));
 #endif
             return newClock;

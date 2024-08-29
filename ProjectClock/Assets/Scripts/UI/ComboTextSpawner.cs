@@ -3,12 +3,19 @@ using RoadToAAA.ProjectClock.Scriptables;
 using RoadToAAA.ProjectClock.Core;
 using UnityEngine;
 using RoadToAAA.ProjectClock.Utilities;
+using static UnityEngine.ParticleSystem;
+using System.Collections.Generic;
 
 namespace RoadToAAA.ProjectClock.UI
 {
     public class ComboTextSpawner : MonoBehaviour
     {
         [SerializeField] private FadingText ComboText;
+        private StaticPool _comboTextPool;
+        private void Awake()
+        {
+            _comboTextPool = new StaticPool(ComboText.gameObject, 4);
+        }
 
         private void OnEnable()
         {
@@ -51,8 +58,17 @@ namespace RoadToAAA.ProjectClock.UI
 
         private void ShowComboText(string message, Color color)
         {
-            FadingText text = Instantiate(ComboText, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y), Quaternion.identity, transform);
-            text.Initialize(message, color);
+            GameObject fadingTextGameObject = _comboTextPool.Get(true);
+            fadingTextGameObject.transform.position = new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
+            FadingText fadingText = fadingTextGameObject.GetComponent<FadingText>();
+            fadingText.Initialize(message, color);
+            Timer timer = new Timer();
+            timer.Start(fadingText.GetTimeToDespawn() + fadingText.GetTimeOnScreen(), () =>
+            {
+                _comboTextPool.Release(fadingTextGameObject);
+            });
+            //FadingText text = Instantiate(ComboText, new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y), Quaternion.identity, transform);
+            //text.Initialize(message, color);
         }
     }
 }

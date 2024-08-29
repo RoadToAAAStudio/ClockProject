@@ -40,14 +40,14 @@ namespace RoadToAAA.ProjectClock.Managers
 
         public void OnInitializationComplete()
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log("Unity Ads initialization complete.");
 #endif
         }
 
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
 #endif
         }
@@ -67,18 +67,18 @@ namespace RoadToAAA.ProjectClock.Managers
             switch (showCompletionState)
             {
                 case UnityAdsShowCompletionState.COMPLETED:
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
                     Debug.Log("AD Completed!");
                     EventManager.Instance.Publish(EEventType.OnAdCompleted);
 #endif
                     break;
                 case UnityAdsShowCompletionState.SKIPPED:
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
                     Debug.Log("AD Skipped!");
 #endif
                     break;
                 case UnityAdsShowCompletionState.UNKNOWN:
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
                     Debug.Log("AD ended with unknown state!");
 #endif
                     break;
@@ -88,7 +88,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
         public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log($"Error showing Ad Unit {"Rewarded_Android"}: {error.ToString()} - {message}");
 #endif
         }
@@ -102,7 +102,7 @@ namespace RoadToAAA.ProjectClock.Managers
             if (newState != EGameState.GameOver) return;
 
             Advertisement.Load("Rewarded_Android", this);
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log("Load AD");
 #endif
         }
@@ -110,7 +110,7 @@ namespace RoadToAAA.ProjectClock.Managers
         private void AdsButtonClicked()
         {
             Advertisement.Show("Rewarded_Android", this);
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log("Show AD");
 #endif
         }

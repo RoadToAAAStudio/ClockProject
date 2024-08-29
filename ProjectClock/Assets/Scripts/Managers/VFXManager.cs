@@ -41,6 +41,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
             GameObject HandExplosionGameObject = _handExplosionsPool.Get(true);
             HandExplosionGameObject.transform.position = handTransform.position;
+
             ParticleSystem particleSystem = HandExplosionGameObject.transform.GetChild(0).GetComponent<ParticleSystem>();
 
             HandExplosionGameObject.transform.rotation = Quaternion.Euler(0.0f, HandExplosionGameObject.transform.rotation.eulerAngles.y, handTransform.rotation.eulerAngles.z);

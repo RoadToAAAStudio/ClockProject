@@ -125,7 +125,9 @@ public static class Helper
         {
             if (!pools.ContainsKey(objectName))
             {
+#if UNITY_EDITOR && LOGGER
                 Debug.LogWarning(string.Format("Could not find a pooled object with name '{0}'", name));
+#endif
                 return null;
             }
 
@@ -142,7 +144,9 @@ public static class Helper
         {
             if (!pools.ContainsKey(instance.name))
             {
+#if UNITY_EDITOR && LOGGER
                 Debug.LogWarning(string.Format("Could not find a pooled object with name '{0}'", name));
+#endif
                 return false;
             }
 
@@ -209,7 +213,7 @@ public static class Helper
     }
 
     
-    #endregion
+#endregion
 
     #region Utility
     public static T RandomArrayValue<T>(List<T> array)

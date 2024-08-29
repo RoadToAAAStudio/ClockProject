@@ -17,7 +17,7 @@ namespace RoadToAAA.ProjectClock.Managers
 
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log("Cloud save initialization complete.");
 #endif
 
@@ -31,14 +31,14 @@ namespace RoadToAAA.ProjectClock.Managers
 
         private void SignInSuccess()
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log("<color=green>SignIn Success</color>");
 #endif
         }
 
         private void SignInFailed(RequestFailedException exception)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR && LOGGER
             Debug.Log("<color=red>SignIn Failed</color>");
 #endif
         }
