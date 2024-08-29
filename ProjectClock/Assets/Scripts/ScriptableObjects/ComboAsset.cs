@@ -12,6 +12,26 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public ECheckResult[] FailConditions;
         public ComboState[] ComboStates;
 
+        private int _progressConditionsBitMask = 0;
+        private int _failConditionsBitMask = 0;
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            _progressConditionsBitMask = 0;
+            for (int i = 0; i < ProgressConditions.Length; i++)
+            {
+                _progressConditionsBitMask += (int)ProgressConditions[i];
+            }
+
+            _failConditionsBitMask = 0;
+            for (int i = 0; i < FailConditions.Length; i++)
+            {
+                _failConditionsBitMask += (int)FailConditions[i];
+            }
+        }
+#endif
+
         public ComboResult GetComboState(ECheckResult checkResult, int currentState, int currentNumberOfSuccessConditions)
         {
             Debug.Assert(currentState >= 0 && currentState < ComboStates.Length, "CurrentState does not exists!");
@@ -20,7 +40,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
 
             ComboResult result = new ComboResult();
 
-            if (ProgressConditions.Contains(checkResult))
+            if (Contains(_progressConditionsBitMask, checkResult))
             {
                 if (currentState == ComboStates.Length - 1)
                 {
@@ -44,7 +64,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
                 }
             }
             
-            if (FailConditions.Contains(checkResult)) 
+            if (Contains(_failConditionsBitMask, checkResult)) 
             {
                 currentState = 0;
 
@@ -56,6 +76,18 @@ namespace RoadToAAA.ProjectClock.Scriptables
             result.StateIndex = currentState;
             result.Type = EComboResult.None;
             return result;
+        }
+
+        private bool Contains(int conditionsBitMask, ECheckResult checkResult)
+        {
+            //for (int i = 0; i < conditions.Length; i++)
+            //{
+            //    if (conditions[i] == checkResult) return true;
+            //}
+
+            //return false;
+
+            return (conditionsBitMask | (int)checkResult) != 0;
         }
 
         public override ScriptableObjectValidateResult CheckValidation()

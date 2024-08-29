@@ -9,7 +9,7 @@ namespace RoadToAAA.ProjectClock.Utilities
      */
     public class TimersManager : PersistentSingleton<TimersManager>
     {
-        private List<Timer> _timers = new List<Timer>();
+        private List<Timer> _timers = new List<Timer>(64);
 
         #region Unity_Messages
 

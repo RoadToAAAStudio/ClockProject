@@ -42,8 +42,8 @@ namespace RoadToAAA.ProjectClock.Managers
 
     public enum ECheckResult
     {
-        Unsuccess,
-        Success,
-        Perfect
+        Unsuccess = 1,
+        Success = 2,
+        Perfect = 4
     }
 }

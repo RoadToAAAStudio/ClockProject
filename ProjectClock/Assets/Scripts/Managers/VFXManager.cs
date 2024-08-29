@@ -17,7 +17,7 @@ namespace RoadToAAA.ProjectClock.Managers
         private void Awake()
         {
             _handExplosionsPool = new StaticPool(HandExplosionPrefab, transform, 4);
-            _particles = new List<ParticleSystem>();
+            _particles = new List<ParticleSystem>(4);
         }
 
         private void OnEnable()
