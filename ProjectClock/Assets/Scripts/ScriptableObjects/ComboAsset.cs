@@ -1,6 +1,7 @@
 using RoadToAAA.ProjectClock.Managers;
 using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 namespace RoadToAAA.ProjectClock.Scriptables
@@ -12,26 +13,26 @@ namespace RoadToAAA.ProjectClock.Scriptables
         public ECheckResult[] FailConditions;
         public ComboState[] ComboStates;
 
-        private int _progressConditionsBitMask = 0;
-        private int _failConditionsBitMask = 0;
+        [HideInInspector] public int ProgressConditionsBitMask = 0;
+        [HideInInspector] public int FailConditionsBitMask = 0;
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            _progressConditionsBitMask = 0;
+            ProgressConditionsBitMask = 0;
             for (int i = 0; i < ProgressConditions.Length; i++)
             {
-                _progressConditionsBitMask += (int)ProgressConditions[i];
+                ProgressConditionsBitMask += (int)ProgressConditions[i];
             }
 
-            _failConditionsBitMask = 0;
+            FailConditionsBitMask = 0;
             for (int i = 0; i < FailConditions.Length; i++)
             {
-                _failConditionsBitMask += (int)FailConditions[i];
+                FailConditionsBitMask += (int)FailConditions[i];
             }
         }
 #endif
-
+      
         public ComboResult GetComboState(ECheckResult checkResult, int currentState, int currentNumberOfSuccessConditions)
         {
             Debug.Assert(currentState >= 0 && currentState < ComboStates.Length, "CurrentState does not exists!");
@@ -40,7 +41,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
 
             ComboResult result = new ComboResult();
 
-            if (Contains(_progressConditionsBitMask, checkResult))
+            if (Contains(ProgressConditionsBitMask, checkResult))
             {
                 if (currentState == ComboStates.Length - 1)
                 {
@@ -64,7 +65,7 @@ namespace RoadToAAA.ProjectClock.Scriptables
                 }
             }
             
-            if (Contains(_failConditionsBitMask, checkResult)) 
+            if (Contains(FailConditionsBitMask, checkResult)) 
             {
                 currentState = 0;
 
