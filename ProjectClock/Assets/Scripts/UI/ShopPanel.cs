@@ -11,6 +11,8 @@ public class ShopPanel : MonoBehaviour
     [SerializeField] private Button _returnButton;
     [SerializeField] private Button _selectButton;
     [SerializeField] private TextMeshProUGUI _selectButtonText;
+    [SerializeField] private GameObject _buyButton;
+    [SerializeField] private TextMeshProUGUI _priceButtonText;
     [SerializeField] private TextMeshProUGUI _currencyText;
     [SerializeField] private GameObject _palettePanel;
     [SerializeField] private PaletteElement _paletteElementPrefab;
@@ -30,11 +32,12 @@ public class ShopPanel : MonoBehaviour
         if (_paletteElements.Count > 0)
             SnapScrollView(_paletteElements[PlayerDataManager.Instance.CurrentPaletteIndex]);
 
-
+        _buyButton.SetActive(false);
+        _selectButtonText.gameObject.SetActive(true);
         UpdateShopVisual(false);
         UpdateCurrency(PlayerDataManager.Instance.Currency);
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_currencyText.rectTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)_currencyText.transform.parent);
     }
 
     private void OnDisable()
@@ -68,6 +71,7 @@ public class ShopPanel : MonoBehaviour
             PaletteElement paletteElement = Instantiate(_paletteElementPrefab, _palettePanel.transform);
             _paletteElements.Add(paletteElement);
             paletteElement.Initialize(palettes[i].ShopIcon, palettes[i].Cost, i, this, PlayerDataManager.Instance.IsPaletteUnlocked(i));
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)_currencyText.transform.parent);
         }
 
         SnapScrollView(_paletteElements[PlayerDataManager.Instance.CurrentPaletteIndex]);
@@ -84,13 +88,18 @@ public class ShopPanel : MonoBehaviour
         if (PlayerDataManager.Instance.IsPaletteUnlocked(index))
         {
             _selectButtonText.text = "Select";
+            _buyButton.SetActive(false);
+            _selectButtonText.gameObject.SetActive(true);
             UpdateShopVisual(PlayerDataManager.Instance.SelectedPaletteIndex != index);
         }
         else
         {
-            _selectButtonText.text = "Buy";
-            
+            //_selectButtonText.text = "Buy";
+            _buyButton.SetActive(true);
+            _selectButtonText.gameObject.SetActive(false);
+            _priceButtonText.text = ConfigurationManager.Instance.PaletteAssets[PlayerDataManager.Instance.CurrentPaletteIndex].Cost.ToString();
             UpdateShopVisual(PlayerDataManager.Instance.Currency >= ConfigurationManager.Instance.PaletteAssets[index].Cost);
+            LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)_buyButton.transform);
         }
 
         PlayerDataManager.Instance.PreviewPaletteIndex = index;

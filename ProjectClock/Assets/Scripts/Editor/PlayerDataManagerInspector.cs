@@ -62,6 +62,12 @@ namespace RoadToAAA.ProjectClock.Editors
             _savedDataMessage = string.Empty;
             _savedDataMessage += string.Format("\tBestScore: {0}", DataManager.Instance.LoadInt("bestScore", 0));
             _savedDataMessage += string.Format("\n\tCurrency: {0}", DataManager.Instance.LoadInt("currency", 0));
+            _savedDataMessage += string.Format("\n\tCurrentPalette: {0}", DataManager.Instance.LoadInt("currentPalette", 0));
+            _savedDataMessage += string.Format("\n\tUnlockedPalettesNumber: {0}", DataManager.Instance.LoadInt("unlockedPalettesNumber", 0));
+            for (int i = 0; i <= DataManager.Instance.LoadInt("unlockedPalettesNumber", 0); i++)
+            {
+                _savedDataMessage += string.Format("\n\tPalette: {0}", DataManager.Instance.LoadInt("palette" + i, 0));
+            }
             _savedDataMessage += string.Format("\n\tIsApplicationStartedForTheFirstTime: {0}", DataManager.Instance.LoadInt("isFirstTimeApplicationIsStarted", 1) != 0 ? "true" : "false");
 
             _runtimeDataMessage = string.Empty;

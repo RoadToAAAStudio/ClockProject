@@ -65,7 +65,10 @@ namespace RoadToAAA.ProjectClock.Core
             set
             {
                 _currentPaletteIndex = value;
-                DataManager.Instance.SaveInt("currentPalette", _currentPaletteIndex);
+                if (_currentPaletteIndex == _selectedPaletteIndex)
+                {
+                    DataManager.Instance.SaveInt("currentPalette", _currentPaletteIndex);
+                }
                 EventManager<int>.Instance.Publish(EEventType.OnCurrentPaletteChanged, _currentPaletteIndex);
             }
         }
@@ -159,12 +162,13 @@ namespace RoadToAAA.ProjectClock.Core
         {
             DataManager.Instance.SaveInt("bestScore", 0);
             DataManager.Instance.SaveInt("currency", 0);
+            DataManager.Instance.SaveInt("currentPalette", 0);
+            DataManager.Instance.ClearData("isFirstTimeApplicationIsStarted");
             for (int i = 0; i <= _unlockedPalettesNumber; i++)
             {
                 DataManager.Instance.ClearData("palette" + i);
             }
             DataManager.Instance.ClearData("unlockedPalettesNumber");
-            DataManager.Instance.ClearData("isFirstTimeApplicationIsStarted");
         }
 
         private void ResetRunData(EGameState oldState, EGameState newState)
