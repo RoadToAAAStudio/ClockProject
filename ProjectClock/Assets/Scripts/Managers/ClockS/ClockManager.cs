@@ -106,7 +106,7 @@ namespace RoadToAAA.ProjectClock.Managers
                 EventManager<Clock, Clock>.Instance.Publish(EEventType.OnNewClockSelected, newClock, oldClock);
                 if (oldClockParameters.IsSpecial && checkResult == ECheckResult.Perfect)
                 {
-                    EventManager<int>.Instance.Publish(EEventType.OnSpecialClockCleared, oldClockParameters.Currency);
+                    EventManager<int, Clock>.Instance.Publish(EEventType.OnSpecialClockCleared, oldClockParameters.Currency, oldClock);
                 }
                 break;
 

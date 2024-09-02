@@ -121,7 +121,7 @@ namespace RoadToAAA.ProjectClock.Core
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, UpdateCurrency);
             EventManager<EGameState, EGameState>.Instance.Subscribe(EEventType.OnGameStateChanged, ResetRunData);
             EventManager<ECheckResult, ComboResult>.Instance.Subscribe(EEventType.OnCheckerResult, UpdateScore);
-            EventManager<int>.Instance.Subscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
+            EventManager<int, Clock>.Instance.Subscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Subscribe(EEventType.OnAdCompleted, ApplyAdReward);
             EventManager.Instance.Subscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
             EventManager.Instance.Subscribe(EEventType.OnShopButtonPressed, UpdatePreviewPalette);
@@ -133,7 +133,7 @@ namespace RoadToAAA.ProjectClock.Core
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, UpdateCurrency);
             EventManager<EGameState, EGameState>.Instance.Unsubscribe(EEventType.OnGameStateChanged, ResetRunData);
             EventManager<ECheckResult, ComboResult>.Instance.Unsubscribe(EEventType.OnCheckerResult, UpdateScore);
-            EventManager<int>.Instance.Unsubscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
+            EventManager<int, Clock>.Instance.Unsubscribe(EEventType.OnSpecialClockCleared, UpdateCurrency);
             EventManager.Instance.Unsubscribe(EEventType.OnAdCompleted, ApplyAdReward);
             EventManager.Instance.Unsubscribe(EEventType.OnReturnButtonPressed, UpdateCurrentPalette);
             EventManager.Instance.Unsubscribe(EEventType.OnShopButtonPressed, UpdatePreviewPalette);
@@ -208,7 +208,7 @@ namespace RoadToAAA.ProjectClock.Core
             DataManager.Instance.SaveInt("currency", _currency);
         }
 
-        private void UpdateCurrency(int currencyObtained)
+        private void UpdateCurrency(int currencyObtained, Clock specialClock)
         {
             //Currency += currencyObtained;
             RunCurrency += currencyObtained;

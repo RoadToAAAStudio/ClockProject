@@ -206,7 +206,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.45
+  m_fontSize: 62
   m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -947,7 +947,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.45
+  m_fontSize: 62
   m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2071,6 +2071,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ComboText: {fileID: -5320963421620231632, guid: af2a113c10743bb4b9226732747c5433, type: 3}
+  SpecialClockText: {fileID: -5320963421620231632, guid: 236cbe6987f3c0e409879597f1d96574, type: 3}
 --- !u!1 &759869035
 GameObject:
   m_ObjectHideFlags: 0
@@ -2991,7 +2992,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60.45
+  m_fontSize: 62
   m_fontSizeBase: 64
   m_fontWeight: 400
   m_enableAutoSizing: 1
