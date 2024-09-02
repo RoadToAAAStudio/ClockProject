@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
   m_Name: P_Lens_01_Sunset
   m_EditorClassIdentifier: 
-  Cost: 0
+  Cost: 1
   ShopIcon: {fileID: 21300000, guid: 62ed58f3ff06ef44684e29337aaa3088, type: 3}
   ClockColor: {r: 0.9019608, g: 0.28278428, b: 0.039215676, a: 1}
   SpecialClockColor: {r: 1, g: 0, b: 0.42988586, a: 1}

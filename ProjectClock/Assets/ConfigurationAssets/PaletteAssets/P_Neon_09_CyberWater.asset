@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
   m_Name: P_Neon_09_CyberWater
   m_EditorClassIdentifier: 
-  Cost: 0
+  Cost: 1
   ShopIcon: {fileID: 21300000, guid: 5bfe764ea137e544f81f3e0118abc61c, type: 3}
   ClockColor: {r: 0.09803922, g: 0.23529412, b: 0.9098039, a: 1}
   SpecialClockColor: {r: 1, g: 0.36862746, b: 1, a: 1}

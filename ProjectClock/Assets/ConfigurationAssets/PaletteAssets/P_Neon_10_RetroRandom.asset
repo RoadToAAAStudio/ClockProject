@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
   m_Name: P_Neon_10_RetroRandom
   m_EditorClassIdentifier: 
-  Cost: 0
+  Cost: 1
   ShopIcon: {fileID: 21300000, guid: 52435c9b4ea7ea243997549556b7d829, type: 3}
   ClockColor: {r: 1, g: 0.75686276, b: 0.26666668, a: 1}
   SpecialClockColor: {r: 0.050980393, g: 0.9803922, b: 0.6392157, a: 1}

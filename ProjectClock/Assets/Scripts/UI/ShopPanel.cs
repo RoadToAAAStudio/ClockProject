@@ -33,6 +33,8 @@ public class ShopPanel : MonoBehaviour
 
         UpdateShopVisual(false);
         UpdateCurrency(PlayerDataManager.Instance.Currency);
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_currencyText.rectTransform);
     }
 
     private void OnDisable()
@@ -101,6 +103,7 @@ public class ShopPanel : MonoBehaviour
         buttonColor.a = 0.3f;
         _selectButton.GetComponent<Image>().color = buttonColor;
         _paletteElements[index].UnlockPanel();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(_currencyText.rectTransform);
     }
 
     private void UpdateShopVisual(bool isInteractable)

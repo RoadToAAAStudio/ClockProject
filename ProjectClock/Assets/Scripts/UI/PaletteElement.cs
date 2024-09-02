@@ -27,7 +27,7 @@ public class PaletteElement : MonoBehaviour
     {
         _paletteImage.sprite = paletteImage;
         _paletteCost = paletteCost;
-        _paletteText.text = paletteCost.ToString();
+        //_paletteText.text = paletteCost.ToString();
         _paletteIndex = paletteIndex;
         _shopPanel = shopPanel;
 

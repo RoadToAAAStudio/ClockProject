@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf9488824bc842439d595eda52307bc, type: 3}
   m_Name: P_Lens_05_GoldenSun
   m_EditorClassIdentifier: 
-  Cost: 0
+  Cost: 1
   ShopIcon: {fileID: 21300000, guid: 74470c0590c058642a3358ce9a2631a5, type: 3}
   ClockColor: {r: 0.7960785, g: 0.46274513, b: 0.36078432, a: 1}
   SpecialClockColor: {r: 1, g: 0.92549026, b: 0.83921576, a: 1}
