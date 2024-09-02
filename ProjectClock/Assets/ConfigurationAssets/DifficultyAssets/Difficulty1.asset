@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Difficulty1
   m_EditorClassIdentifier: 
   SuccessArcLength: 0.3
-  PerfectSuccessRatio: 0.3
+  PerfectSuccessRatio: 0.25
   DifficultyCurvePoints:
   - NumberOfSpawnedClocks: 0
     HandAbsoluteSpeed: 1.2
