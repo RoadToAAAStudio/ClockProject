@@ -81,6 +81,8 @@ public class ShopPanel : MonoBehaviour
     {
         PlayerDataManager.Instance.SetSelectedPalette();
         UpdateShopVisual(false);
+        _buyButton.SetActive(false);
+        _selectButtonText.gameObject.SetActive(true);
     }
 
     public void PreviewPalette(int index)
