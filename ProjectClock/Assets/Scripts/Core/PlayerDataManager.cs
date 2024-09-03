@@ -222,15 +222,19 @@ namespace RoadToAAA.ProjectClock.Core
         {
             AdRewardAsset adRewardAsset = ConfigurationManager.Instance.AdRewardAsset;
 
+            int adReward = 0;
             switch(adRewardAsset.RewardType)
             {
                 case ERewardType.SUM:
-                    Currency += (int)adRewardAsset.Amount;
+                    adReward = (int)adRewardAsset.Amount;
                     break;
                 case ERewardType.MULTIPLY:
-                    Currency += (int)(RunCurrency * (adRewardAsset.Amount - 1));
+                    adReward = (int)(RunCurrency * (adRewardAsset.Amount - 1));
                     break;
             }
+            Currency += adReward;
+
+            EventManager<int>.Instance.Publish(EEventType.OnAdRewardApplied, adReward + RunCurrency);
         }
         #endregion
 

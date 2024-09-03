@@ -261,7 +261,8 @@ namespace RoadToAAA.ProjectClock.Core
 
         #region AdsEvents
         OnAdLoaded,
-        OnAdCompleted
+        OnAdCompleted,
+        OnAdRewardApplied
         #endregion
     }
 }
