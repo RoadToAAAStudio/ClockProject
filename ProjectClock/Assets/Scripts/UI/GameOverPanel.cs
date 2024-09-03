@@ -17,12 +17,19 @@ namespace RoadToAAA.ProjectClock.UI
         [SerializeField] private TextMeshProUGUI _currencyText;
         [SerializeField] private GameObject _currencyGO;
 
+        private Vector3 _initialScaleAdsButton;
+        private IEnumerator _wobbleAnimation;
+            
         private void OnEnable()
         {
             Initialize();
 
             _mainMenuButton.onClick.AddListener(MainMenuButtonClicked);
             _adsButton.onClick.AddListener(AdsButtonClicked);
+            _initialScaleAdsButton = _adsButton.transform.localScale;
+
+            _mainMenuButton.interactable = true;
+            _adsButton.interactable = PlayerDataManager.Instance.RunCurrency > 0;
 
             InitialAnimation();
 
@@ -37,6 +44,12 @@ namespace RoadToAAA.ProjectClock.UI
             StartCoroutine(EntranceAnimation(_currencyGO.transform, 0.4f, true, 2.0f));
             StartCoroutine(EntranceAnimation(_mainMenuButton.transform, 1.2f, false, 2.0f));
             StartCoroutine(EntranceAnimation(_adsButton.transform, 1.2f, false, 2.0f));
+
+            if (PlayerDataManager.Instance.RunCurrency > 0)
+            {
+                _wobbleAnimation = WobbleAnimation(_adsButton.transform, 0.1f, 6.0f);
+                StartCoroutine(_wobbleAnimation);
+            }
         }
 
         private void OnDisable()
@@ -45,7 +58,9 @@ namespace RoadToAAA.ProjectClock.UI
             _adsButton.onClick.RemoveAllListeners();
 
             StopAllCoroutines();
-
+            _scoreText.text = "0";
+            _currencyText.text = "0";
+            _adsButton.transform.localScale = _initialScaleAdsButton;
             EventManager.Instance.Unsubscribe(EEventType.OnAdLoaded, AdLoaded);
             EventManager<int>.Instance.Unsubscribe(EEventType.OnAdRewardApplied, UpdateCurrencyForAd);
             EventManager<int>.Instance.Unsubscribe(EEventType.OnRunCurrencyChanged, UpdateCurrency);
@@ -66,6 +81,11 @@ namespace RoadToAAA.ProjectClock.UI
 
         private void AdsButtonClicked()
         {
+            if (_wobbleAnimation != null)
+            {
+                StopCoroutine(_wobbleAnimation);
+            }
+            _adsButton.transform.localScale = _initialScaleAdsButton;
             _adsButton.interactable = false;
             EventManager.Instance.Publish(EEventType.OnAdsButtonClicked);
         }
@@ -111,6 +131,13 @@ namespace RoadToAAA.ProjectClock.UI
                 g.color = new Color(g.color.r, g.color.g, g.color.b, Mathf.Lerp(0.0f, 1.0f, 0.0f));
             }
             Button[] buttons = transform.GetComponentsInChildren<Button>();
+            bool[] areButtonsInteractable = new bool[buttons.Length];
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                areButtonsInteractable[i] = buttons[i].interactable;
+                Debug.Log(string.Format("GO {0} isInteractable {1}", buttons[i].gameObject.name, areButtonsInteractable[i]));
+            }
+
             foreach (Button button in buttons)
             {
                 button.interactable = false;
@@ -149,9 +176,20 @@ namespace RoadToAAA.ProjectClock.UI
                 yield return null;
             }
 
-            foreach (Button button in buttons)
+            for (int i = 0; i < buttons.Length; i++)
             {
-                button.interactable = true;
+                buttons[i].interactable = areButtonsInteractable[i];
+            }
+        }
+
+        private IEnumerator WobbleAnimation(Transform transform, float intensity, float frequency)
+        {
+            float t = 0.0f;
+            while(true)
+            {
+                t += Time.deltaTime;
+                transform.localScale = Vector3.one * (_initialScaleAdsButton.x + intensity * Mathf.Sin(t * frequency));
+                yield return null;
             }
         }
     }
