@@ -39,7 +39,7 @@ namespace RoadToAAA.ProjectClock.UI
         private void Initialize()
         {
             _scoreText.text = PlayerDataManager.Instance.Score.ToString();
-            _highScoreText.text = PlayerDataManager.Instance.BestScore.ToString();
+            //_highScoreText.text = PlayerDataManager.Instance.BestScore.ToString();
             _adsButton.interactable = false;
             UpdateCurrency(PlayerDataManager.Instance.RunCurrency);
         }
