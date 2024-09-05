@@ -65,10 +65,6 @@ namespace RoadToAAA.ProjectClock.Core
             set
             {
                 _currentPaletteIndex = value;
-                if (_currentPaletteIndex == _selectedPaletteIndex)
-                {
-                    DataManager.Instance.SaveInt("currentPalette", _currentPaletteIndex);
-                }
                 EventManager<int>.Instance.Publish(EEventType.OnCurrentPaletteChanged, _currentPaletteIndex);
             }
         }
@@ -80,6 +76,9 @@ namespace RoadToAAA.ProjectClock.Core
             set
             {
                 _selectedPaletteIndex = value;
+
+                DataManager.Instance.SaveInt("currentPalette", _selectedPaletteIndex);
+
             }
         }
 
