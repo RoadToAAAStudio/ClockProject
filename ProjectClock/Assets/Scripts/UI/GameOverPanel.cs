@@ -92,7 +92,10 @@ namespace RoadToAAA.ProjectClock.UI
 
         private void AdLoaded()
         {
-            _adsButton.interactable = true;
+            if (PlayerDataManager.Instance.RunCurrency > 0)
+            {
+                _adsButton.interactable = true;
+            }    
         }
 
         private void UpdateCurrency(int currency)
