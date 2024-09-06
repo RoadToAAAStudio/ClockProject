@@ -69,8 +69,8 @@ namespace RoadToAAA.ProjectClock.Managers
                 case UnityAdsShowCompletionState.COMPLETED:
 #if UNITY_EDITOR && LOGGER
                     Debug.Log("AD Completed!");
-                    EventManager.Instance.Publish(EEventType.OnAdCompleted);
 #endif
+                    EventManager.Instance.Publish(EEventType.OnAdCompleted);
                     break;
                 case UnityAdsShowCompletionState.SKIPPED:
 #if UNITY_EDITOR && LOGGER
